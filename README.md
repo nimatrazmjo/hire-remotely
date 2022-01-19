@@ -9,12 +9,6 @@ Online Code Editor
 ```
 docker-compose up
 ```
-## 🚀 Deployment <a name = "deployment"></a>
-
-```
-npm run deploy
-```
-
 ## ⛏️ Built Using <a name = "built_using"></a>
 
 - [NextJS](https://nextjs.org/) - Reactjs Framework
