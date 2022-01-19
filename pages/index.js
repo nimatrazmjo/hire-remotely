@@ -10,7 +10,7 @@ function Home() {
 
   const handleSubmit = e => {
     e.preventDefault(0);
-    console.log(answer);
+    //TODO send the answers to worker
   }
 
   return (
