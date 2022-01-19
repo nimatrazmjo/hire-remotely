@@ -1,5 +1,7 @@
 ## 🧐 About <a name = "about"></a>
 
+![Getting Started](./screen-shot.png)
+
 Online Code Editor
 ### Prerequisites
 
