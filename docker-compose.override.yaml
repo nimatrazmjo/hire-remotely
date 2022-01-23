@@ -3,3 +3,6 @@ services:
   client:
     container_name: client-dev
     command: sh -c "npm run dev"
+  api:
+    container_name: api-dev
+    command: sh -c "npm run dev"

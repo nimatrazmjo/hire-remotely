@@ -6,3 +6,9 @@ services:
       - 3000:3000
     volumes:
       - ./client/src:/app/src
+  api:
+    build: api
+    ports:
+      - 8000:8000
+    volumes:
+      - ./api/src:/app/src
