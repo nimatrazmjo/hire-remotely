@@ -4,13 +4,24 @@ import CodeMirrorComponent from '../components/code-mirror/code-mirror.component
 import CustomButtonComponent from '../components/custom-button/custom-button.component';
 import { useState } from 'react';
 
+import axios from 'axios';
+
 function Home() {
 
   const [answer, setAnswer] = useState('');
+  const [result, setResult] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault(0);
-    //TODO send the answers to worker
+    setResult('');
+    setError('');
+    axios.post('http://localhost:8000/api/run', { code: answer }).then( response =>{
+      setResult(response.data);
+    }).catch(error=> {
+      const {data} = error.response
+      data.length ? setError(data[0].message): '';
+    });
   }
 
   return (
@@ -26,18 +37,18 @@ function Home() {
           </div>
           <div className='h-full p-4'>
             <form onSubmit={handleSubmit}>
-              <div className='my-1'>
+              <div>
                 <CustomSelectComponent />
               </div>
               <div className='mb-3'>
-              <CodeMirrorComponent
-                height="400px"
-                theme="dark"
-                placeholeer="Please write your answer here"
-                autoFocus={true}
-                changeHandler={(value, viewUpdate) => setAnswer(value)} 
+                <CodeMirrorComponent
+                  height="400px"
+                  theme="dark"
+                  placeholeer="Please write your answer here"
+                  autoFocus={true}
+                  changeHandler={(value, viewUpdate) => setAnswer(value)}
                 />
-                </div>
+              </div>
               <div className="py-3 flex justify-end gap-1">
                 <CustomButtonComponent className="px-5 py-3 rounded" type='submit'> Compile  </CustomButtonComponent>
                 <CustomButtonComponent className="px-5 py-3 rounded"> Submit result  </CustomButtonComponent>
@@ -45,9 +56,23 @@ function Home() {
             </form>
             <hr />
             <div className='font-light'>Result:</div>
-            <pre>
-          
-            </pre>
+            {
+              result ?
+                <pre className='bg-gray-100 px-4 py-5 rounded-md'>
+                  {result}
+                </pre>
+              :''
+            }
+
+            {
+              error ?
+              <pre className='bg-red-100 px-4 py-5 rounded-md'>
+                  {error}
+                </pre>
+              : ''
+            }
+
+
           </div>
         </div>
       </div>
