@@ -1,7 +1,7 @@
 {
   "private": true,
   "homepage": "https://nimatrazmjo.github.io/hire-remotely",
-  "proxy": "http://db:8000",
+  "proxy": "http://api:8000",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

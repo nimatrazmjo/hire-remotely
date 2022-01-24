@@ -16,7 +16,7 @@ function Home() {
     e.preventDefault(0);
     setResult('');
     setError('');
-    axios.post('http://localhost:8000/api/run', { code: answer }).then( response =>{
+    axios.post('/api/run', { code: answer }).then( response =>{
       setResult(response.data);
     }).catch(error=> {
       const {data} = error.response
