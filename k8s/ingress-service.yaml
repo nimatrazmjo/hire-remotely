@@ -1,0 +1,29 @@
+# https://kubernetes.io/docs/concepts/services-networking/ingress/#the-ingress-resource
+
+# apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/use-regex: 'true'
+spec:
+  rules:
+  - host: test.hiremotely.com
+    http:
+      paths:
+      - path: /api/?(.*)
+        pathType: Prefix
+        backend:
+            service:
+              name: api-service
+              port:
+                number: 8000
+      - path: /?(.*)
+        pathType: Prefix
+        backend:
+            service:
+              name: client-service
+              port:
+                number: 3000
