@@ -3,15 +3,22 @@ kind: Config
 metadata:
   name: code-challenge-web
 build:
+  local:
+    push: false
   artifacts:
-  - image: razmjo/test-api
+  - image: us.gcr.io/hireremotely/test-api
     context: api
     docker:
       dockerfile: Dockerfile
-  - image: razmjo/test-client
+  - image: us.gcr.io/hireremotely/test-client
     context: client
     docker:
       dockerfile: Dockerfile
+profiles:
+  - name: gcb
+    build:
+      googleCloudBuild:
+        projectId: hireremotely
 deploy:
   kubectl:
     manifests:

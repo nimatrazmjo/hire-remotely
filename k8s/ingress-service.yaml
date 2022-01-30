@@ -10,7 +10,7 @@ metadata:
       nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
-  - host: test.hiremotely.com
+  - host: 34.134.155.92.nip.io
     http:
       paths:
       - path: /api/?(.*)

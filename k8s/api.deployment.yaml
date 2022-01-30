@@ -15,7 +15,7 @@ spec:
       containers:
         - name: api
           # image: us.gcr.io/microservices-335612/auth
-          image: razmjo/test-api
+          image: us.gcr.io/hireremotely/test-api
 --- 
 apiVersion: v1
 kind: Service
