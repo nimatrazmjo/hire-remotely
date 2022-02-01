@@ -6,11 +6,11 @@ build:
   local:
     push: false
   artifacts:
-  - image: us.gcr.io/hireremotely/test-api
+  - image: us.gcr.io/hiremotely-338114/test-api
     context: api
     docker:
       dockerfile: Dockerfile
-  - image: us.gcr.io/hireremotely/test-client
+  - image: us.gcr.io/hiremotely-338114/test-client
     context: client
     docker:
       dockerfile: Dockerfile
@@ -18,7 +18,7 @@ profiles:
   - name: gcb
     build:
       googleCloudBuild:
-        projectId: hireremotely
+        projectId: hiremotely-338114
 deploy:
   kubectl:
     manifests:
