@@ -10,7 +10,7 @@ metadata:
       nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
-  - host: 34.134.155.92.nip.io
+  - host: 34.122.76.4.nip.io
     http:
       paths:
       - path: /api/?(.*)
