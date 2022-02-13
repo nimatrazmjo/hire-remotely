@@ -6,22 +6,18 @@ build:
   local:
     push: false
   artifacts:
-  - image: us.gcr.io/hiremotely-338114/test-api
+  # - image: us.gcr.io/hiremotely-338114/test-api
+  - image: razmjo/api
     context: api
     docker:
       dockerfile: Dockerfile
-  - image: us.gcr.io/hiremotely-338114/test-client
+  # - image: us.gcr.io/hiremotely-338114/test-client
+  - image: razmjo/client
     context: client
     docker:
       dockerfile: Dockerfile
-profiles:
-  - name: gcb
-    build:
-      googleCloudBuild:
-        projectId: hiremotely-338114
+# s
 deploy:
   kubectl:
     manifests:
-    - k8s/api.deployment.yaml
-    - k8s/client.deployment.yaml
-    - k8s/ingress-service.yaml
+    - k8s/**/*
