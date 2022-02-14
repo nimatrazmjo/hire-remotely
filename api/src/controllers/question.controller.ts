@@ -3,7 +3,6 @@ import { Request, Response } from "express";
 import NotFoundError from "../errors/not-found.error";
 import BadRequestError from "../errors/bad-request.error";
 
-
 const questionInsertController = async (req: Request, res: Response) => {
   const result = Question.build(req.body);
   await result.save();
@@ -26,7 +25,7 @@ const questionUpdateByIdController = async (req: Request, res: Response) => {
   if (!req.params.id) {
     throw new BadRequestError("Invalid Id");
   }
-  
+
   //TODO only authorized user should update the question
 
   const foundQuestion = await Question.findById(req.params.id);
@@ -34,14 +33,23 @@ const questionUpdateByIdController = async (req: Request, res: Response) => {
     throw new NotFoundError("Question does not found");
   }
 
-  const {question, snippets, tests} = req.body;  
+  const { question, snippets, tests } = req.body;
   await foundQuestion.set({
     question: question,
     snippets: snippets,
-    tests: tests
+    tests: tests,
   });
 
   res.status(201).json(foundQuestion);
-}
+};
 
-export { questionInsertController, questionByIdController, questionUpdateByIdController };
+const questionListController = async (req: Request, res: Response) => {
+  res.status(200).json(await Question.find({}).limit(10).sort({ _id: -1 }));
+};
+
+export {
+  questionInsertController,
+  questionByIdController,
+  questionUpdateByIdController,
+  questionListController,
+};
