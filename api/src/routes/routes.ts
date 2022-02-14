@@ -1,9 +1,9 @@
 import express, { Router } from "express";
 import { generateFileController } from "../controllers/generate-files";
+import { QuestionsRouter } from "./question.routes";
 
-const router = Router();
+const app = express();
 
+app.use("/questions", QuestionsRouter)
 
-router.post("/run",generateFileController);
-
-export { router as routers };
+export { app as routers };
