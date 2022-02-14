@@ -57,18 +57,6 @@ spec:
         volumeMounts:
         - name: mongo-pv-storage
           mountPath: /data/db
-        env:
-          - name: ME_CONFIG_MONGODB_ADMINUSERNAME
-            valueFrom:
-              secretKeyRef:
-                name: mongo-secret
-                key: MONGO_ROOT
-        
-          - name: ME_CONFIG_MONGODB_ADMINPASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mongo-secret
-                key: MONGO_PASSWORD
 ---
 apiVersion: v1
 kind: Service

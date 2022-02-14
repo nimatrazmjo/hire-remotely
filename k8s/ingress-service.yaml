@@ -10,7 +10,7 @@ metadata:
       nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
-  - host: nimat.dev
+  - host: 34.122.76.4.nip.io
     http:
       paths:
       - path: /api/?(.*)

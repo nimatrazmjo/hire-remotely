@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
       - name:  client
-        image:  razmjo/client
-        # image:  us.gcr.io/hiremotely-338114/test-client
+        # image:  razmjo/client
+        image:  us.gcr.io/hiremotely-338114/test-client
         ports:
         - containerPort:  3000
           name:  client

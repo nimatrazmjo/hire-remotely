@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
         - name: api
-          image: razmjo/api
-          # image: us.gcr.io/hiremotely-338114/test-api
+          # image: razmjo/api
+          image: us.gcr.io/hiremotely-338114/test-api
 --- 
 apiVersion: v1
 kind: Service
