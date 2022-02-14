@@ -1,8 +1,10 @@
 import { validateRequestMiddleware } from "./../middlewares/validation.middleware";
 import express, { Router } from "express";
 import { body, check } from "express-validator";
-import { QuestionInsertController } from "../controllers/question.controller";
+import { questionByIdController, questionInsertController, questionUpdateByIdController } from "../controllers/question.controller";
 const router = Router();
+router.get('/:id', questionByIdController)
+router.put('/:id', questionUpdateByIdController)
 router.post(
   "/",
   [
@@ -14,7 +16,7 @@ router.post(
     body("tests.*.output").not().isEmpty().withMessage("Test output is required")
   ],
   validateRequestMiddleware,
-  QuestionInsertController
+  questionInsertController
 );
 
 export { router as QuestionsRouter };
