@@ -26,6 +26,6 @@ profiles:
 deploy:
   kubectl:
     manifests:
-    # - k8s/judge0/*
+    - k8s/judge0/*
     - k8s/src/**/*
     - k8s/ingress-service.yaml
