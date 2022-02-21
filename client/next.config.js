@@ -1,10 +1,11 @@
 module.exports = {
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'http://api:8000/api/:path*' 
-      }
-    ]
-  }
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: '/api/:path*',
+  //       destination: 'http://api:8000/api/:path*' 
+  //     }
+  //   ]
+  // },
+  basePath: '/client',
 }

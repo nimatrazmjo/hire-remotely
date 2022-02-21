@@ -1,0 +1,84 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+ name: postgress-pv
+ labels:
+  type: local
+spec:
+ storageClassName: manual
+ capacity:
+  storage: 10Gi
+ accessModes:
+  - ReadWriteOnce
+ hostPath:
+  path: /var/lib/data
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+ name: postgres-pv-claim
+spec:
+ storageClassName: manual
+ accessModes:
+  - ReadWriteOnce
+ resources:
+  requests:
+   storage: 10Gi
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-state
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: postgres-state # has to match .spec.template.metadata.labels
+  serviceName: "postgres-state"
+  replicas: 1 # by default is 1
+  template:
+    metadata:
+      labels:
+        app: postgres-state # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 10
+      volumes:
+        - name: postgres-pv-storage
+          persistentVolumeClaim:
+            claimName: postgres-pv-claim
+      containers:
+      - name: postgres-state
+        image: postgres:13.0
+        env:
+          - name: POSTGRES_USER
+            value: judge0
+          - name: POSTGRES_PASSWORD
+            value: YourPasswordHere1234
+        ports:
+        - containerPort: 5432
+          name: postgres-state
+        volumeMounts:
+        - name: postgres-pv-storage
+          mountPath: /data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+  namespace: default
+spec:
+  selector:
+    app: postgres-state
+  type: ClusterIP
+  sessionAffinity: None
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+  ports:
+  - name: postgres-service
+    protocol: TCP
+    port: 5432
+    targetPort: 5432
+    # If you set the `spec.type` field to `NodePort` and you want a specific port number,
+    # you can specify a value in the `spec.ports[*].nodePort` field

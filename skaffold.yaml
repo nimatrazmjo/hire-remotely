@@ -6,6 +6,10 @@ build:
   local:
     push: false
   artifacts:
+  - image: us.gcr.io/hiremotely-338114/judge0
+    context: judge0
+    docker:
+      dockerfile: Dockerfile
   - image: us.gcr.io/hiremotely-338114/test-api
     context: api
     docker:
@@ -22,5 +26,6 @@ profiles:
 deploy:
   kubectl:
     manifests:
+    # - k8s/judge0/*
     - k8s/src/**/*
     - k8s/ingress-service.yaml

@@ -1,0 +1,78 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+ name: redis-pv
+ labels:
+  type: local
+spec:
+ storageClassName: manual
+ capacity:
+  storage: 10Gi
+ accessModes:
+  - ReadWriteOnce
+ hostPath:
+  path: /var/lib/data
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+ name: redis-pv-claim
+spec:
+ storageClassName: manual
+ accessModes:
+  - ReadWriteOnce
+ resources:
+  requests:
+   storage: 10Gi
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis-state
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: redis-state # has to match .spec.template.metadata.labels
+  serviceName: "redis-state"
+  replicas: 1 # by default is 1
+  template:
+    metadata:
+      labels:
+        app: redis-state # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 10
+      volumes:
+        - name: redis-pv-storage
+          persistentVolumeClaim:
+            claimName: redis-pv-claim
+      containers:
+      - name: redis-state
+        image: redis:6.0
+        command: ["bash", "-c", 'docker-entrypoint.sh --appendonly yes --requirepass "YourPasswordHere1234"']
+        ports:
+        - containerPort: 80
+          name: redis
+        volumeMounts:
+        - name: redis-pv-storage
+          mountPath: /data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service
+  namespace: default
+spec:
+  selector:
+    app: redis-state
+  type: ClusterIP
+  sessionAffinity: None
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+  ports:
+  - name: redis-service
+    protocol: TCP
+    port: 6379
+    targetPort: 6379
