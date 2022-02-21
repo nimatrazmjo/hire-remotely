@@ -8,6 +8,7 @@ import axios from 'axios';
 
 function Home() {
 
+  const [selectedLanauge, setSelectedLanguage] = useState(64);
   const [answer, setAnswer] = useState('');
   const [result, setResult] = useState('');
   const [error, setError] = useState('');
@@ -16,8 +17,8 @@ function Home() {
     e.preventDefault(0);
     setResult('');
     setError('');
-    axios.post('/api/run', { code: answer }).then( response =>{
-      setResult(response.data);
+    axios.post('/api/run', { source_code: answer, language_id: selectedLanauge }).then( response =>{
+      setResult(response.data.token);
     }).catch(error=> {
       const {data} = error.response
       data.length ? setError(data[0].message): '';
@@ -38,7 +39,9 @@ function Home() {
           <div className='h-full p-4'>
             <form onSubmit={handleSubmit}>
               <div>
-                <CustomSelectComponent />
+                <CustomSelectComponent 
+                getLanaguageId= {e => setSelectedLanguage(e.target.value)} 
+                />
               </div>
               <div className='mb-3'>
                 <CodeMirrorComponent
