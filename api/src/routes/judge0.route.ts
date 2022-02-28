@@ -8,8 +8,8 @@ const router = Router();
 router.post(
   "/",
   [
-    body("language").not().isEmpty().withMessage("Language is required"),
-    body("code").not().isEmpty().withMessage("Code is required"),
+    body("language_id").not().isEmpty().withMessage("Language is required"),
+    body("source_code").not().isEmpty().withMessage("Code is required"),
   ],
   validateRequestMiddleware,
   Judge0RunController
