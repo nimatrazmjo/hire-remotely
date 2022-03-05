@@ -1,13 +1,13 @@
-import Head from 'next/head';
 import CustomSelectComponent from '../components/custom-select/custom-select.component';
 import CodeMirrorComponent from '../components/code-mirror/code-mirror.component';
 import CustomButtonComponent from '../components/custom-button/custom-button.component';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import axios from 'axios';
 
 function Home() {
 
+  const iframe = useRef();
   const [selectedLanauge, setSelectedLanguage] = useState(64);
   const [answer, setAnswer] = useState('');
   const [result, setResult] = useState('');
@@ -17,13 +17,37 @@ function Home() {
     e.preventDefault(0);
     setResult('');
     setError('');
-    axios.post('/api/run', { source_code: answer, language_id: selectedLanauge }).then( response =>{
-      setResult(response.data.token);
-    }).catch(error=> {
-      const {data} = error.response
-      data.length ? setError(data[0].message): '';
+    axios.post('/api/run', { source_code: answer, language_id: selectedLanauge }).then(response => {
+    
+      setResult(response.data);
+    }).catch(error => {
+      const { data } = error.response
+      data.length ? setError(data[0].message) : '';
     });
   }
+
+
+
+  const html = `
+      <html>
+      <header>
+        
+      </header>
+      <body>
+        <div id="root"></div>
+        <script> window.addEventListener('message', (event)=>{
+          try {
+            
+            eval(event.data)
+          } catch(err) {
+            const root = document.querySelector('#root');
+            root.innerHTML = '<div style="color: red;"><h4>Runtime Error</h4>' + err + '</div>';
+            console.error(err);
+          }
+        },false)</script>
+      </body>
+      </html>
+  `;
 
   return (
     <div className='bg-white flex-grow'>
@@ -39,8 +63,8 @@ function Home() {
           <div className='h-full p-4'>
             <form onSubmit={handleSubmit}>
               <div>
-                <CustomSelectComponent 
-                getLanaguageId= {e => setSelectedLanguage(e.target.value)} 
+                <CustomSelectComponent
+                  getLanaguageId={e => setSelectedLanguage(e.target.value)}
                 />
               </div>
               <div className='mb-3'>
@@ -58,24 +82,8 @@ function Home() {
               </div>
             </form>
             <hr />
-            <div className='font-light'>Result:</div>
-            {
-              result ?
-                <pre className='bg-gray-100 px-4 py-5 rounded-md'>
-                  {result}
-                </pre>
-              :''
-            }
-
-            {
-              error ?
-              <pre className='bg-red-100 px-4 py-5 rounded-md'>
-                  {error}
-                </pre>
-              : ''
-            }
-
-
+            {/* <iframe title='Code' ref={iframe} srcDoc={html}> {result}</iframe> */}
+            <pre>{result}</pre>
           </div>
         </div>
       </div>
