@@ -13,3 +13,11 @@ services:
     volumes:
       - ./api/src:/app/src
       - ./api/codes:/app/codes
+  mongo-state:
+    image: mongo
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - 27017:27017
+volumes:
+  mongo-data:

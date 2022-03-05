@@ -6,7 +6,7 @@ const CustomButton = ({ getLanaguageId }) => {
   const [languages, setLanguages] = useState([])
 
   useEffect(async () => {
-    const { data } = await axios.get('/languages');
+    const { data } = await axios.get('http://104.154.92.155/languages');
     setLanguages(data);
   }, []);
   return (
