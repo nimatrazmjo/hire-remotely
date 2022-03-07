@@ -2,7 +2,7 @@ function TopNavComponent() {
   return (
     <header className="bg-emerald-500 py-5">
       <nav className="flex mx-10 text-white">
-          <span className="font-semibold text-xl tracking-tight"> Hire Remotely </span>
+          <span className="font-semibold text-xl tracking-tight"> Hiremotely Code Challenge </span>
       </nav>
     </header>
   )

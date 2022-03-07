@@ -11,15 +11,19 @@
   },
   "dependencies": {
     "@codemirror/lang-javascript": "^0.19.6",
+    "@tailwindcss/typography": "^0.5.2",
     "@uiw/react-codemirror": "^4.3.3",
     "axios": "^0.24.0",
     "gh-pages": "^3.2.3",
     "next": "latest",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-markdown": "^8.0.0",
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
-    "redux-logger": "^3.0.6"
+    "redux-logger": "^3.0.6",
+    "rehype-katex": "^6.0.2",
+    "remark-math": "^5.1.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.2",
