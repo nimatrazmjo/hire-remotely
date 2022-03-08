@@ -1,17 +1,16 @@
+import produce from "immer"
 import { ActionTpe } from "../action-creators"
 
 const initialState = {}
 
-const questionReducer = (state = initialState, action) => {
+const questionReducer = produce((state = initialState, action) => {
     switch (action.type) {
         case ActionTpe.ADD_QUESTION:
-            return {
-                ...state,
-                question: action.payload
-            }
+            state.question = action.payload;
+            return;
         default:
             return state
     }
-}
+});
 
 export default questionReducer;
