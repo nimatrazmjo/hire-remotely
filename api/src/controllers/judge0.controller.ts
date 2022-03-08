@@ -8,14 +8,13 @@ const Judge0RunController = async (req: Request, res: Response) => {
 
   try {
     const { data } = await axios.post(
-      "http://104.154.92.155//submissions?base64_encoded=true&wait=true",
+      "http://104.154.92.155/submissions?base64_encoded=true&wait=true",
       {
         command_line_arguments: "",
         compiler_options: "",
         redirect_stderr_to_stdout: true,
         source_code: Buffer.from(source_code).toString('base64'),
         language_id,
-        stdin: "MwozIDIKMSAyIDUKMiAzIDcKMSAzCjMgMwoxIDIgNAoxIDMgNwoyIDMgMQoxIDMKMyAxCjEgMiA0CjEgMwo="
       }
     );
     const message = Buffer.from(data.stdout,'base64').toString('utf-8');
