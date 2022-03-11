@@ -1,13 +1,16 @@
-import { wrapper } from '../state/store';
+import { store, wrapper } from '../state/store';
 import '../styles/global.css';
 import TopNavComponent from '../components/top-nav/top-nav.component';
+import { Provider } from 'react-redux';
 const MyApp = ({ Component, pageProps }) => {
   return (
     <div className='h-screen flex flex-col'>
+      <Provider store={store}>
         <TopNavComponent />
         <Component {...pageProps} />
+        </Provider>
     </div>
   )
 }
 
-export default wrapper.withRedux(MyApp);
+export default MyApp;

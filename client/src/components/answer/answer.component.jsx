@@ -1,11 +1,14 @@
 import { useState } from 'react';
+import { connect } from 'react-redux';
 import CustomSelectComponent from '../custom-select/custom-select.component';
 import CodeMirrorComponent from '../code-mirror/code-mirror.component';
 import CustomButtonComponent from '../custom-button/custom-button.component';
+import { createStructuredSelector } from "reselect";
+import { selectLanguageId } from '../../state/language/language.reselector';
 
-const Answer = () => {
 
-    const [selectedLanauge, setSelectedLanguage] = useState(64);
+const Answer = ({language}) => {
+  console.log('language', language);
     const [answer, setAnswer] = useState('');
     const [result, setResult] = useState('');
     const [error, setError] = useState('');
@@ -48,5 +51,10 @@ const Answer = () => {
     )
 }
 
+const mapStateToProps =  createStructuredSelector({
+  language: selectLanguageId
+})
 
-export default Answer;
+
+
+export default connect(mapStateToProps)(Answer);

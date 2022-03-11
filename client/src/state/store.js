@@ -1,12 +1,11 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import { createWrapper } from "next-redux-wrapper"
-import thunk from 'redux-thunk';
+import  { createStore, applyMiddleware } from 'redux';
+
 import logger from 'redux-logger';
 
-import reducers from './reducers';
+import rootReducer from './root-reducer';
 
-const middleware = [thunk, logger];
+const middlewares = [logger];
 
-const store = () => createStore(reducers,compose(applyMiddleware(...middleware)));
+const store = createStore(rootReducer, applyMiddleware(...middlewares));
 
-export const wrapper = createWrapper(store); 
+export { store}
