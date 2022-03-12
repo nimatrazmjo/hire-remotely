@@ -1,0 +1,333 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Hiremotely Code Challenge API",
+    "description": "Create, Submit and Retrieve Code Challenge Tests",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://code.hiremotely.com/"
+    }
+  ],
+  "paths": {
+    "/test": {
+      "get": {
+        "tags": [
+          "Create and Retrieve Coding Test"
+        ],
+        "summary": "create test",
+        "description": "This method will create a resource which can be accessesd on",
+        "parameters": [
+          {
+            "name": "technologies",
+            "in": "query",
+            "description": "Technologies for which to generate Test",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/Technologies"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Test"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/{hash}": {
+      "get": {
+        "tags": [
+          "Create and Retrieve Coding Test"
+        ],
+        "summary": "returns text/html page of Test by hash",
+        "description": "This request returns text/html page of Code Challenge Test by {hash}",
+        "parameters": [
+          {
+            "name": "hash",
+            "in": "path",
+            "description": "SHA256 hash of Test Document",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/test/{hash}/result": {
+      "get": {
+        "tags": [
+          "Create and Retrieve Coding Test"
+        ],
+        "summary": "returns text/html page of Result by hash",
+        "description": "This request returns text/html result of Code Challenge Test",
+        "parameters": [
+          {
+            "name": "hash",
+            "in": "path",
+            "description": "SHA256 hash of Test",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/test/{hash}/submit": {
+      "post": {
+        "tags": [
+          "Code Challenge Editor endpoints"
+        ],
+        "summary": "Submit Test Question",
+        "description": "This request submits SubmitTest model data and returns application/json representation of TestResult.",
+        "parameters": [
+          {
+            "name": "hash",
+            "in": "path",
+            "description": "SHA256 hash of Test Document.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Optional description in *Markdown*",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmitTest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/{hash}/compile": {
+      "post": {
+        "tags": [
+          "Code Challenge Editor endpoints"
+        ],
+        "summary": "Compile Test Question",
+        "description": "This request submits SubmitTest model data and returns 204 Compiled Successully and 422 In case submitted code is not compiled successfully",
+        "parameters": [
+          {
+            "name": "hash",
+            "in": "path",
+            "description": "SHA256 hash of Test Document.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmitTest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Compiled OK"
+          },
+          "422": {
+            "description": "Compilation Error."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Technologies": {
+        "type": "string",
+        "description": "Supported technologies.",
+        "enum": [
+          "java",
+          "javascript",
+          "php"
+        ]
+      },
+      "Test": {
+        "type": "object",
+        "properties": {
+          "hash": {
+            "type": "string",
+            "description": "SHA256 hash of Test Document."
+          },
+          "questions": {
+            "type": "array",
+            "description": "Array of Questions.",
+            "items": {
+              "$ref": "#/components/schemas/Question"
+            }
+          },
+          "result": {
+            "$ref": "#/components/schemas/TestResult"
+          }
+        }
+      },
+      "TestResult": {
+        "type": "object",
+        "properties": {
+          "hash": {
+            "type": "string",
+            "description": "SHA256 hash of Test Document."
+          },
+          "questionId": {
+            "type": "string",
+            "description": "Question ID."
+          },
+          "testcases": {
+            "type": "array",
+            "description": "Array of testcases.",
+            "items": {
+              "$ref": "#/components/schemas/TestCaseResult"
+            }
+          }
+        }
+      },
+      "SubmitTest": {
+        "type": "object",
+        "properties": {
+          "questionsId": {
+            "type": "string"
+          },
+          "technology": {
+            "type": "string",
+            "description": "Selected Technology in Code Challenge Editor",
+            "enum": [
+              "java",
+              "javascript",
+              "php"
+            ]
+          },
+          "code": {
+            "type": "string"
+          }
+        }
+      },
+      "Question": {
+        "type": "object",
+        "properties": {
+          "questionId": {
+            "type": "string",
+            "description": "Question ID."
+          },
+          "snippets": {
+            "type": "array",
+            "description": "Array of Snippets.",
+            "items": {
+              "$ref": "#/components/schemas/Snippet"
+            }
+          },
+          "testcases": {
+            "type": "array",
+            "description": "Array of TestCases.",
+            "items": {
+              "$ref": "#/components/schemas/TestCase"
+            }
+          }
+        }
+      },
+      "Snippet": {
+        "type": "object",
+        "properties": {
+          "technology": {
+            "type": "string",
+            "description": "Snippet code Technology.",
+            "enum": [
+              "java",
+              "javascript",
+              "php"
+            ]
+          },
+          "code": {
+            "type": "string",
+            "description": "Snippet source code."
+          }
+        }
+      },
+      "TestCase": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of Test Case."
+          },
+          "input": {
+            "type": "string",
+            "description": "Standard input for a program."
+          },
+          "expectedOutput": {
+            "type": "string",
+            "description": "Expected output of a program."
+          }
+        }
+      },
+      "TestCaseResult": {
+        "type": "object",
+        "properties": {
+          "questionId": {
+            "type": "string",
+            "description": "Question ID."
+          },
+          "testcase": {
+            "$ref": "#/components/schemas/TestCase"
+          },
+          "correct": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}
