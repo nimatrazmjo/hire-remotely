@@ -1,0 +1,87 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Create and Retrieve Code Challenge Tests",
+    "version": "1.0.0",
+    "title": "Hiremotely Code Challenge API"
+  },
+  "host": "localhost:3000",
+  "basePath": "/babyak/hiremotely-code-challenge-api/1.0.0",
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/test": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Create Coding Test",
+        "description": "Will create Coding Challange Test and return its hash",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/components/schemas/Test"
+            }
+          }
+        }
+      }
+    },
+    "/test/{hash}": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Return Code Challenge Web App",
+        "description": "This request returns text/html page of Code Challenge Test by {hash}",
+        "produces": [
+          "text/html"
+        ],
+        "parameters": [
+          {
+            "name": "hash",
+            "in": "path",
+            "description": "Hash of requested test to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/test/result/{hash}": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Return Code Challenge Web App",
+        "description": "This request returns text/html result of Code Challenge Test",
+        "produces": [
+          "text/html"
+        ],
+        "parameters": [
+          {
+            "name": "hash",
+            "in": "path",
+            "description": "SHA1 hash of Test",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}
