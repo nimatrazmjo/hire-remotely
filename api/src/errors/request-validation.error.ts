@@ -1,4 +1,4 @@
-import { ErrorResponse } from './../interfaces/error-response.interface';
+import { ErrorResponse } from '../interfaces/error/error-response.interface';
 import  { ValidationError as ValidationErrorMessage } from 'express-validator';
 import { CustomError } from "./custom.error";
 

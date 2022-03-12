@@ -1,4 +1,4 @@
-import { ErrorResponse } from "../interfaces/error-response.interface";
+import { ErrorResponse } from "../interfaces/error/error-response.interface";
 
 export abstract class CustomError extends Error {
   abstract statusCode : number;

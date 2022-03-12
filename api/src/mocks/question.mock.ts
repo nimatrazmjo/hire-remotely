@@ -1,4 +1,4 @@
-import { IQuestionAttrs } from "./../interfaces/question.interface";
+import { IQuestionAttrs } from "./../interfaces/question/question.interface";
 const QuestionMocks: IQuestionAttrs = {
   question: "what is your first name",
   snippets: [
