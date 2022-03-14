@@ -10,24 +10,53 @@
   } ],
   "paths" : {
     "/test" : {
-      "get" : {
+      "post" : {
         "tags" : [ "Create and Retrieve Coding Test" ],
         "summary" : "create test",
         "description" : "This method will create a resource which can be accessesd on",
         "parameters" : [ {
-          "name" : "technologies",
-          "in" : "query",
-          "description" : "Technologies for which to generate Test",
+          "name" : "hash",
+          "description" : "hash will be unique and send from hiremotely database for each user",
           "required" : true,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/Technologies"
-          }
+          "style" : "from"
+        }, {
+          "name" : "position",
+          "in" : "query",
+          "description" : "for example, junior, senior, lead",
+          "required" : true,
+          "style" : "form"
         } ],
         "responses" : {
           "201" : {
-            "description" : "Created",
+            "description" : "Created"
+          }
+        }
+      }
+    },
+    "/test/{hash}/{page}" : {
+      "get" : {
+        "tags" : [ "Create and Retrieve Coding Test" ],
+        "summary" : "display a question per request",
+        "description" : "display a question per page, once the user submit the answer the next page will be displayed",
+        "parameters" : [ {
+          "name" : "hash",
+          "in" : "path",
+          "description" : "SHA256 hash of Test Document",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "path",
+          "description" : "1,2,3",
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
             "content" : {
               "*/*" : {
                 "schema" : {
@@ -39,32 +68,37 @@
         }
       }
     },
-    "/test/{hash}" : {
-      "get" : {
-        "tags" : [ "Create and Retrieve Coding Test" ],
-        "summary" : "returns text/html page of Test by hash",
-        "description" : "This request returns text/html page of Code Challenge Test by {hash}",
+    "/test/{hash}/{testId}" : {
+      "post" : {
+        "tags" : [ "Save the result" ],
+        "summary" : "save the answer",
+        "description" : "save automatically once the timer stop, or the user clicked on submit button.",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
-          "name" : "hash",
-          "in" : "path",
-          "description" : "SHA256 hash of Test Document",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
+          "in" : "body",
+          "name" : "answer",
+          "description" : "answer of the question",
           "schema" : {
-            "type" : "string"
+            "type" : "object",
+            "required" : [ "testId", "answer", "languageId" ],
+            "properties" : {
+              "testId" : {
+                "type" : "string"
+              },
+              "answer" : {
+                "type" : "string"
+              },
+              "languageId" : {
+                "type" : "string"
+              }
+            }
           }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK"
-          }
-        }
+        } ]
       }
     },
     "/test/{hash}/result" : {
       "get" : {
-        "tags" : [ "Create and Retrieve Coding Test" ],
+        "tags" : [ "display test result" ],
         "summary" : "returns text/html page of Result by hash",
         "description" : "This request returns text/html result of Code Challenge Test",
         "parameters" : [ {
@@ -80,84 +114,20 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "OK"
-          }
-        }
-      }
-    },
-    "/test/{hash}/submit" : {
-      "post" : {
-        "tags" : [ "Code Challenge Editor endpoints" ],
-        "summary" : "Submit Test Question",
-        "description" : "This request submits SubmitTest model data and returns application/json representation of TestResult.",
-        "parameters" : [ {
-          "name" : "hash",
-          "in" : "path",
-          "description" : "SHA256 hash of Test Document.",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "description" : "Optional description in *Markdown*",
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/SubmitTest"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "201" : {
-            "description" : "OK",
+            "200" : null,
+            "description" : "Details about all product categories",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/TestResult"
+                  "type" : "array",
+                  "items" : {
+                    "allOf" : [ {
+                      "$ref" : "#/components/schemas/TestResult"
+                    } ]
+                  }
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/test/{hash}/compile" : {
-      "post" : {
-        "tags" : [ "Code Challenge Editor endpoints" ],
-        "summary" : "Compile Test Question",
-        "description" : "This request submits SubmitTest model data and returns 204 Compiled Successully and 422 In case submitted code is not compiled successfully",
-        "parameters" : [ {
-          "name" : "hash",
-          "in" : "path",
-          "description" : "SHA256 hash of Test Document.",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/SubmitTest"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "204" : {
-            "description" : "Compiled OK"
-          },
-          "422" : {
-            "description" : "Compilation Error."
           }
         }
       }
@@ -173,33 +143,17 @@
       "Test" : {
         "type" : "object",
         "properties" : {
-          "hash" : {
-            "type" : "string",
-            "description" : "SHA256 hash of Test Document."
-          },
           "question" : {
             "type" : "string",
             "description" : "Qeustion"
           },
-          "result" : {
-            "type" : "object",
-            "description" : "result by api response",
-            "properties" : {
-              "language_id" : {
-                "type" : "number",
-                "default" : 63
-              },
-              "answer" : {
-                "type" : "string"
-              },
-              "testCase" : {
-                "type" : "array",
-                "description" : "test case result by judge0",
-                "items" : {
-                  "$ref" : "#/components/schemas/TestCaseResult"
-                }
-              }
-            }
+          "duration" : {
+            "type" : "string",
+            "description" : "20 minutes"
+          },
+          "start_timer" : {
+            "type" : "string",
+            "description" : "timer count down"
           }
         }
       },
@@ -210,9 +164,32 @@
             "type" : "string",
             "description" : "SHA256 hash of Test Document."
           },
-          "questionId" : {
+          "question" : {
             "type" : "string",
-            "description" : "Question ID."
+            "description" : "Question."
+          },
+          "answer" : {
+            "type" : "string",
+            "description" : "code answer"
+          },
+          "duration" : {
+            "type" : "string",
+            "description" : "10 min"
+          },
+          "start_time" : {
+            "type" : "string",
+            "description" : "start timer will be calculated on the server"
+          },
+          "end_time" : {
+            "description" : "end timer will eb calculated once the user submit the code",
+            "type" : "string"
+          },
+          "total_test_case" : {
+            "type" : "number",
+            "description" : "number of test case"
+          },
+          "success_test_case" : {
+            "description" : "number of passed test cases"
           },
           "testcases" : {
             "type" : "array",
