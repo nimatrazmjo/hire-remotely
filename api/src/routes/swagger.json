@@ -115,7 +115,7 @@
         "responses" : {
           "200" : {
             "200" : null,
-            "description" : "Details about all product categories",
+            "description" : "Test result",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -189,6 +189,7 @@
             "description" : "number of test case"
           },
           "success_test_case" : {
+            "type" : "number",
             "description" : "number of passed test cases"
           },
           "testcases" : {
