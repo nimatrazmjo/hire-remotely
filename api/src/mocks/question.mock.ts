@@ -1,33 +1,34 @@
 import { IQuestionAttrs } from "./../interfaces/question/question.interface";
+import faker from '@faker-js/faker';
 const QuestionMocks: IQuestionAttrs = {
-  question: "what is your first name",
+  question: faker.lorem.lines(5),
   snippets: [
     {
       language: "php",
-      snippet: "snippet for php",
+      snippet: faker.lorem.paragraph(),
     },
     {
-      language: "php",
-      snippet: "snippet for php",
+      language: "javascript",
+      snippet: faker.lorem.paragraph(),
     },
 
   ],
   tests: [
     {
-      text: "text of test",
-      input: "input of test",
-      output: "output of test",
+      text: faker.lorem.lines(),
+      input: faker.random.alphaNumeric(),
+      output: faker.random.alphaNumeric(),
     },
     {
-      text: "text of test",
-      input: "input of test",
-      output: "output of test",
+      text: faker.lorem.lines(),
+      input: faker.random.alphaNumeric(),
+      output: faker.random.alphaNumeric(),
     },
     {
-      text: "text of test",
-      input: "input of test",
-      output: "output of test",
-    },
+      text: faker.lorem.lines(),
+      input: faker.random.alphaNumeric(),
+      output: faker.random.alphaNumeric(),
+    }
   ]
 };
 

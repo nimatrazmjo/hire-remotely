@@ -6,7 +6,7 @@ import { IQuestionAttrs } from "../interfaces/question/question.interface";
 import { asyncHandler } from "../services/async-handler";
 
 import Question from "../models/question";
-import Test from "../models/test";
+import Test from "../models/tests";
 
 const findRandomQuestion = async (language: string): Promise<IQuestionAttrs> => {
     try {
@@ -18,12 +18,13 @@ const findRandomQuestion = async (language: string): Promise<IQuestionAttrs> => 
         const question = Question.findOne({ "snippets.language": language }).skip(random);
         return question;
     } catch (error) {
+        
         throw new BadRequestError(error?.message);
     }
 }
 
 const createTestController = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-    const { language } = req.query;
+    const { language } = req.body;
     if (!language || typeof language !== 'string') {
         throw new BadRequestError('please send language id');
     }
