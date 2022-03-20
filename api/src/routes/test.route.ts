@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { body, query } from "express-validator";
-import { createTestController } from "../controllers/test.controller";
+import { createTestController, getTestByHashController } from "../controllers/test.controller";
 import { validateRequestMiddleware } from "../middlewares/validation.middleware";
 
 const router = Router();
@@ -10,5 +10,7 @@ router.post("/",[
 ],
 validateRequestMiddleware
 , createTestController);
+
+router.get('/:hash', getTestByHashController);
 
 export { router as TestRouter };
