@@ -1,7 +1,6 @@
-import { ITestResult } from "./test-result.interface";
+import { Types } from "mongoose";
 
 export interface ITest {
-    hash: string; // hash_Id
-    question: string; // Question message
-    result: ITestResult
+    hash: string; 
+    questions: Types.Array<string>
 }
