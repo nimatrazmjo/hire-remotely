@@ -8,7 +8,7 @@ const QUESTION_API = "/api/questions";
 describe('POST /api/tests', () => {
     it('It should not return 404 if route is defined', async () => {
         await request(app).post(QUESTION_API).send(QuestionMocks).expect(201);
-        const res = await request(app).post(TEST_API).send({ language: 'php' })
+        const res = await request(app).post(TEST_API).send({ language: 'javascript' })
         expect(res.statusCode).not.toBe(404);
     });
 
@@ -26,7 +26,7 @@ describe('POST /api/tests', () => {
 
     it('It should not return 201 if questions does not exists for that language', async () => {
         await request(app).post(QUESTION_API).send(QuestionMocks).expect(201);
-        const res = await request(app).post(TEST_API).send({ language: 'php' })
+        const res = await request(app).post(TEST_API).send({ language: 'javascript' })
         expect(res.statusCode).toBe(201);
     });
 });
@@ -41,7 +41,7 @@ describe(' GET /api/tests/{hash}', () => {
     it(' Should return 400 if the test time been been expired', async () => { });
     it(' Should return 200 if the test found', async () => {
         await request(app).post(QUESTION_API).send(QuestionMocks).expect(201);
-        const { body: { hash } } = await request(app).post(TEST_API).send({ language: 'php' }).expect(201);
+        const { body: { hash } } = await request(app).post(TEST_API).send({ language: 'javascript' }).expect(201);
 
 
         await request(app).get(`${TEST_API}/${hash}`).expect(200);

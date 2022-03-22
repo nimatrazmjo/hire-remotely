@@ -1,34 +1,44 @@
 import { IQuestionAttrs } from "./../interfaces/question/question.interface";
 import faker from '@faker-js/faker';
 const QuestionMocks: IQuestionAttrs = {
-  question: faker.lorem.lines(5),
+  question: "Create Function which returs 1 if passed parameter is a palindrome and returns 0 if parameter is not palindrome.",
   snippets: [
     {
-      language: "php",
-      snippet: faker.lorem.paragraph(),
-    },
-    {
       language: "javascript",
-      snippet: faker.lorem.paragraph(),
+      snippet: "function isPalindrom (str) { //YOUR CODE ANSWER } const fs = require('fs'); const stdinBuffer = fs.readFileSync(0); const str = stdinBuffer.toString(); console.log(isPalindrom(str));",
     },
+    // {
+    //   language: "php",
+    //   snippet: faker.lorem.paragraph(),
+    // },
 
   ],
   tests: [
     {
-      text: faker.lorem.lines(),
-      input: faker.random.alphaNumeric(),
-      output: faker.random.alphaNumeric(),
+      text: "Simple Correctness Test 1",
+      input: "aba",
+      output: "1",
     },
     {
-      text: faker.lorem.lines(),
-      input: faker.random.alphaNumeric(),
-      output: faker.random.alphaNumeric(),
+      text: "Simple Correctness Test 2",
+      input: "aa",
+      output: "1",
     },
     {
-      text: faker.lorem.lines(),
-      input: faker.random.alphaNumeric(),
-      output: faker.random.alphaNumeric(),
-    }
+      text: "Simple Correctness Test 3",
+      input: "kayak",
+      output: "1",
+    },
+    {
+      text: "Simple Correctness Test 4",
+      input: "abbaa",
+      output: "0",
+    },
+    {
+      text: "Simple Correctness Test 5",
+      input: "aabb",
+      output: "0",
+    },
   ]
 };
 
