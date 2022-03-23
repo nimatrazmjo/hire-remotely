@@ -1,5 +1,4 @@
 import http from 'http';
-import { connect } from 'mongoose';
 import { app } from './src/app'
 import { mongo_connect } from './src/services/database-connection';
 
