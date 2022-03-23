@@ -1,17 +1,12 @@
-import { IQuestionAttrs } from "./../interfaces/question/question.interface";
 import faker from '@faker-js/faker';
-const QuestionMocks: IQuestionAttrs = {
+import { IQuestionAttrs } from '../interfaces/question/question.interface';
+const QuestionMocks: IQuestionAttrs[] = [{
   question: "Create Function which returs 1 if passed parameter is a palindrome and returns 0 if parameter is not palindrome.",
   snippets: [
     {
       language: "javascript",
       snippet: "function isPalindrom (str) { //YOUR CODE ANSWER } const fs = require('fs'); const stdinBuffer = fs.readFileSync(0); const str = stdinBuffer.toString(); console.log(isPalindrom(str));",
     },
-    // {
-    //   language: "php",
-    //   snippet: faker.lorem.paragraph(),
-    // },
-
   ],
   tests: [
     {
@@ -40,6 +35,6 @@ const QuestionMocks: IQuestionAttrs = {
       output: "0",
     },
   ]
-};
+}];
 
 export { QuestionMocks }
