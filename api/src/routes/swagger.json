@@ -1,42 +1,40 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "title": "Hiremotely Code Challenge API",
-    "description": "Create and Retrieve Code Test",
-    "version": "0.1.0"
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Hiremotely Code Challenge API",
+    "description" : "Create, Submit and Retrieve Code Challenge Tests",
+    "version" : "1.0.0"
   },
-  "servers": [
-    {
-      "url": "https://code.hiremotely.com/"
-    }
-  ],
-  "paths": {
-    "/test": {
-      "post": {
-        "tags": [
-          "Coding Test"
-        ],
-        "summary": "Create Test in Test Collection",
-        "parameters": [
-          {
-            "name": "technologies",
-            "in": "query",
-            "description": "Technologies which should be present in Test",
-            "required": true,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "$ref": "#/components/schemas/Technologies"
-            }
+  "servers" : [ {
+    "url" : "https://code.hiremotely.com/"
+  } ],
+  "paths" : {
+    "/test" : {
+      "post" : {
+        "tags" : [ "Coding Test" ],
+        "summary" : "Create Test in Test Collection",
+        "parameters" : [ {
+          "name" : "technologies",
+          "in" : "query",
+          "description" : "Technologies which should be present in Test",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/Technologies"
           }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreateTestResponse"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "properties" : {
+                    "hash" : {
+                      "type" : "string"
+                    }
+                  }
                 }
               }
             }
@@ -44,32 +42,89 @@
         }
       }
     },
-    "/test/{hash}": {
-      "get": {
-        "tags": [
-          "Coding Test"
-        ],
-        "summary": "Returns application/json represention of Test",
-        "parameters": [
-          {
-            "name": "hash",
-            "in": "path",
-            "description": "SHA256 hash of Test Document",
-            "required": true,
-            "style": "simple",
-            "explode": false,
-            "schema": {
-              "type": "string"
+    "/test/{hash}" : {
+      "get" : {
+        "tags" : [ "Coding Test" ],
+        "summary" : "Returns application/json represention of Test",
+        "description" : "This request returns text/html page of Code Challenge Test by {hash}",
+        "parameters" : [ {
+          "name" : "hash",
+          "in" : "path",
+          "description" : "SHA256 hash of Test Document",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/tests/{hash}/{testId}/compile" : {
+      "post" : {
+        "tags" : [ "Compile the code" ],
+        "summary" : "Check if the code is working",
+        "description" : "The request will return how many test cases pass and check if the code has syntax error",
+        "requestBody" : {
+          "description" : "Optional description in *Markdown*",
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Submit"
+              }
             }
           }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Test"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Compiled"
+          }
+        }
+      }
+    },
+    "/tests/{hash}/{testId}" : {
+      "post" : {
+        "tags" : [ "Submit the code" ],
+        "summary" : "submit the code and save to database",
+        "description" : "Save the code to collection and will return the next question if exists",
+        "requestBody" : {
+          "description" : "Optional description in *Markdown*",
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Submit"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "submitted"
+          }
+        }
+      }
+    },
+    "/tests/{hash}/view" : {
+      "get" : {
+        "tags" : [ "view results" ],
+        "summary" : "View result",
+        "description" : "view result",
+        "responses" : {
+          "200" : null,
+          "description" : "Ok",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schema/Result"
                 }
               }
             }
@@ -78,113 +133,118 @@
       }
     }
   },
-  "components": {
-    "schemas": {
-      "Technologies": {
-        "type": "string",
-        "description": "Supported technologies.",
-        "enum": [
-          "java",
-          "javascript",
-          "php"
-        ]
+  "components" : {
+    "schemas" : {
+      "Technologies" : {
+        "type" : "string",
+        "description" : "Supported technologies.",
+        "enum" : [ "java", "javascript", "php" ]
       },
-      "Question": {
-        "type": "object",
-        "properties": {
-          "questionId": {
-            "type": "string",
-            "description": "Question ID."
+      "Test" : {
+        "type" : "object",
+        "properties" : {
+          "hash" : {
+            "type" : "string",
+            "description" : "SHA256 hash of Test Document."
           },
-          "snippets": {
-            "type": "array",
-            "description": "Array of Snippets.",
-            "items": {
-              "$ref": "#/components/schemas/Snippet"
-            }
-          },
-          "testcases": {
-            "type": "array",
-            "description": "Array of TestCases.",
-            "items": {
-              "$ref": "#/components/schemas/TestCase"
+          "questions" : {
+            "type" : "array",
+            "description" : "Array of Questions.",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "questionCopy" : {
+                  "$ref" : "#/components/schemas/Question"
+                },
+                "questionId" : "Id if Question Document"
+              }
             }
           }
         }
       },
-      "Snippet": {
-        "type": "object",
-        "properties": {
-          "technology": {
-            "type": "string",
-            "description": "Snippet code Technology.",
-            "enum": [
-              "java",
-              "javascript",
-              "php"
-            ]
+      "Submit" : {
+        "type" : "object",
+        "properties" : {
+          "languageId" : {
+            "type" : "string"
           },
-          "code": {
-            "type": "string",
-            "description": "Snippet source code."
+          "answer" : {
+            "type" : "string"
           }
         }
       },
-      "TestCase": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Name of Test Case."
+      "Result" : {
+        "type" : "object",
+        "properties" : {
+          "hash" : {
+            "type" : "string"
           },
-          "input": {
-            "type": "string",
-            "description": "Standard input for a program."
+          "question" : {
+            "type" : "string"
           },
-          "expectedOutput": {
-            "type": "string",
-            "description": "Expected output of a program."
-          }
-        }
-      },
-      "Test": {
-        "type": "object",
-        "properties": {
-          "hash": {
-            "type": "string",
-            "description": "SHA256 hash of Test Document."
+          "testCases" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/TestCase"
+            }
           },
-          "questions": {
-            "type": "array",
-            "description": "Array of Questions.",
-            "items": {
-              "$ref": "#/components/schemas/Test_questions"
+          "answer" : {
+            "type" : "object",
+            "properties" : {
+              "code" : {
+                "type" : "string"
+              },
+              "language" : {
+                "type" : "string"
+              },
+              "testCasesResult" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/TestCaseResult"
+                }
+              }
             }
           }
         }
       },
-      "CreateTestResponse": {
-        "properties": {
-          "hash": {
-            "type": "string"
+      "TestCase" : {
+        "type" : "object",
+        "properties" : {
+          "text" : {
+            "type" : "string"
+          },
+          "input" : {
+            "type" : "string"
+          },
+          "output" : {
+            "type" : "string"
           }
         }
       },
-      "TestQuestions": {
-        "type": "array",
-        "items": {
-          "questionCopy": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Question"
-            }
+      "TestCaseResult" : {
+        "type" : "object",
+        "properties" : {
+          "text" : {
+            "type" : "string"
           },
-          "questionId": {
-            "type": "string",
-            "description": "Id if Question Document"
+          "input" : {
+            "type" : "string"
+          },
+          "output" : {
+            "type" : "string"
+          },
+          "status" : {
+            "type" : "object",
+            "properties" : {
+              "id" : {
+                "type" : "number"
+              },
+              "description" : {
+                "type" : "string"
+              }
+            }
           }
-        },
-        "example": null
+        }
       }
     }
   }
