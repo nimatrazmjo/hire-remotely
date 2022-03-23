@@ -8,7 +8,7 @@ import { asyncHandler } from "../services/async-handler";
 import Question from "../models/question";
 import Test from "../models/tests";
 
-const findRandomQuestion = async (language: string): Promise<IQuestionAttrs> => {
+const findRandomQuestion = async (language: string): Promise<IQuestionAttrs> => {    
     try {
         const questionCount = await Question.estimatedDocumentCount({ "snippets.language": language });
         if (!questionCount) {
@@ -25,7 +25,7 @@ const findRandomQuestion = async (language: string): Promise<IQuestionAttrs> => 
 
 const createTestController = asyncHandler(async (req: Request, res: Response) => {
     const { language } = req.body;
-    if (!language || typeof language !== 'string') {
+    if (!language) {
         throw new BadRequestError('please send language id');
     }
     const question = await findRandomQuestion(language);

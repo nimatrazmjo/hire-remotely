@@ -2,7 +2,7 @@
     "question": "Create Function which returs 1 if passed parameter is a palindrome and returns 0 if parameter is not palindrome.",
     "snippets": [
       {
-        "language": "javascript",
+        "language": "63",
         "snippet": "function isPalindrom (str) { //YOUR CODE ANSWER } const fs = require('fs'); const stdinBuffer = fs.readFileSync(0); const str = stdinBuffer.toString(); console.log(isPalindrom(str));"
       }
     ],
