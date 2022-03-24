@@ -9,8 +9,8 @@ function Home() {
 
           <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
 
-            <h1 class="my-4 text-5xl font-bold leading-tight">
-              Complete the Code Verification and reap the benefits
+            <h1 class="my-4 text-6xl font-bold leading-tight">
+             Welcome to Test Page! 
             </h1>
             <p class="leading-normal text-2xl mb-8">
               Show companies what you can do, and skip the line in selection processes.
