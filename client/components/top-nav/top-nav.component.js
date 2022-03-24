@@ -3,7 +3,7 @@ import Image from 'next/image';
 function TopNavComponent() {
   return (
     <header className="bg-primary py-5">
-      <nav className="flex mx-10 text-white">
+      <nav className="container flex mx-auto text-white">
         <svg width="150px" height="29px">
           <g>
             <path d="M42.136,22.299c0.512-0.792,0.768-1.7,0.768-2.724c0-0.784-0.111-1.485-0.313-2.119
