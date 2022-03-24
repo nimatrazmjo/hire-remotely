@@ -3,8 +3,8 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx}",
-    "./src/components/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
@@ -12,8 +12,10 @@ module.exports = {
         sans: ['Poppins', ...defaultTheme.fontFamily.sans]
       },
       colors: {
-        'editor-background': '#282c34'
-      }
+        'editor-background': '#282c34',
+        'primary': '#171c45'
+      },
+
     },
   },
   plugins: [
