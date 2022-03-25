@@ -9,13 +9,13 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Poppins', ...defaultTheme.fontFamily.sans]
+        sans: ['Proxima-Nova', ...defaultTheme.fontFamily.sans]
       },
       colors: {
         'editor-background': '#282c34',
-        'primary': '#171c45'
+        'primary': '#171c45',
+        'danger': '#FF6347'
       },
-
     },
   },
   plugins: [
