@@ -3,7 +3,7 @@ import { randomBytes } from "crypto";
 
 import BadRequestError from "../errors/bad-request.error";
 import { IQuestionAttrs } from "../interfaces/question/question.interface";
-import { asyncHandler } from "../services/async-handler";
+import { asyncHandler } from "../utils/async-handler";
 
 import Question from "../models/question";
 import Test from "../models/tests";
@@ -40,7 +40,7 @@ const createTestController = asyncHandler(async (req: Request, res: Response) =>
 
 const getTestByHashController = asyncHandler(async (req: Request, res: Response) => {
     const { hash } = req.params;
-    const test = await Test.findOne({hash});
+    const test = await Test.paginate({hash},{page:1, limit:1});
     if (!test) {
         throw new BadRequestError('Test not found');
     }
