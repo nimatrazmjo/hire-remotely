@@ -1,6 +1,7 @@
-import { Types } from "mongoose";
+import { ITestCase } from "./test-case.interface";
 
 export interface ITest {
     hash: string; 
-    questions: Types.Array<string>
+    question: string;
+    testCases: ITestCase[]
 }
