@@ -5,14 +5,13 @@ import CodeMirrorComponent from '../code-mirror/code-mirror.component';
 import CustomButtonComponent from '../custom-button/custom-button.component';
 import { createStructuredSelector } from "reselect";
 import { selectLanguageId } from '../../state/language/language.reselector';
+import { selectTest } from '../../state/test/test.reselector';
 
 
-const Answer = ({language}) => {
-  console.log('language', language);
+const Answer = ({language, test}) => {
     const [answer, setAnswer] = useState('');
     const [result, setResult] = useState('');
     const [error, setError] = useState('');
-    
   
     const handleSubmit = async e => {
       e.preventDefault(0);
@@ -52,7 +51,8 @@ const Answer = ({language}) => {
 }
 
 const mapStateToProps =  createStructuredSelector({
-  language: selectLanguageId
+  language: selectLanguageId,
+  test: selectTest
 })
 
 

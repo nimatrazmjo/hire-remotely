@@ -1,7 +1,7 @@
 import { TestActionTypes } from "./test.types";
 
 const INITIAL_STATE = {
-    test: ''
+    test: {}
 };
 
 const testReducer = (state = INITIAL_STATE, action) => {

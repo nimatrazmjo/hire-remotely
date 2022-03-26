@@ -1,14 +1,26 @@
 import { useRouter } from 'next/router';
-import { useRef, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useRef, useState } from 'react';
+import { connect } from 'react-redux';
 
 import Result from '../components/result/result.component';
 import Question from '../components/question/question.component';
 import Answer from '../components/answer/answer.component';
+import { setTest } from '../state/test/test.actions';
 
-const Test = () => {
+const Test = ({addTestToState}) => {
   const router = useRouter()
-  const { hash } = router.query
+  const { hash } = router.query;
+  const [isLoading, setLoading] = useState(false)
+  useEffect(() => {
+    if (!hash) return;
+    setLoading(true)
+    fetch(`/api/tests/${hash}`)
+      .then((res) => res.json())
+      .then((data) => {
+        addTestToState(data)
+        setLoading(false)
+      })
+  }, [hash])
   return (
     <div className=' bg-white flex-grow'>
       <div className='container flex mx-auto'>
@@ -29,4 +41,10 @@ const Test = () => {
   )
 }
 
-export default Test
+const mapDispatchToProps = dispatch => {
+  return ({
+    addTestToState: test => dispatch(setTest(test))
+  })
+}
+
+export default connect(null, mapDispatchToProps)(Test)
