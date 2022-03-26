@@ -19,7 +19,7 @@ describe("POST /api/questions", () => {
     await request(app).post(QUESTION_API).send(QuestionMocks).expect(201);
 
     const question = await Question.findOne({});
-    expect(question.question).toEqual(QuestionMocks.question);
+    expect(question.question).toEqual(QuestionMocks[0].question);
   });
 });
 describe("GET /api/questions/:id", () => {
@@ -36,7 +36,7 @@ describe("GET /api/questions/:id", () => {
     let id = body._id;
     const response = await request(app).get(`${QUESTION_API}/${id}`);
     expect(response.statusCode).toBe(200);
-    expect(response.body.question).toEqual(QuestionMocks.question);
+    expect(response.body.question).toEqual(QuestionMocks[0].question);
   });
 });
 

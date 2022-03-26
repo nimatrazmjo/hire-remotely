@@ -13,7 +13,7 @@ const TestCaseSchema = new mongoose.Schema<TestCaseDocument>({
   text: String,
   input: String,
   output: String
-})
+});
 
 const TestSchema = new mongoose.Schema<TestDocument, PaginateModel<TestDocument>>({
   hash: {
@@ -21,6 +21,10 @@ const TestSchema = new mongoose.Schema<TestDocument, PaginateModel<TestDocument>
     required: true
   },
   question: String,
+  snippets:[ {
+    language: String,
+    snippet: String
+  }],
   testCases: [TestCaseSchema]
 }, {
   toJSON: {

@@ -164,20 +164,20 @@ const Result = ({result }) => {
 
     return (
         <>
-        <div class="grid grid-cols-12 grid-rows-1 place-items-start ">
-          <div class="col-span-4">
-            <div class="text-xl">Example Test Cases</div>
+        <div className="grid grid-cols-12 grid-rows-1 place-items-start ">
+          <div className="col-span-4">
+            <div className="text-xl">Example Test Cases</div>
               {exampleTestResult.map(i =>
-                <div class="pt-5">
-                  <CheckCircleIcon  className="text-white inline h-5 w-5 bg-emerald-500 text-primary-100" /><span class="pl-2">{i.text}</span>
+                <div className="pt-5" key={i.input}>
+                  <CheckCircleIcon  className="text-white inline h-5 w-5 bg-emerald-500 text-primary-100" /><span className="pl-2">{i.text}</span>
                   <p>Input</p>
-                  <pre class="text-white bg-editor-background px-4 py-2 border-b border-b-gray-600">
+                  <pre className="text-white bg-editor-background px-4 py-2 border-b border-b-gray-600">
                     <code>
                       {i.input}
                     </code>
                   </pre>
                   <p>Output</p>
-                  <pre class="text-white bg-editor-background px-4 py-2 border-b border-b-gray-600">
+                  <pre className="text-white bg-editor-background px-4 py-2 border-b border-b-gray-600">
                     <code>
                     {i.output}
                     </code>
@@ -185,18 +185,18 @@ const Result = ({result }) => {
                 </div>
               )}
 
-            <div class="text-xl pt-3">Simple Test Cases</div>
+            <div className="text-xl pt-3">Simple Test Cases</div>
               {testResultBasic.map(i =>
-                <div class="pt-5">
-                  <CheckCircleIcon  className="text-white inline h-5 w-5 bg-emerald-500 text-primary-100" /><span class="pl-2">{i.text}</span>
+                <div className="pt-5" key={i.input}>
+                  <CheckCircleIcon  className="text-white inline h-5 w-5 bg-emerald-500 text-primary-100" /><span className="pl-2">{i.text}</span>
                   <p>Input</p>
-                  <pre class="text-white bg-editor-background px-4 py-2 border-b border-b-gray-600">
+                  <pre className="text-white bg-editor-background px-4 py-2 border-b border-b-gray-600">
                     <code>
                       {i.input}
                     </code>
                   </pre>
                   <p>Output</p>
-                  <pre class="text-white bg-editor-background px-4 py-2 border-b border-b-gray-600">
+                  <pre className="text-white bg-editor-background px-4 py-2 border-b border-b-gray-600">
                     <code>
                     {i.output}
                     </code>
@@ -204,26 +204,26 @@ const Result = ({result }) => {
                 </div>
               )}
 
-            <div class="text-xl pt-5">Advanced Test Cases</div>
-              {testResultAdvanced.map(i => <div class="pt-5">
-              <XCircleIcon className="inline h-5 w-5 text-danger" /><span class="text-danger pl-2">{i.text}</span>
+            <div className="text-xl pt-5">Advanced Test Cases</div>
+              {testResultAdvanced.map(i => <div className="pt-5" key={Math.random(3)}>
+              <XCircleIcon className="inline h-5 w-5 text-danger" /><span className="text-danger pl-2">{i.text}</span>
                 <pre>
                   {i.status}
                 </pre>
                 </div>
               )}
-            <div class="text-xl pt-3">Memory Test Cases</div>
-              {memoryTestResult.map(i => <div class="pt-5">
-              <CheckCircleIcon  className="text-white inline h-5 w-5 bg-emerald-500 text-primary-100" /><span class="pl-2">{i.text}</span>
+            <div className="text-xl pt-3">Memory Test Cases</div>
+              {memoryTestResult.map(i => <div className="pt-5" key={Math.random(3)}>
+              <CheckCircleIcon  className="text-white inline h-5 w-5 bg-emerald-500 text-primary-100" /><span className="pl-2">{i.text}</span>
                 <pre>
                 {i.status}
                 </pre>
                 </div>
               )}
 
-            <div class="text-xl pt-3">Performance Test Cases</div>
-              {performanceTestResult.map(i => <div class="pt-5">
-              <XCircleIcon className="inline h-5 w-5 text-danger" /><span class="text-danger pl-2">{i.text}</span>
+            <div className="text-xl pt-3">Performance Test Cases</div>
+              {performanceTestResult.map(i => <div className="pt-5" key={Math.random(3)}>
+              <XCircleIcon className="inline h-5 w-5 text-danger" /><span className="text-danger pl-2">{i.text}</span>
                 <pre>
                   {i.status}
                 </pre>
@@ -231,7 +231,7 @@ const Result = ({result }) => {
               )}
             </div>
             <div>
-            <div class="col-span-8 text-xl">Overview</div>
+            <div className="col-span-8 text-xl">Overview</div>
             {/* <CanvasJS.React.CanvasJSChart options = {options} */}
             {/* <ResponsiveContainer width="100%" height="100%"> */}
               <BarChart

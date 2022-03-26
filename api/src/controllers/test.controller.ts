@@ -33,7 +33,7 @@ const createTestController = asyncHandler(async (req: Request, res: Response) =>
     const questions = await findRandomQuestion(language);
     
     const hash = randomBytes(30).toString('hex');
-    const tests = questions.map(q => ({hash, question: q.question, testCases: q.tests}))
+    const tests = questions.map(q => ({hash, question: q.question, snippets: q.snippets,testCases: q.tests}))
     await Test.insertMany(tests);
     res.status(201).json({ hash });
 });

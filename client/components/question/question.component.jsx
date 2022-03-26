@@ -8,16 +8,15 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectTest } from "../../state/test/test.reselector";
 
-const Question = ({test}) => {
+const Question = ({ test }) => {
     let question = '';
-    const {docs } = test;
-    if (docs.length > 0) {
+    const { docs } = test;
+    if (docs && docs.length > 0) {
         question = docs[0].question
     }
-    const [questionMarkdownText, setQuestionMarkdownText] = useState(question);
     return (
         <article className="prose lg:prose-xl">
-            <ReactMarkdown children={questionMarkdownText}
+            <ReactMarkdown children={question}
                 remarkPlugins={[remarkMath]}
                 rehypePlugins={[rehypeKatex]}
             />
@@ -25,7 +24,7 @@ const Question = ({test}) => {
     )
 }
 
-const mapStateToProp =   createStructuredSelector({
+const mapStateToProp = createStructuredSelector({
     test: selectTest
 })
 
