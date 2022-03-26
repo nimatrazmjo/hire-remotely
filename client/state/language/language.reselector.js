@@ -5,5 +5,5 @@ const selectLanguage = state => state.language;
 
 export const selectLanguageId = createSelector(
     [selectLanguage],
-    (language)=> language
+    (language)=> language.language
 )

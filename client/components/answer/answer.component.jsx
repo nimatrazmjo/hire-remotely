@@ -8,12 +8,16 @@ import { selectLanguageId } from '../../state/language/language.reselector';
 import { selectTest } from '../../state/test/test.reselector';
 
 
-const Answer = ({ language, test }) => {
+const Answer = ({ language:language_id, test: { docs} }) => {
 
   const [answer, setAnswer] = useState('');
   const [result, setResult] = useState('');
   const [error, setError] = useState('');
-
+  let snippet = ''
+  if (docs && docs.length > 0) {
+    const foundSnippet = docs[0].snippets.find(snippet => snippet.language == language_id);
+    snippet = foundSnippet?.snippet
+  }
 
   const handleSubmit = async e => {
     e.preventDefault(0);
@@ -26,17 +30,16 @@ const Answer = ({ language, test }) => {
       data.length ? setError(data[0].message) : '';
     });
   }
-
-
   return (
     <form onSubmit={handleSubmit}>
       <div>
         <CustomSelectComponent
-          getLanaguageId={e => setSelectedLanguage(e.target.value)}
+          getLanaguageId={e => getLanguageId(e.target.value)}
         />
       </div>
       <div className='mb-3'>
         <CodeMirrorComponent
+          value={snippet}
           height="400px"
           theme="dark"
           placeholeer="Please write your answer here"
