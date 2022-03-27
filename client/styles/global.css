@@ -10,3 +10,7 @@
 .inline{
   display: inline;
 }
+
+button:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
