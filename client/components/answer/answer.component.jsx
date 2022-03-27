@@ -7,13 +7,14 @@ import { createStructuredSelector } from "reselect";
 import { selectLanguageId } from '../../state/language/language.reselector';
 import { selectTest } from '../../state/test/test.reselector';
 import axios from 'axios';
+import { setResult } from '../../state/result/result.actions';
 
 
-const Answer = ({ language:language_id, test: { docs} }) => {
+const Answer = ({ language:language_id, test: { docs}, addResultToState }) => {
 
   const [answer, setAnswer] = useState('');
-  const [result, setResult] = useState('');
   const [error, setError] = useState('');
+  const [disable, setDisable] = useState(false);
   let snippet = '';
   let test_id;
   if (docs && docs.length > 0) {
@@ -24,11 +25,15 @@ const Answer = ({ language:language_id, test: { docs} }) => {
 
   const handleSubmit = async e => {
     e.preventDefault(0);
+    setDisable(true);
     setResult('');
     setError('');
     axios.post('/api/run', { source_code: answer, language_id, test_id }).then(response => {
-      setResult(response.data);
+      addResultToState(response.data);
+      setDisable(false);
+
     }).catch(error => {
+      setDisable(false);
       const { data } = error.response
       data.length ? setError(data[0].message) : '';
     });
@@ -51,8 +56,8 @@ const Answer = ({ language:language_id, test: { docs} }) => {
         />
       </div>
       <div className="py-3 flex justify-end gap-1">
-        <CustomButtonComponent className="px-5 py-3 rounded" type='submit'> Compile  </CustomButtonComponent>
-        <CustomButtonComponent className="px-5 py-3 rounded"> Submit result  </CustomButtonComponent>
+        <CustomButtonComponent className="px-5 py-3 rounded" disabled={disable} type='submit'> Compile  </CustomButtonComponent>
+        <CustomButtonComponent className="px-5 py-3 rounded" disabled={disable}> Submit result  </CustomButtonComponent>
       </div>
     </form>
   )
@@ -63,6 +68,12 @@ const mapStateToProps = createStructuredSelector({
   test: selectTest
 })
 
+const mapDispatchToProps = dispatch => {
+  return ({
+    addResultToState: result => dispatch(setResult(result))
+  })
+}
 
 
-export default connect(mapStateToProps)(Answer);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Answer);
