@@ -6,6 +6,7 @@ import CustomButtonComponent from '../custom-button/custom-button.component';
 import { createStructuredSelector } from "reselect";
 import { selectLanguageId } from '../../state/language/language.reselector';
 import { selectTest } from '../../state/test/test.reselector';
+import axios from 'axios';
 
 
 const Answer = ({ language:language_id, test: { docs} }) => {
@@ -13,8 +14,10 @@ const Answer = ({ language:language_id, test: { docs} }) => {
   const [answer, setAnswer] = useState('');
   const [result, setResult] = useState('');
   const [error, setError] = useState('');
-  let snippet = ''
+  let snippet = '';
+  let test_id;
   if (docs && docs.length > 0) {
+    test_id = docs[0]._id;
     const foundSnippet = docs[0].snippets.find(snippet => snippet.language == language_id);
     snippet = foundSnippet?.snippet
   }
@@ -23,7 +26,7 @@ const Answer = ({ language:language_id, test: { docs} }) => {
     e.preventDefault(0);
     setResult('');
     setError('');
-    axios.post('/api/run', { source_code: answer, language_id: selectedLanauge }).then(response => {
+    axios.post('/api/run', { source_code: answer, language_id, test_id }).then(response => {
       setResult(response.data);
     }).catch(error => {
       const { data } = error.response
