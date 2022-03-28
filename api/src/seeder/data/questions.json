@@ -8,29 +8,70 @@
     ],
     "tests": [
       {
-        "text": "Simple Correctness Test 1",
+        "text": "Example Test 1",
+        "type": "example",
         "input": "aba",
         "output": "1"
       },
       {
-        "text": "Simple Correctness Test 2",
+        "text": "Example Test 2",
+        "type": "example",
+        "input": "abba",
+        "output": "1"
+      },
+      {
+        "text": "Basic Correctness Test 1",
+        "type": "basic",
         "input": "aa",
         "output": "1"
       },
       {
-        "text": "Simple Correctness Test 3",
+        "text": "Basic Correctness Test 2",
+        "type": "basic",
         "input": "kayak",
         "output": "1"
       },
       {
-        "text": "Simple Correctness Test 4",
+        "text": "Advanced Correctness Test 1",
+        "type": "advanced",
         "input": "abbaa",
         "output": "0"
       },
       {
-        "text": "Simple Correctness Test 5",
-        "input": "aabb",
+        "text": "Advanced Correctness Test 2",
+        "type": "advanced",
+        "input": "abbaa",
         "output": "0"
-      }
+      },
+      {
+        "text": "Memory Test 1",
+        "type": "memory",
+        "input": "some very long input",
+        "output": "0"
+      },
+      {
+        "text": "Memory Test 2",
+        "type": "memory",
+        "input": "some very long input",
+        "output": "0"
+      },
+        {
+        "text": "Memory Test 1",
+        "type": "memory",
+        "input": "some very long input",
+        "output": "0"
+      },
+      {
+        "text": "Performance Test 1",
+        "type": "performance",
+        "input": "some very long input",
+        "output": "0"
+      },
+      {
+        "text": "Performance Test 1",
+        "type": "performance",
+        "input": "some very long input",
+        "output": "0"
+      },
     ]
   }]
