@@ -12,7 +12,8 @@ interface TestDocument extends ITest, Document { }
 const TestCaseSchema = new mongoose.Schema<TestCaseDocument>({
   text: String,
   input: String,
-  output: String
+  output: String,
+  testType: String
 });
 
 const TestSchema = new mongoose.Schema<TestDocument, PaginateModel<TestDocument>>({

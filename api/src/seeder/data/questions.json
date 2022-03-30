@@ -9,69 +9,69 @@
     "tests": [
       {
         "text": "Example Test 1",
-        "type": "example",
+        "testType": "example",
         "input": "aba",
         "output": "1"
       },
       {
         "text": "Example Test 2",
-        "type": "example",
+        "testType": "example",
         "input": "abba",
         "output": "1"
       },
       {
         "text": "Basic Correctness Test 1",
-        "type": "basic",
+        "testType": "basic",
         "input": "aa",
         "output": "1"
       },
       {
         "text": "Basic Correctness Test 2",
-        "type": "basic",
+        "testType": "basic",
         "input": "kayak",
         "output": "1"
       },
       {
         "text": "Advanced Correctness Test 1",
-        "type": "advanced",
+        "testType": "advanced",
         "input": "abbaa",
         "output": "0"
       },
       {
         "text": "Advanced Correctness Test 2",
-        "type": "advanced",
+        "testType": "advanced",
         "input": "abbaa",
         "output": "0"
       },
       {
         "text": "Memory Test 1",
-        "type": "memory",
+        "testType": "memory",
         "input": "some very long input",
         "output": "0"
       },
       {
         "text": "Memory Test 2",
-        "type": "memory",
+        "testType": "memory",
         "input": "some very long input",
         "output": "0"
       },
         {
         "text": "Memory Test 1",
-        "type": "memory",
+        "testType": "memory",
         "input": "some very long input",
         "output": "0"
       },
       {
         "text": "Performance Test 1",
-        "type": "performance",
+        "testType": "performance",
         "input": "some very long input",
         "output": "0"
       },
       {
         "text": "Performance Test 1",
-        "type": "performance",
+        "testType": "performance",
         "input": "some very long input",
         "output": "0"
-      },
+      }
     ]
   }]
