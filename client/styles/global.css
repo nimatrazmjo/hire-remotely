@@ -11,6 +11,10 @@
   display: inline;
 }
 
+.bg-black-transparent {
+  background-color: #e4e4e48f;
+}
+
 button:disabled {
   @apply opacity-50 cursor-not-allowed;
 }

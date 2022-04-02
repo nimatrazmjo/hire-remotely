@@ -8,12 +8,15 @@ import { selectLanguageId } from '../../state/language/language.reselector';
 import { selectTest } from '../../state/test/test.reselector';
 import axios from 'axios';
 import { setResult } from '../../state/result/result.actions';
+import IconButton from '../dialog/icons/Icons.component';
+import ConfirmDialog from '../dialog/dialog.component';
 
 
 const Answer = ({ language:language_id, test: { docs}, addResultToState }) => {
 
   const [answer, setAnswer] = useState('');
   const [error, setError] = useState('');
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const [disable, setDisable] = useState(false);
   let snippet = '';
   let test_id;
@@ -23,13 +26,11 @@ const Answer = ({ language:language_id, test: { docs}, addResultToState }) => {
     snippet = foundSnippet?.snippet
   }
 
-  const handleSubmit = async e => {
-    console.log('called');
-    e.preventDefault(0);
-    setDisable(true);
+  const callApi = async (submit = false) => {
+     setDisable(true);
     setResult('');
     setError('');
-    axios.post('/api/run', { source_code: answer, language_id, test_id,submit:true }).then(response => {
+    axios.post('/api/run', { source_code: answer, language_id, test_id,submit }).then(response => {
       addResultToState(response.data);
       setDisable(false);
 
@@ -40,19 +41,14 @@ const Answer = ({ language:language_id, test: { docs}, addResultToState }) => {
     });
   }
 
+  const handleSubmit = async e => {
+    e.preventDefault(0);
+    setConfirmOpen(true)
+  }
+
+  
   const run = async ()=> {
-    setDisable(true);
-    setResult('');
-    setError('');
-    axios.post('/api/run', { source_code: answer, language_id, test_id,submit:false }).then(response => {
-      addResultToState(response.data);
-      setDisable(false);
-    }).catch(error => {
-      setDisable(false);
-      const { data } = error.response
-      data.length ? setError(data[0].message) : '';
-    }
-    );
+    await callApi(false);
   }
   return (
     <form onSubmit={handleSubmit}>
@@ -75,6 +71,17 @@ const Answer = ({ language:language_id, test: { docs}, addResultToState }) => {
         <CustomButtonComponent className="px-5 py-3 rounded" disabled={disable} onClick={run} type='button'> Compile  </CustomButtonComponent>
         <CustomButtonComponent className="px-5 py-3 rounded" disabled={disable}  type='submit'> Submit result  </CustomButtonComponent>
       </div>
+
+      <div>
+      <ConfirmDialog
+    title="Submit result?"
+    open={confirmOpen}
+    onClose={() => setConfirmOpen(false)}
+    onConfirm={ () => callApi(true)}
+  >
+   Once you submit the answer you will not be able to edit it
+  </ConfirmDialog>
+</div>
     </form>
   )
 }
