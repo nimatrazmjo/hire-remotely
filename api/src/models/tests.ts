@@ -3,11 +3,29 @@ import mongoose, { Document, Model, PaginateModel } from 'mongoose';
 import paginate from 'mongoose-paginate-v2';
 import { ITestCase } from 'src/interfaces/test/test-case.interface';
 import { ITest } from 'src/interfaces/test/test.interface';
+import { IResult } from '../interfaces/test/answer.interface';
 
 interface TestCaseDocument extends ITestCase, Document { }
 
 interface TestDocument extends ITest, Document { }
 
+interface TestCaseResultDocument extends IResult, Document { }
+
+const testCaseResult = new mongoose.Schema<TestCaseResultDocument>({
+  text: String,
+  input: String,
+  output: String,
+  testType: String,
+  stdout: String,
+  time: String,
+  memory: String,
+  stderr: String,
+  message: String,
+  status: {
+    id: Number,
+    description: String
+  }
+})
 
 const TestCaseSchema = new mongoose.Schema<TestCaseDocument>({
   text: String,
@@ -15,6 +33,9 @@ const TestCaseSchema = new mongoose.Schema<TestCaseDocument>({
   output: String,
   testType: String
 });
+
+
+
 
 const TestSchema = new mongoose.Schema<TestDocument, PaginateModel<TestDocument>>({
   hash: {
@@ -26,7 +47,17 @@ const TestSchema = new mongoose.Schema<TestDocument, PaginateModel<TestDocument>
     language: String,
     snippet: String
   }],
-  testCases: [TestCaseSchema]
+  testCases: [TestCaseSchema],
+  answer: {
+    code : String,
+    testResult: {
+      example: [testCaseResult],
+      basic: [testCaseResult],
+      advanced: [testCaseResult],
+      memory: [testCaseResult],
+      performance: [testCaseResult]
+    }
+  }
 }, {
   toJSON: {
     transform(doc, ret) {

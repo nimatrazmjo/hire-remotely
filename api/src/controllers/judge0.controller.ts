@@ -7,30 +7,7 @@ import Test from "../models/tests";
 import { ITest } from "../interfaces/test/test.interface";
 import { ITestCase } from "../interfaces/test/test-case.interface";
 import { asyncHandler } from "../utils/async-handler";
-
-interface IResult {
-  text: string;
-  input: string;
-  output: string;
-  testType: string;
-  stdout: string;
-  time: string;
-  memory: string;
-  stderr: string | null;
-  message: string;
-  status: {
-    id: number,
-    description: string
-  }
-}
-
-enum ResultCategory {
-  example,
-  basic,
-  advanced,
-  memory,
-  performance
-}
+import { IResult, ResultCategory } from '../interfaces/test/answer.interface';
 
 
 const getTestById = async (id: string): Promise<ITest> => {
@@ -85,4 +62,4 @@ const Judge0RunController = asyncHandler(async (req: Request, res: Response) => 
   res.send(formatedResponse);
 });
 
-export { Judge0RunController };
+export { Judge0RunController,ResultCategory };
