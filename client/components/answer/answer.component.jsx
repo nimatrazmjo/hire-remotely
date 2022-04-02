@@ -24,11 +24,12 @@ const Answer = ({ language:language_id, test: { docs}, addResultToState }) => {
   }
 
   const handleSubmit = async e => {
+    console.log('called');
     e.preventDefault(0);
     setDisable(true);
     setResult('');
     setError('');
-    axios.post('/api/run', { source_code: answer, language_id, test_id }).then(response => {
+    axios.post('/api/run', { source_code: answer, language_id, test_id,submit:true }).then(response => {
       addResultToState(response.data);
       setDisable(false);
 
@@ -37,6 +38,21 @@ const Answer = ({ language:language_id, test: { docs}, addResultToState }) => {
       const { data } = error.response
       data.length ? setError(data[0].message) : '';
     });
+  }
+
+  const run = async ()=> {
+    setDisable(true);
+    setResult('');
+    setError('');
+    axios.post('/api/run', { source_code: answer, language_id, test_id,submit:false }).then(response => {
+      addResultToState(response.data);
+      setDisable(false);
+    }).catch(error => {
+      setDisable(false);
+      const { data } = error.response
+      data.length ? setError(data[0].message) : '';
+    }
+    );
   }
   return (
     <form onSubmit={handleSubmit}>
@@ -56,8 +72,8 @@ const Answer = ({ language:language_id, test: { docs}, addResultToState }) => {
         />
       </div>
       <div className="py-3 flex justify-end gap-1">
-        <CustomButtonComponent className="px-5 py-3 rounded" disabled={disable} type='submit'> Compile  </CustomButtonComponent>
-        <CustomButtonComponent className="px-5 py-3 rounded" disabled={disable}> Submit result  </CustomButtonComponent>
+        <CustomButtonComponent className="px-5 py-3 rounded" disabled={disable} onClick={run} type='button'> Compile  </CustomButtonComponent>
+        <CustomButtonComponent className="px-5 py-3 rounded" disabled={disable}  type='submit'> Submit result  </CustomButtonComponent>
       </div>
     </form>
   )
