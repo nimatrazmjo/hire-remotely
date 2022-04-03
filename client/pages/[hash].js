@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
+import NProgress from "nprogress"
 
 import Result from '../components/result/result.component';
 import Question from '../components/question/question.component';
@@ -12,13 +13,15 @@ const Test = ({addTestToState}) => {
   const { hash } = router.query;
   const [isLoading, setLoading] = useState(false)
   useEffect(() => {
+    NProgress.start();
     if (!hash) return;
     setLoading(true)
     fetch(`/api/tests/${hash}`)
       .then((res) => res.json())
       .then((data) => {
         addTestToState(data)
-        setLoading(false)
+        setLoading(false);
+        NProgress.done();
       })
   }, [hash])
   return (

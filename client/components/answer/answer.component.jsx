@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
+import { createStructuredSelector } from "reselect";
+import NProgress from 'nprogress';
 import CustomSelectComponent from '../custom-select/custom-select.component';
 import CodeMirrorComponent from '../code-mirror/code-mirror.component';
 import CustomButtonComponent from '../custom-button/custom-button.component';
-import { createStructuredSelector } from "reselect";
 import { selectLanguageId } from '../../state/language/language.reselector';
 import { selectTest } from '../../state/test/test.reselector';
-import axios from 'axios';
 import { setResult } from '../../state/result/result.actions';
 import IconButton from '../dialog/icons/Icons.component';
 import ConfirmDialog from '../dialog/dialog.component';
@@ -27,17 +28,19 @@ const Answer = ({ language:language_id, test: { docs}, addResultToState }) => {
   }
 
   const callApi = async (submit = false) => {
-     setDisable(true);
+    NProgress.start();
+    setDisable(true);
     setResult('');
     setError('');
     axios.post('/api/run', { source_code: answer, language_id, test_id,submit }).then(response => {
       addResultToState(response.data);
       setDisable(false);
-
+      NProgress.done();
     }).catch(error => {
       setDisable(false);
       const { data } = error.response
       data.length ? setError(data[0].message) : '';
+      NProgress.done();
     });
   }
 
