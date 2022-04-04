@@ -27,7 +27,7 @@ const Test = ({addTestToState}) => {
   return (
     <div className=' bg-white flex-grow'>
       <div className='container flex mx-auto'>
-        <div className='h-full'>
+        <div className='h-full w-full'>
           <div className='grid grid-cols-2 h-full'>
             <div className='bg-gray-100 h-full p-5'>
               <Question />

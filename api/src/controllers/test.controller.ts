@@ -7,6 +7,7 @@ import { asyncHandler } from "../utils/async-handler";
 
 import Question from "../models/question";
 import Test from "../models/tests";
+import { IResult } from '../interfaces/test/answer.interface';
 
 const findRandomQuestion = async (language: string): Promise<IQuestionAttrs[]> => {    
     try {
@@ -40,7 +41,7 @@ const createTestController = asyncHandler(async (req: Request, res: Response) =>
 
 const getTestByHashController = asyncHandler(async (req: Request, res: Response) => {
     const { hash } = req.params;
-    const test = await Test.paginate({hash},{page:1, limit:1});
+    const test = await Test.paginate({hash, answer: {$exists: false}},{page:1, limit:1});
     if (!test) {
         throw new BadRequestError('Test not found');
     }
@@ -48,7 +49,18 @@ const getTestByHashController = asyncHandler(async (req: Request, res: Response)
     res.send(test);
 });
 
+const updateTestByIdController =  async (id: string, code: string, resut: IResult[]): Promise<{message: string}> => { 
+    try {
+        
+        await Test.updateOne({_id: id}, { $set: { answer:{code, testResult: resut }} });
+        return { message: 'ok' };   
+    } catch (error) {
+        throw new BadRequestError(error?.message);
+    }
+};
+
 export {
     createTestController,
-    getTestByHashController
+    getTestByHashController,
+    updateTestByIdController
 }

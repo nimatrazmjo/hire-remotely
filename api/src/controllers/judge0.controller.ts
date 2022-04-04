@@ -8,6 +8,7 @@ import { ITest } from "../interfaces/test/test.interface";
 import { ITestCase } from "../interfaces/test/test-case.interface";
 import { asyncHandler } from "../utils/async-handler";
 import { IResult, ResultCategory } from '../interfaces/test/answer.interface';
+import { updateTestByIdController } from './test.controller';
 
 
 const getTestById = async (id: string): Promise<ITest> => {
@@ -20,7 +21,9 @@ const getTestById = async (id: string): Promise<ITest> => {
 
 };
 
-const formatResult = (result:IResult[]):Partial<Record<ResultCategory, IResult[]>> => {
+type ResponseType = Partial<Record<ResultCategory, IResult[]>> | {message: string};
+
+const formatResult = (result:IResult[]):ResponseType => {
    return result.reduce((acc, current)=> {
     if(acc[current.testType] === undefined) {
       acc[current.testType] = [];
@@ -55,10 +58,16 @@ const runTestCases = async (testCases: ITestCase[], source_code, language_id) =>
 };
 
 const Judge0RunController = asyncHandler(async (req: Request, res: Response) => {
-  const { language_id, source_code, test_id } = req.body;
+  const { language_id, source_code, test_id, submit } = req.body;
   const test = await getTestById(test_id);
   const results = await runTestCases(test.testCases, source_code, language_id);
-  const formatedResponse = await formatResult(results);
+  let formatedResponse:ResponseType  = {message : 'ok'};
+  if (submit) {
+    await updateTestByIdController(test_id, source_code, results);
+    formatedResponse = {message: "ok"}
+  } else {
+    formatedResponse = await formatResult(results);
+  }
   res.send(formatedResponse);
 });
 

@@ -50,13 +50,7 @@ const TestSchema = new mongoose.Schema<TestDocument, PaginateModel<TestDocument>
   testCases: [TestCaseSchema],
   answer: {
     code : String,
-    testResult: {
-      example: [testCaseResult],
-      basic: [testCaseResult],
-      advanced: [testCaseResult],
-      memory: [testCaseResult],
-      performance: [testCaseResult]
-    }
+    testResult: [testCaseResult]
   }
 }, {
   toJSON: {
