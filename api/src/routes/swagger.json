@@ -6,24 +6,26 @@
     "version" : "1.0.0"
   },
   "servers" : [ {
-    "url" : "https://code.hiremotely.com/"
+    "url" : "http://localhost:8000/api"
+  }, {
+    "url" : "http://34.122.76.4.nip.io/api"
   } ],
   "paths" : {
-    "/test" : {
+    "/tests" : {
       "post" : {
         "tags" : [ "Coding Test" ],
         "summary" : "Create Test in Test Collection",
-        "parameters" : [ {
-          "name" : "technologies",
-          "in" : "query",
-          "description" : "Technologies which should be present in Test",
+        "requestBody" : {
+          "description" : "Optional description in *Markdown*",
           "required" : true,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/Technologies"
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CreateTest"
+              }
+            }
           }
-        } ],
+        },
         "responses" : {
           "201" : {
             "description" : "Created",
@@ -139,6 +141,15 @@
         "type" : "string",
         "description" : "Supported technologies.",
         "enum" : [ "java", "javascript", "php" ]
+      },
+      "CreateTest" : {
+        "type" : "object",
+        "properties" : {
+          "language" : {
+            "type" : "string",
+            "description" : "language id  for example, 63 will be for javascript"
+          }
+        }
       },
       "Test" : {
         "type" : "object",
