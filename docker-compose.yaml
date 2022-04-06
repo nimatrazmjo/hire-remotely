@@ -6,9 +6,9 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - /app/.next
-      - /app/node_modules
-      - ./client:/app
+      - ./client/src:/app/src
+      - /app/src/.next
+      - /app/src/node_modules
 
   api:
     tty: true
@@ -24,6 +24,6 @@ services:
     volumes:
       - mongo-data:/data/db
     ports:
-      - 27018:27017
+      - 27017:27017
 volumes:
   mongo-data:

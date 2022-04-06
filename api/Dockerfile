@@ -1,3 +1,11 @@
+FROM mongo:latest
+
+COPY . .
+
+RUN ["chmod", "+x", "mongoimport.sh"]
+
+CMD ./mongoimport.sh
+
 FROM node:alpine
 
 WORKDIR /app
@@ -6,6 +14,6 @@ COPY package*.json ./
 
 RUN npm install
 
-COPY . . 
+COPY . .
 
-CMD [ "npm", "run", "dev" ]
+CMD yarn dev

@@ -3,8 +3,6 @@ services:
   client:
     tty: true
     container_name: client-dev
-    command: sh -c "npm run dev"
   api:
     tty: true
     container_name: api-dev
-    command: sh -c "npm run dev"
