@@ -5,6 +5,8 @@ services:
     build: client
     ports:
       - 3000:3000
+    depends_on:
+      - api
     volumes:
       - ./client:/app
       - /app/.next
@@ -15,6 +17,8 @@ services:
     build: api
     ports:
       - 8000:8000
+    depends_on:
+      - mongo-state
     volumes:
       - ./api/src:/app/src
       - ./api/codes:/app/codes
