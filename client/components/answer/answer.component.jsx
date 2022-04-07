@@ -50,6 +50,8 @@ const Answer = ({ language:language_id, test: { docs}, addResultToState }) => {
   }
 
   
+
+  
   const run = async ()=> {
     await callApi(false);
   }
