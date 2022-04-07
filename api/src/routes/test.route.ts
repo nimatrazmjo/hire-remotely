@@ -6,7 +6,7 @@ import { validateRequestMiddleware } from "../middlewares/validation.middleware"
 const router = Router();
 
 router.post("/",[
-    body('language').notEmpty().withMessage("lanaguage is required")
+    body('language.*').notEmpty().withMessage("lanaguage is required")
 ],
 validateRequestMiddleware
 , createTestController);

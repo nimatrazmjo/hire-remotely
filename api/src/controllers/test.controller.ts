@@ -9,16 +9,14 @@ import Question from "../models/question";
 import Test from "../models/tests";
 import { IResult } from '../interfaces/test/answer.interface';
 
-const findRandomQuestion = async (language: string): Promise<IQuestionAttrs[]> => {    
+const findRandomQuestion = async (language: string[]): Promise<IQuestionAttrs[]> => {    
     try {
-        const questionCount = await Question.countDocuments({"snippets":{$elemMatch:{"language":language}}});
-        console.log(questionCount,'Question',language);
-        
+        const questionCount = await Question.countDocuments({"snippets":{$elemMatch:{"language":{ $in: [...language]}}}});
         if (!questionCount) {
             throw new BadRequestError('Question does not exists for the selected language');
         }
         const random = Math.floor(Math.random() * questionCount);
-        const question = Question.find({ "snippets.language": language }).skip(random).limit(3);
+        const question = Question.find({"snippets":{$elemMatch:{"language":{ $in: [...language]}}}}).sort({"snippets.language":1}).limit(3);
         return question;
     } catch (error) {
 
