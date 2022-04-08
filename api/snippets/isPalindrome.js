@@ -1,8 +1,8 @@
 function isPalindrom (str) {
-  return str == str.split('').reverse().join('') ? 1 : 0;
+  //YOUR CODE ANSWER
 }
 
 const fs = require('fs');
 const stdinBuffer = fs.readFileSync(0);
 const str = stdinBuffer.toString();
-console.log(isPalindrom(str));
+console.log(isPalindrom(str));"
