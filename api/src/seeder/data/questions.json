@@ -3,7 +3,19 @@
     "snippets": [
       {
         "language": "63",
-        "snippet": "function isPalindrom (str) { //YOUR CODE ANSWER } const fs = require('fs'); const stdinBuffer = fs.readFileSync(0); const str = stdinBuffer.toString(); console.log(isPalindrom(str));"
+        "snippet": "function isPalindrom (str) {\n  //YOUR CODE ANSWER\n}\n\nconst fs = require('fs');\nconst stdinBuffer = fs.readFileSync(0);\nconst str = stdinBuffer.toString();\n\nconsole.log(isPalindrom(str));"
+      },
+      {
+        "language":"68",
+        "snippet": "<?php\n\nfunction isPalindrom($string) {\n  // YOUR CODE ANSWER\n}\n\n$testingString = trim(fgets(STDIN)); isPalindrom($testingString);\n"
+      },
+      {
+        "language": "71",
+        "snippet": "def isPalindrome(s):\n    # your code answer here\n\ns = input()\nans = isPalindrome(s)\n\nif ans:\n    print(\"1\")\nelse:\n    print(\"0\")"
+      },
+      {
+        "language": "62",
+        "snippet": "import java.util.Scanner;\n\nclass Main {\n  static boolean isPalindrome(String str) {\n    // your code answer\n  }\n\n  public static void main(String[] args) {\n    Scanner scanner = new Scanner(System.in);\n    String str = scanner.next();\n    scanner.close();\n\n    if (isPalindrome(str))\n      System.out.print(\"1\");\n    else\n      System.out.print(\"0\");\n  }\n}"
       }
     ],
     "tests": [
