@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import NProgress from "nprogress"
 
 import Result from '../components/result/result.component';
@@ -8,10 +8,12 @@ import Question from '../components/question/question.component';
 import Answer from '../components/answer/answer.component';
 import { setTest } from '../state/test/test.actions';
 
-const Test = ({addTestToState}) => {
+const Test = () => {
+  
   const router = useRouter()
-  const { hash } = router.query;
   const [isLoading, setLoading] = useState(false)
+  const { hash } = router.query;
+  const dispatch = useDispatch();
   useEffect(() => {
     NProgress.start();
     if (!hash) return;
@@ -19,7 +21,11 @@ const Test = ({addTestToState}) => {
     fetch(`/api/tests/${hash}`)
       .then((res) => res.json())
       .then((data) => {
-        addTestToState(data)
+        if (data.docs.length > 0) {
+          data.data = data.docs[0];
+          data.languages = data.docs[0].snippets.map(snippet => snippet.language); // list all language id to filter the dropdown
+        }
+        dispatch(setTest(data));
         setLoading(false);
         NProgress.done();
       })
@@ -44,10 +50,4 @@ const Test = ({addTestToState}) => {
   )
 }
 
-const mapDispatchToProps = dispatch => {
-  return ({
-    addTestToState: test => dispatch(setTest(test))
-  })
-}
-
-export default connect(null, mapDispatchToProps)(Test)
+export default Test;
