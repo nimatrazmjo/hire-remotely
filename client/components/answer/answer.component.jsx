@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { createStructuredSelector } from "reselect";
 import NProgress from 'nprogress';
@@ -13,14 +13,21 @@ import IconButton from '../dialog/icons/Icons.component';
 import ConfirmDialog from '../dialog/dialog.component';
 
 
-const Answer = ({ language:language_id, test: { docs}, addResultToState }) => {
+const Answer = () => {
+
 
   const [answer, setAnswer] = useState('');
   const [error, setError] = useState('');
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [disable, setDisable] = useState(false);
+  const { test } = useSelector(selectTest);
+  const language_id = useSelector(selectLanguageId);
+  const dispatch = useDispatch();
   let snippet = '';
   let test_id;
+
+  let docs = test?.docs;
+  
   if (docs && docs.length > 0) {
     test_id = docs[0]._id;
     const foundSnippet = docs[0].snippets.find(snippet => snippet.language == language_id);
@@ -32,8 +39,8 @@ const Answer = ({ language:language_id, test: { docs}, addResultToState }) => {
     setDisable(true);
     setResult('');
     setError('');
-    axios.post('/api/run', { source_code: answer, language_id, test_id,submit }).then(response => {
-      addResultToState(response.data);
+    axios.post('/api/run', { source_code: answer, language_id, test_id, submit }).then(response => {
+      dispatch(setResult(response.data));
       setDisable(false);
       NProgress.done();
     }).catch(error => {
@@ -49,10 +56,10 @@ const Answer = ({ language:language_id, test: { docs}, addResultToState }) => {
     setConfirmOpen(true)
   }
 
-  
 
-  
-  const run = async ()=> {
+
+
+  const run = async () => {
     await callApi(false);
   }
   return (
@@ -74,34 +81,21 @@ const Answer = ({ language:language_id, test: { docs}, addResultToState }) => {
       </div>
       <div className="py-3 flex justify-end gap-1">
         <CustomButtonComponent className="px-5 py-3 rounded" disabled={disable} onClick={run} type='button'> Compile  </CustomButtonComponent>
-        <CustomButtonComponent className="px-5 py-3 rounded" disabled={disable}  type='submit'> Submit result  </CustomButtonComponent>
+        <CustomButtonComponent className="px-5 py-3 rounded" disabled={disable} type='submit'> Submit result  </CustomButtonComponent>
       </div>
 
       <div>
-      <ConfirmDialog
-    title="Submit result?"
-    open={confirmOpen}
-    onClose={() => setConfirmOpen(false)}
-    onConfirm={ () => callApi(true)}
-  >
-   Once you submit the answer you will not be able to edit it
-  </ConfirmDialog>
-</div>
+        <ConfirmDialog
+          title="Submit result?"
+          open={confirmOpen}
+          onClose={() => setConfirmOpen(false)}
+          onConfirm={() => callApi(true)}
+        >
+          Once you submit the answer you will not be able to edit it
+        </ConfirmDialog>
+      </div>
     </form>
   )
 }
 
-const mapStateToProps = createStructuredSelector({
-  language: selectLanguageId,
-  test: selectTest
-})
-
-const mapDispatchToProps = dispatch => {
-  return ({
-    addResultToState: result => dispatch(setResult(result))
-  })
-}
-
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Answer);
+export default Answer;
