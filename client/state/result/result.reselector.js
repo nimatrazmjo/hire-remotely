@@ -4,5 +4,5 @@ const setResult = state => state.result;
 
 export const selectResult = createSelector(
     [setResult],
-    (result) => result.result
+    (result) => result
 )

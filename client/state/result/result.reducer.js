@@ -1,9 +1,7 @@
 import { ResultActionType } from "./result.types";
 
 
-const INITIAL_STATE = {
-    result: []
-};
+const INITIAL_STATE = [];
 
 const resultReducer = (state = INITIAL_STATE, action) => {
     switch(action.type) {
