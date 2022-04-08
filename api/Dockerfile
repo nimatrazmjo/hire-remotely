@@ -1,11 +1,3 @@
-FROM mongo:latest
-
-COPY . .
-
-RUN ["chmod", "+x", "mongoimport.sh"]
-
-CMD ./mongoimport.sh
-
 FROM node:alpine
 
 WORKDIR /app
@@ -16,4 +8,4 @@ RUN npm install
 
 COPY . .
 
-CMD yarn dev
+CMD npm run seed:question ; npm run dev
