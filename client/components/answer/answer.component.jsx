@@ -11,6 +11,7 @@ import { selectTest } from '../../state/test/test.reselector';
 import { setResult } from '../../state/result/result.actions';
 import IconButton from '../dialog/icons/Icons.component';
 import ConfirmDialog from '../dialog/dialog.component';
+import Router from 'next/router';
 
 
 const Answer = () => {
@@ -40,7 +41,12 @@ const Answer = () => {
     setResult('');
     setError('');
     axios.post('/api/run', { source_code: answer, language_id, test_id, submit }).then(response => {
-      dispatch(setResult(response.data));
+      if (submit) {
+        dispatch(setResult({}));
+      } else {
+
+        dispatch(setResult(response.data));
+      }
       setDisable(false);
       NProgress.done();
     }).catch(error => {
@@ -62,6 +68,10 @@ const Answer = () => {
   const run = async () => {
     await callApi(false);
   }
+
+  const reload = async() => {
+    Router.reload();
+  }
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -82,6 +92,7 @@ const Answer = () => {
       <div className="py-3 flex justify-end gap-1">
         <CustomButtonComponent className="px-5 py-3 rounded" disabled={disable} onClick={run} type='button'> Compile  </CustomButtonComponent>
         <CustomButtonComponent className="px-5 py-3 rounded" disabled={disable} type='submit'> Submit result  </CustomButtonComponent>
+        <CustomButtonComponent className="px-5 py-3 rounded" disabled={disable} onClick={reload} type='button'> Next  </CustomButtonComponent>
       </div>
 
       <div>

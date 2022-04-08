@@ -11,9 +11,9 @@ const Result = ({ results }) => {
     <div>
       <div className="grid grid-cols-12 grid-rows-1 place-items-start ">
         <div className="col-span-4">
-          {Object.keys(results).map((text) => (
+          { results && Object.keys(results).map((text) => (
             <div className='mb-10'>
-            <TestCase text={text} value={results[text]} />
+             result[text] && <TestCase text={text} value={results[text]} />
             </div>
           ))}
         </div>
