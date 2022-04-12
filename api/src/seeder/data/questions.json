@@ -1,5 +1,5 @@
 [{
-    "question": "Create Function which returs 1 if passed parameter is a palindrome and returns 0 if parameter is not palindrome.",
+    "question": "## Palindrome Check\n _A palindrome is a word, number, or a phrase that reads the same forwards as well as backward, for instance “kayak”, “1001”, “Was it a car or a cat I saw?”, or “ABBA_ \n ### Assignment\n Write a function _isPalindrome_ which prints _Palindrome!_ in case that string passed as a parameter to function is a palindrome. Otherwise function will print _Not a Palindrome!_ if string is not a palindrome. \n #### Example input 1\n ```\nkayak\n```\n #### Example output 1\n ```\nPalindrome!\n```\n #### Example input 2\n ```\nkayaking\n```\n #### Example output 2\n ```\nNot a Palindrome!\n```\n ___\n",
     "snippets": [
       {
         "language": "63",
@@ -22,26 +22,26 @@
       {
         "text": "Example Test 1",
         "testType": "example",
-        "input": "aba",
-        "output": "1"
+        "input": "kayak",
+        "output": "Palindrome!"
       },
       {
         "text": "Example Test 2",
         "testType": "example",
-        "input": "abba",
-        "output": "1"
+        "input": "kayaking",
+        "output": "Not a Palindrome!"
       },
       {
         "text": "Basic Correctness Test 1",
         "testType": "basic",
-        "input": "aa",
-        "output": "1"
+        "input": "abbba",
+        "output": "Palindrome!"
       },
       {
         "text": "Basic Correctness Test 2",
         "testType": "basic",
-        "input": "kayak",
-        "output": "1"
+        "input": "aaab",
+        "output": "Not a Palindrome!"
       },
       {
         "text": "Advanced Correctness Test 1",
