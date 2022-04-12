@@ -10,16 +10,10 @@ const TestCaseItem = ({text, input, output, stdout}) => (
                     {input}
                 </code>
             </pre>
-            <p>Must be output</p>
+            <p>Output</p>
             <pre className="text-white bg-editor-background px-4 py-2 border-b border-b-gray-600">
                 <code>
                     {output}
-                </code>
-            </pre>
-            <p>actual output</p>
-            <pre className="text-white bg-editor-background px-4 py-2 border-b border-b-gray-600">
-                <code>
-                    {stdout}
                 </code>
             </pre>
     </>

@@ -11,9 +11,9 @@ const Result = ({ results }) => {
     <div>
       <div className="grid grid-cols-12 grid-rows-1 place-items-start ">
         <div className="col-span-4">
-          { results && Object.keys(results).map((text) => (
+          { results && Object.keys(results).map((testCaseType) => (
             <div className='mb-10'>
-             result[text] && <TestCase text={text} value={results[text]} />
+             <TestCase text={testCaseType.toUpperCase() + ' TESTS'} value={results[testCaseType]} />
             </div>
           ))}
         </div>
