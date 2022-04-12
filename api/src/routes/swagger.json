@@ -1,0 +1,262 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Hiremotely Code Challenge API",
+    "description" : "Create, Submit and Retrieve Code Challenge Tests",
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:8000/api"
+  }, {
+    "url" : "http://34.122.76.4.nip.io/api"
+  } ],
+  "paths" : {
+    "/tests" : {
+      "post" : {
+        "tags" : [ "Coding Test" ],
+        "summary" : "Create Test in Test Collection",
+        "requestBody" : {
+          "description" : "Optional description in *Markdown*",
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CreateTest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "properties" : {
+                    "hash" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/{hash}" : {
+      "get" : {
+        "tags" : [ "Coding Test" ],
+        "summary" : "Returns application/json represention of Test",
+        "description" : "This request returns text/html page of Code Challenge Test by {hash}",
+        "parameters" : [ {
+          "name" : "hash",
+          "in" : "path",
+          "description" : "SHA256 hash of Test Document",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/tests/{hash}/{testId}/compile" : {
+      "post" : {
+        "tags" : [ "Compile the code" ],
+        "summary" : "Check if the code is working",
+        "description" : "The request will return how many test cases pass and check if the code has syntax error",
+        "requestBody" : {
+          "description" : "Optional description in *Markdown*",
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Submit"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Compiled"
+          }
+        }
+      }
+    },
+    "/tests/{hash}/{testId}" : {
+      "post" : {
+        "tags" : [ "Submit the code" ],
+        "summary" : "submit the code and save to database",
+        "description" : "Save the code to collection and will return the next question if exists",
+        "requestBody" : {
+          "description" : "Optional description in *Markdown*",
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Submit"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "submitted"
+          }
+        }
+      }
+    },
+    "/tests/{hash}/view" : {
+      "get" : {
+        "tags" : [ "view results" ],
+        "summary" : "View result",
+        "description" : "view result",
+        "responses" : {
+          "200" : null,
+          "description" : "Ok",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schema/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Technologies" : {
+        "type" : "string",
+        "description" : "Supported technologies.",
+        "enum" : [ "java", "javascript", "php" ]
+      },
+      "CreateTest" : {
+        "type" : "object",
+        "properties" : {
+          "language" : {
+            "type" : "string",
+            "description" : "language id  for example, 63 will be for javascript"
+          }
+        }
+      },
+      "Test" : {
+        "type" : "object",
+        "properties" : {
+          "hash" : {
+            "type" : "string",
+            "description" : "SHA256 hash of Test Document."
+          },
+          "questions" : {
+            "type" : "array",
+            "description" : "Array of Questions.",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "questionCopy" : {
+                  "$ref" : "#/components/schemas/Question"
+                },
+                "questionId" : "Id if Question Document"
+              }
+            }
+          }
+        }
+      },
+      "Submit" : {
+        "type" : "object",
+        "properties" : {
+          "languageId" : {
+            "type" : "string"
+          },
+          "answer" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Result" : {
+        "type" : "object",
+        "properties" : {
+          "hash" : {
+            "type" : "string"
+          },
+          "question" : {
+            "type" : "string"
+          },
+          "testCases" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/TestCase"
+            }
+          },
+          "answer" : {
+            "type" : "object",
+            "properties" : {
+              "code" : {
+                "type" : "string"
+              },
+              "language" : {
+                "type" : "string"
+              },
+              "testCasesResult" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/TestCaseResult"
+                }
+              }
+            }
+          }
+        }
+      },
+      "TestCase" : {
+        "type" : "object",
+        "properties" : {
+          "text" : {
+            "type" : "string"
+          },
+          "input" : {
+            "type" : "string"
+          },
+          "output" : {
+            "type" : "string"
+          }
+        }
+      },
+      "TestCaseResult" : {
+        "type" : "object",
+        "properties" : {
+          "text" : {
+            "type" : "string"
+          },
+          "input" : {
+            "type" : "string"
+          },
+          "output" : {
+            "type" : "string"
+          },
+          "status" : {
+            "type" : "object",
+            "properties" : {
+              "id" : {
+                "type" : "number"
+              },
+              "description" : {
+                "type" : "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -3,18 +3,25 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx}",
-    "./src/components/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Poppins', ...defaultTheme.fontFamily.sans]
+        sans: ['Proxima-Nova', ...defaultTheme.fontFamily.sans]
       },
       colors: {
-        'editor-background': '#282c34'
-      }
+        'editor-background': '#282c34',
+        'primary': '#171c45',
+        'danger': '#FF6347'
+      },
     },
   },
-  plugins: [],
+  variants: {
+    opacity: ({ after }) => after(['disabled'])
+  },
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 }

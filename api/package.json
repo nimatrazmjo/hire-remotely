@@ -5,17 +5,21 @@
   "main": "index.ts",
   "scripts": {
     "dev": "nodemon index.ts",
+    "seed:question": "./node_modules/.bin/ts-node src/seeder/question.seeder.ts",
     "test": "jest --watchAll --no-cache"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^6.0.0",
     "@types/axios": "^0.14.0",
     "@types/cors": "^2.8.12",
+    "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.13",
     "@types/jest": "^27.4.0",
     "@types/mongoose": "^5.11.97",
+    "@types/mongoose-paginate-v2": "^1.4.3",
     "@types/node": "^17.0.9",
     "jest": "^27.5.1",
     "mongodb-memory-server": "^8.3.0",
@@ -29,9 +33,12 @@
   "dependencies": {
     "axios": "^0.26.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "express-async-errors": "^3.1.1",
     "express-validator": "^6.14.0",
-    "mongoose": "^6.2.1"
+    "mongoose": "^6.2.1",
+    "mongoose-paginate-v2": "^1.6.3",
+    "swagger-ui-express": "^4.3.0"
   }
 }

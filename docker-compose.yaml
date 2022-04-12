@@ -1,19 +1,29 @@
 version: '3.0'
 services:
   client:
+    tty: true
     build: client
     ports:
       - 3000:3000
+    depends_on:
+      - api
     volumes:
-      - ./client/src:/app/src
+      - ./client:/app
+      - /app/.next
+      - /app/node_modules
+
   api:
+    tty: true
     build: api
     ports:
       - 8000:8000
+    depends_on:
+      - mongo-state
     volumes:
       - ./api/src:/app/src
       - ./api/codes:/app/codes
   mongo-state:
+    tty: true
     image: mongo
     volumes:
       - mongo-data:/data/db

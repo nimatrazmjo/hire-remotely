@@ -1,4 +1,4 @@
-import { IQuestionDocs, IQuestionAttrs, IQuestionModel } from './../interfaces/question.interface';
+import { IQuestionDocs, IQuestionAttrs, IQuestionModel } from './../interfaces/question/question.interface';
 import mongoose from 'mongoose';
 
 const QuestionSchema = new mongoose.Schema({
@@ -13,7 +13,8 @@ const QuestionSchema = new mongoose.Schema({
     {
       text: String,
       input:String,
-      output:String
+      output:String,
+      testType: String
     }
   ]
 },{
