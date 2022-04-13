@@ -3,6 +3,7 @@ import React from "react";
 import TestCaseItem from "../test-case-item/test-case-item";
 
 const TestCase = ({ text, value }) => {
+    console.log(value, 'valueeeeeeee'); 
     return (
         <>
             <div className="text-xl pt-3">{text}</div>

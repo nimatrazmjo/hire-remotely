@@ -14,13 +14,7 @@ export interface IResult {
     }
   }
   
-  export enum ResultCategory {
-    example,
-    basic,
-    advanced,
-    memory,
-    performance
-  }
+  export type ResultCategory = "example" | "basic" | "advanced" | "memory" | "performance"
 export interface IAnswer { 
     code: string;
     testResult: Partial<Record<ResultCategory, IResult[]>>;
