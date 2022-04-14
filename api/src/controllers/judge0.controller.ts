@@ -36,7 +36,7 @@ const formatResult = (result: IJudge0Result[]): ResponseType => {
       text: current.text,
       input: current.input,
       output: current.output,
-      stdout:current.stdout.replace(/(\r\n|\n|\r)/gm, "")
+      stdout: current.stdout.replace(/(\r\n|\n|\r)/gm, "")
     }
     acc[current.testType].push(result);
     return acc;
@@ -75,50 +75,20 @@ const runTestCases = async (testCases: ITestCase[], source_code, language_id) =>
     throw new BadRequestError(error?.message);
   }
 };
-
-
-const rightOrWrong = (response: IJudge0Result): IJudge0Result => { 
-  if (response.output == response.stdout)  {
-    return { text: response.text, message: 'Correct Answer' }
-  } 
-  return { text: response.text, message: 'Correct Answer' }
-}
-
 /**
- *  Once the user submited the code the advance result will be returned withs some customization of the result
- * @param response 
+ * If the user run compile then only the example test cases will be run
+ * else all the test cases will be run
+ * @param testCases 
+ * @param advance 
  * @returns 
  */
-const advanceResult = (response: ResponseType): ResponseType => {
-  return {
-    example: response.example,
-    basic: response.basic,
-    advanced: response.advanced.map((result) => rightOrWrong(result)),
-    // memory: response.memory.map((result) => rightOrWrong(result))
-  } as ResponseType;
-}
-
-/**
- * If the user click on compile button then only the example test cases will be run
- * @param response 
- * @returns 
- */
-const basicResult = (response: ResponseType): ResponseType => {
-  return {exmaple: response.example!} as ResponseType;
-}
-
-
-/**
- * 
- * @param response send the response to the user based on submission
- * @param submit 
- * @returns 
- */
-const formatResponse = (response: ResponseType, submit = false): ResponseType => {
-  if (submit === true) {
-    return advanceResult(response);
+const filterTestCases = (testCases:ITestCase[], advance = true):ITestCase[] => {
+  const basicType = ['example', 'basic'];
+  const advanceType = ['advanced', 'example', 'basic'];
+  if (!advance) {
+    return testCases.filter((testCase) => basicType.includes(testCase.testType));
   } else {
-    return basicResult(response);
+    return testCases.filter((testCase) => advanceType.includes(testCase.testType));
   }
 }
 
@@ -128,14 +98,14 @@ const formatResponse = (response: ResponseType, submit = false): ResponseType =>
 const Judge0RunController = asyncHandler(async (req: Request, res: Response) => {
   const { language_id, source_code, test_id, submit } = req.body;
   const test = await getTestById(test_id);
-  const results = await runTestCases(test.testCases, source_code, language_id);
+  const results = await runTestCases(filterTestCases(test.testCases, submit), source_code, language_id);
   if (submit) {
     await updateTestByIdController(test_id, source_code, results);
 
   }
   const formatedResponse = await formatResult(results);
 
-  res.send(formatResponse(formatedResponse, submit));
+  res.send(formatedResponse);
 });
 
-export { Judge0RunController, ResultCategory };
+export { Judge0RunController };
