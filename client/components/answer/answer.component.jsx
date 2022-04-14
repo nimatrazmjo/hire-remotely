@@ -59,7 +59,8 @@ const Answer = () => {
 
   const handleSubmit = async e => {
     e.preventDefault(0);
-    setConfirmOpen(true)
+    callApi(true);
+    // setConfirmOpen(true)
   }
 
 
@@ -97,14 +98,14 @@ const Answer = () => {
       </div>
 
       <div>
-        <ConfirmDialog
+        {/* <ConfirmDialog
           title="Submit result?"
           open={confirmOpen}
           onClose={() => setConfirmOpen(false)}
           onConfirm={() => callApi(true)}
         >
           Once you submit the answer you will not be able to edit it
-        </ConfirmDialog>
+        </ConfirmDialog> */}
       </div>
     </form>
   )
