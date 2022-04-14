@@ -6,7 +6,7 @@ import Test from "../models/tests";
 import { ITest } from "../interfaces/test/test.interface";
 import { ITestCase } from "../interfaces/test/test-case.interface";
 import { asyncHandler } from "../utils/async-handler";
-import { IJudge0Result, IResult, ResultCategory, ResultType } from '../interfaces/test/answer.interface';
+import { IJudge0Result, IResult, ResultCategory } from '../interfaces/test/answer.interface';
 import { updateTestByIdController } from './test.controller';
 
 
@@ -32,12 +32,24 @@ const formatResult = (result: IJudge0Result[]): ResponseType => {
     if (acc[current.testType] === undefined) {
       acc[current.testType] = [];
     }
+    
+    
     const result: IResult = {
       text: current.text,
       input: current.input,
-      output: current.output,
       stdout: current.status.id ===3 ? current.stdout.replace(/(\r\n|\n|\r)/gm, ""): current.stdout, // 3 is success status the response come from judge0 status 
+      status: 'success'
     }
+
+    /**
+     * if given output is not equal to the output which provide by jude0 then the status will be failure
+     * if the id status of judge 0 is other than 3 then which means there are some error in the code
+     * if the id status of judge 0 is 3 and output given is equal to judge0 stdout then which means the code is correct
+     * 
+     * for more information about judge0 status code please visit https://ce.judge0.com/statuses
+     */
+    result.status = current.output !== result.stdout ? 'failure' : current.status.id !==3 ? 'error' : 'success';
+
     acc[current.testType].push(result);
     return acc;
   }, {}) as ResponseType;

@@ -1,9 +1,8 @@
-import React from "react";
-import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/outline'
+import React from 'react';
 
-const TestCaseItem = ({text,input , status, stdout}) => (
+export const TestCaseAdvance = ({text, input, output, stdout}) => (
     <>
-    { status === 'success' 
+    { stdout === output 
         ? <CheckCircleIcon className="text-white inline h-5 w-5 bg-emerald-500 text-primary-100" /> 
         : <XCircleIcon className="inline h-5 w-5 text-danger" /> }
     
@@ -22,4 +21,3 @@ const TestCaseItem = ({text,input , status, stdout}) => (
     </pre>
     </>
 )
-export default TestCaseItem;
