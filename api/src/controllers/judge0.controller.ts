@@ -6,7 +6,7 @@ import Test from "../models/tests";
 import { ITest } from "../interfaces/test/test.interface";
 import { ITestCase } from "../interfaces/test/test-case.interface";
 import { asyncHandler } from "../utils/async-handler";
-import { IResult, ResultCategory } from '../interfaces/test/answer.interface';
+import { IJudge0Result, IResult, ResultCategory, ResultType } from '../interfaces/test/answer.interface';
 import { updateTestByIdController } from './test.controller';
 
 
@@ -27,14 +27,20 @@ type ResponseType = Partial<Record<ResultCategory, IResult[]>>;
  * @param result 
  * @returns 
  */
-const formatResult = (result: IResult[]): ResponseType => {
-  const finalResult: ResponseType = result.reduce((acc, current) => {
+const formatResult = (result: IJudge0Result[]): ResponseType => {
+  const finalResult = result.reduce((acc, current) => {
     if (acc[current.testType] === undefined) {
       acc[current.testType] = [];
     }
-    acc[current.testType].push(current);
+    const result: IResult = {
+      text: current.text,
+      input: current.input,
+      output: current.output,
+      stdout:current.stdout.replace(/(\r\n|\n|\r)/gm, "")
+    }
+    acc[current.testType].push(result);
     return acc;
-  }, {});
+  }, {}) as ResponseType;
   return finalResult;
 }
 
@@ -70,6 +76,14 @@ const runTestCases = async (testCases: ITestCase[], source_code, language_id) =>
   }
 };
 
+
+const rightOrWrong = (response: IJudge0Result): IJudge0Result => { 
+  if (response.output == response.stdout)  {
+    return { text: response.text, message: 'Correct Answer' }
+  } 
+  return { text: response.text, message: 'Correct Answer' }
+}
+
 /**
  *  Once the user submited the code the advance result will be returned withs some customization of the result
  * @param response 
@@ -77,10 +91,10 @@ const runTestCases = async (testCases: ITestCase[], source_code, language_id) =>
  */
 const advanceResult = (response: ResponseType): ResponseType => {
   return {
+    example: response.example,
     basic: response.basic,
-    advanced: response.advanced,
-    memory: response.memory,
-    performance: response.performance,
+    advanced: response.advanced.map((result) => rightOrWrong(result)),
+    // memory: response.memory.map((result) => rightOrWrong(result))
   } as ResponseType;
 }
 

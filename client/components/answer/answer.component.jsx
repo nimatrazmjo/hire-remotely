@@ -28,7 +28,7 @@ const Answer = () => {
   let test_id;
 
   let docs = test?.docs;
-  
+
   if (docs && docs.length > 0) {
     test_id = docs[0]._id;
     const foundSnippet = docs[0].snippets.find(snippet => snippet.language == language_id);
@@ -42,7 +42,7 @@ const Answer = () => {
     setError('');
     axios.post('/api/run', { source_code: answer, language_id, test_id, submit }).then(response => {
       if (submit) {
-        dispatch(setResult({}));
+        dispatch(setResult(response.data));
       } else {
 
         dispatch(setResult(response.data));
@@ -69,7 +69,7 @@ const Answer = () => {
     await callApi(false);
   }
 
-  const reload = async() => {
+  const reload = async () => {
     Router.reload();
   }
   return (
@@ -92,7 +92,8 @@ const Answer = () => {
       <div className="py-3 flex justify-end gap-1">
         <CustomButtonComponent className="px-5 py-3 rounded" disabled={disable} onClick={run} type='button'> Compile  </CustomButtonComponent>
         <CustomButtonComponent className="px-5 py-3 rounded" disabled={disable} type='submit'> Submit result  </CustomButtonComponent>
-        <CustomButtonComponent className="px-5 py-3 rounded" disabled={disable} onClick={reload} type='button'> Next  </CustomButtonComponent>
+        {test?.hasNextPage && <CustomButtonComponent className="px-5 py-3 rounded" disabled={disable} onClick={reload} type='button'> Next  </CustomButtonComponent>}
+        
       </div>
 
       <div>
