@@ -1,10 +1,11 @@
-import Image from 'next/image';
+import Link from 'next/link'
 
 function TopNavComponent() {
   return (
     <header className="bg-primary py-5">
       <nav className="container flex mx-auto text-white">
-        <svg width="150px" height="29px">
+        <Link  href="/" >
+        <svg width="150px" height="29px" className="cursor-pointer" >
           <g>
             <path d="M42.136,22.299c0.512-0.792,0.768-1.7,0.768-2.724c0-0.784-0.111-1.485-0.313-2.119
               c-0.179-0.562-0.449-1.057-0.787-1.501l-4.231,0.51l-3.717,0.448l-4.512,0.543v12.079h4.512v-4.512h1.272
@@ -40,6 +41,7 @@ function TopNavComponent() {
               53.375,3.456 53.375,0 41.663,0 41.663,12.079 41.663,13.49 53.375,12.079" fill="#005BBB" />
           </g>
         </svg>
+        </Link>
       </nav>
     </header>
   )
