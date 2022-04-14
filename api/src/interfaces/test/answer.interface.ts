@@ -16,12 +16,13 @@ export interface IJudge0Result {
   
 export type ResultCategory = "example" | "basic" | "advanced" ;
 export type ResultStatus = "success" | "failure" | "error";
-export type ResultMessage = "Correct Answer" | "Wrong Answer" | "Time Limit Exceeded" | "Memory Limit Exceeded" | "Runtime Error" | "Compile Error";
+export type ResultMessage = "In Queue" | "Accepted" | "Wrong Answer" | "Time Limit Exceeded" | "Compilation Error" | "Runtime Error (SIGSEGV)" | "Runtime Error (SIGXFSZ)" | "Runtime Error (SIGFPE)" | "Internal Error" | "Exec Format Error";
 export interface IResult {
   text: string;
   input: string;
   stdout: string;
   status: ResultStatus;
+  message: ResultMessage;
 }
 export interface IAnswer { 
     code: string;

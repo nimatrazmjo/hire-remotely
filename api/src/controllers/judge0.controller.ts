@@ -6,8 +6,9 @@ import Test from "../models/tests";
 import { ITest } from "../interfaces/test/test.interface";
 import { ITestCase } from "../interfaces/test/test-case.interface";
 import { asyncHandler } from "../utils/async-handler";
-import { IJudge0Result, IResult, ResultCategory } from '../interfaces/test/answer.interface';
+import { IJudge0Result, IResult, ResultCategory, ResultMessage } from '../interfaces/test/answer.interface';
 import { updateTestByIdController } from './test.controller';
+const  TEST_ADVANCE = ['advanced', 'memory', 'performance', 'time'];
 
 
 const getTestById = async (id: string): Promise<ITest> => {
@@ -34,12 +35,15 @@ const formatResult = (result: IJudge0Result[]): ResponseType => {
     }
     
     
-    const result: IResult = {
+    const result: Partial<IResult> = !TEST_ADVANCE.includes(current.testType) ? {
       text: current.text,
       input: current.input,
       stdout: current.status.id ===3 ? current.stdout.replace(/(\r\n|\n|\r)/gm, ""): current.stdout, // 3 is success status the response come from judge0 status 
       status: 'success'
-    }
+    } : {
+      text: current.text,
+      message: current.status.description as ResultMessage,
+    } 
 
     /**
      * if given output is not equal to the output which provide by jude0 then the status will be failure
@@ -95,8 +99,8 @@ const runTestCases = async (testCases: ITestCase[], source_code, language_id) =>
  * @returns 
  */
 const filterTestCases = (testCases:ITestCase[], advance = true):ITestCase[] => {
-  const basicType = ['example', 'basic'];
-  const advanceType = ['advanced', 'example', 'basic'];
+  const basicType = ['example'];
+  const advanceType = ['example', 'basic','advanced'];
   if (!advance) {
     return testCases.filter((testCase) => basicType.includes(testCase.testType));
   } else {

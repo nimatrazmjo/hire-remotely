@@ -7,7 +7,7 @@ const TestCaseItem = ({text,input , status, stdout}) => (
         ? <CheckCircleIcon className="text-white inline h-5 w-5 bg-emerald-500 text-primary-100" /> 
         : <XCircleIcon className="inline h-5 w-5 text-danger" /> }
     
-    <span className="pl-2">{text}</span>
+    <span className={`pl-2 ${status !== 'success'? 'text-red-400' :'text-emerald-500'}`}>{text}</span>
     <p>Input</p>
     <pre className="text-white bg-editor-background px-4 py-2 border-b border-b-gray-600">
         <code>
