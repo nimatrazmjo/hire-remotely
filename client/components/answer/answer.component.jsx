@@ -40,13 +40,9 @@ const Answer = () => {
     setDisable(true);
     setResult('');
     setError('');
+    dispatch(setResult([]));
     axios.post('/api/run', { source_code: answer, language_id, test_id, submit }).then(response => {
-      if (submit) {
-        dispatch(setResult(response.data));
-      } else {
-
-        dispatch(setResult(response.data));
-      }
+      dispatch(setResult(response.data));
       setDisable(false);
       NProgress.done();
     }).catch(error => {

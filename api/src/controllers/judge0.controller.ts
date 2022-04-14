@@ -36,7 +36,7 @@ const formatResult = (result: IJudge0Result[]): ResponseType => {
       text: current.text,
       input: current.input,
       output: current.output,
-      stdout: current.stdout.replace(/(\r\n|\n|\r)/gm, "")
+      stdout: current.status.id ===3 ? current.stdout.replace(/(\r\n|\n|\r)/gm, ""): current.stdout, // 3 is success status the response come from judge0 status 
     }
     acc[current.testType].push(result);
     return acc;
