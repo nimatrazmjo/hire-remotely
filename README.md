@@ -23,7 +23,8 @@
 - Run `gcloud auth login`
 - Run `gcloud init` to initialize the google
 - Run `gcloud container clusters get-credentials hiremotely-338114`
-- Run `skaffold run` to deploy the code into GCP.
+- Run `skaffold run -p gcb` to deploy the code into GCP.
+- RUn `skaffold delete -p gcb` to stop and re run the above command to update the live server
 
 ## 🎈 Usage <a name="usage"></a>
 
