@@ -22,7 +22,7 @@
   - login to google cloud account.
 - Run `gcloud auth login`
 - Run `gcloud init` to initialize the google
-- Run `gcloud container clusters get-credentials hiremotely-338114`
+- Run `gcloud container clusters get-credentials online-test`
 - Run `skaffold run` to deploy the code into GCP.
 
 ## 🎈 Usage <a name="usage"></a>
