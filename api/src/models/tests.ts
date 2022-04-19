@@ -3,13 +3,13 @@ import mongoose, { Document, Model, PaginateModel } from 'mongoose';
 import paginate from 'mongoose-paginate-v2';
 import { ITestCase } from 'src/interfaces/test/test-case.interface';
 import { ITest } from 'src/interfaces/test/test.interface';
-import { IResult } from '../interfaces/test/answer.interface';
+import { IJudge0Result, IResult } from '../interfaces/test/answer.interface';
 
 interface TestCaseDocument extends ITestCase, Document { }
 
 interface TestDocument extends ITest, Document { }
 
-interface TestCaseResultDocument extends IResult, Document { }
+interface TestCaseResultDocument extends IJudge0Result, Document { }
 
 const testCaseResult = new mongoose.Schema<TestCaseResultDocument>({
   text: String,

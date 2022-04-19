@@ -3,6 +3,7 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { createStructuredSelector } from "reselect";
 import NProgress from 'nprogress';
+import Link from 'next/link';
 import CustomSelectComponent from '../custom-select/custom-select.component';
 import CodeMirrorComponent from '../code-mirror/code-mirror.component';
 import CustomButtonComponent from '../custom-button/custom-button.component';
@@ -28,7 +29,7 @@ const Answer = () => {
   let test_id;
 
   let docs = test?.docs;
-  
+
   if (docs && docs.length > 0) {
     test_id = docs[0]._id;
     const foundSnippet = docs[0].snippets.find(snippet => snippet.language == language_id);
@@ -40,13 +41,9 @@ const Answer = () => {
     setDisable(true);
     setResult('');
     setError('');
+    dispatch(setResult([]));
     axios.post('/api/run', { source_code: answer, language_id, test_id, submit }).then(response => {
-      if (submit) {
-        dispatch(setResult({}));
-      } else {
-
-        dispatch(setResult(response.data));
-      }
+      dispatch(setResult(response.data));
       setDisable(false);
       NProgress.done();
     }).catch(error => {
@@ -59,7 +56,8 @@ const Answer = () => {
 
   const handleSubmit = async e => {
     e.preventDefault(0);
-    setConfirmOpen(true)
+    callApi(true);
+    // setConfirmOpen(true)
   }
 
 
@@ -69,7 +67,7 @@ const Answer = () => {
     await callApi(false);
   }
 
-  const reload = async() => {
+  const reload = async () => {
     Router.reload();
   }
   return (
@@ -90,20 +88,22 @@ const Answer = () => {
         />
       </div>
       <div className="py-3 flex justify-end gap-1">
-        <CustomButtonComponent className="px-5 py-3 rounded" disabled={disable} onClick={run} type='button'> Compile  </CustomButtonComponent>
-        <CustomButtonComponent className="px-5 py-3 rounded" disabled={disable} type='submit'> Submit result  </CustomButtonComponent>
-        <CustomButtonComponent className="px-5 py-3 rounded" disabled={disable} onClick={reload} type='button'> Next  </CustomButtonComponent>
+        <CustomButtonComponent className="px-5 py-3 rounded-full bg-slate-500 text-white" disabled={disable} onClick={run} type='button'> Compile  </CustomButtonComponent>
+        <CustomButtonComponent className="px-5 py-3 rounded-full bg-emerald-500 text-white" disabled={disable} type='submit'> Submit result  </CustomButtonComponent>
+        {test?.hasNextPage && <CustomButtonComponent className="px-5 py-3 rounded-full bg-emerald-500 text-white" disabled={disable} onClick={reload} type='button'> Next  </CustomButtonComponent>}
+        {!test?.hasNextPage &&  <Link href="/" ><CustomButtonComponent className="px-5 py-3 rounded-full text-white bg-primary" disabled={disable} type='button'> Go main page  </CustomButtonComponent></Link>}
+        
       </div>
 
       <div>
-        <ConfirmDialog
+        {/* <ConfirmDialog
           title="Submit result?"
           open={confirmOpen}
           onClose={() => setConfirmOpen(false)}
           onConfirm={() => callApi(true)}
         >
           Once you submit the answer you will not be able to edit it
-        </ConfirmDialog>
+        </ConfirmDialog> */}
       </div>
     </form>
   )
