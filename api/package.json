@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon index.ts",
     "seed:question": "./node_modules/.bin/ts-node src/seeder/question.seeder.ts",
+    "build": "tsc --build",
     "test": "jest --watchAll --no-cache"
   },
   "keywords": [],
