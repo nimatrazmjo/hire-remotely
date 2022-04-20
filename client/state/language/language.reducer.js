@@ -5,10 +5,7 @@ const INITIAL_STATE = 63;
 const languageReducer = (state= INITIAL_STATE,action) => {
     switch(action.type) {
         case LanguageActionTypes.SELECT_LANGUAGE:
-            return {
-                ...state,
-                language: action.payload
-            }
+            return action.payload
         default:
             return state;
     }

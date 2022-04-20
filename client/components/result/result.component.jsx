@@ -13,7 +13,7 @@ const Result = ({ results }) => {
         <div className="col-span-4">
           { results && Object.keys(results).map((testCaseType) => (
             <div className='mb-10'>
-             <TestCase text={testCaseType.toUpperCase() + ' TESTS'} value={results[testCaseType]} />
+             <TestCase text={testCaseType.toUpperCase()} value={results[testCaseType]} />
             </div>
           ))}
         </div>
