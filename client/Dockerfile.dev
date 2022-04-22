@@ -8,6 +8,4 @@ RUN npm install
 
 COPY . .
 
-
-
-CMD npm run seed:question ; npm run dev
+CMD [ "yarn", "dev" ]
