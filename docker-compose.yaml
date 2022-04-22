@@ -14,7 +14,9 @@ services:
 
   api:
     tty: true
-    build: api
+    build: 
+      context: api
+      dockerfile: Dockerfile.dev
     ports:
       - 8000:8000
     depends_on:
