@@ -26,6 +26,11 @@ services:
     volumes:
       - ./api/src:/app/src
       - ./api/codes:/app/codes
+    environment:
+      - NODE_ENV:development
+      - DB_HOST:mongo-state
+      - DB_PORT:27017
+      - DATABASE:online-test
   mongo-state:
     tty: true
     image: mongo
