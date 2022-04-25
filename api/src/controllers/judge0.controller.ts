@@ -72,7 +72,7 @@ const runTestCases = async (testCases: ITestCase[], source_code, language_id) =>
   try {
     const results = [];
     for await (let tc of testCases) {
-      const { data } = await axios.post("http://104.154.92.155/submissions?base64_encoded=false&wait=true",
+      const { data } = await axios.post("https://ce.judge0.com/submissions?base64_encoded=false&wait=true",
         {
           command_line_arguments: "",
           compiler_options: "",

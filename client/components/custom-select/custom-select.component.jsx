@@ -8,7 +8,7 @@ const CustomButton = ({ setLanguageId }) => {
   const {test} = useSelector(state => state.test);
   const snippetLanguage = test?.languages;
   useEffect(async () => {
-    const { data } = await axios.get('http://104.154.92.155/languages');
+    const { data } = await axios.get('https://ce.judge0.com/languages');
     setLanguages(data);
   }, []);
   return (

@@ -1,6 +1,6 @@
 import 'dotenv/config';
 const dbConfig = {
-    DB_HOST: process.env.DB_HOST || 'localhost',
+    DB_HOST: process.env.DB_HOST || 'mongo-state',
     DB_PORT: process.env.DB_PORT || 27017,
     DATABASE: process.env.DATABASE || 'online-test'
 }

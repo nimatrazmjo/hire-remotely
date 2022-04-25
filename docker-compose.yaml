@@ -2,7 +2,9 @@ version: '3.0'
 services:
   client:
     tty: true
-    build: client
+    build: 
+      context: client
+      dockerfile: Dockerfile.dev
     ports:
       - 3000:3000
     depends_on:
@@ -14,7 +16,9 @@ services:
 
   api:
     tty: true
-    build: api
+    build: 
+      context: api
+      dockerfile: Dockerfile.dev
     ports:
       - 8000:8000
     depends_on:
@@ -22,6 +26,11 @@ services:
     volumes:
       - ./api/src:/app/src
       - ./api/codes:/app/codes
+    environment:
+      - NODE_ENV:development
+      - DB_HOST:mongo-state
+      - DB_PORT:27017
+      - DATABASE:online-test
   mongo-state:
     tty: true
     image: mongo

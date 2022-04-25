@@ -10,10 +10,14 @@ build:
     context: api
     docker:
       dockerfile: Dockerfile
+      cliFlags:
+        - --platform=linux/x86_64 
   - image: us.gcr.io/hiremotely-338114/test-client
     context: client
     docker:
       dockerfile: Dockerfile
+      cliFlags:
+        - --platform=linux/x86_64 
 profiles:
   - name: gcb
     build:
