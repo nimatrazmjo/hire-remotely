@@ -17,21 +17,23 @@ const testCaseResult = new mongoose.Schema<TestCaseResultDocument>({
   output: String,
   testType: String,
   stdout: String,
-  time: String,
+  time: Number,
   memory: String,
   stderr: String,
   message: String,
   status: {
     id: Number,
     description: String
-  }
+  },
+  score: Number
 })
 
 const TestCaseSchema = new mongoose.Schema<TestCaseDocument>({
   text: String,
   input: String,
   output: String,
-  testType: String
+  testType: String,
+  score: Number
 });
 
 
@@ -51,7 +53,8 @@ const TestSchema = new mongoose.Schema<TestDocument, PaginateModel<TestDocument>
   answer: {
     code : String,
     testResult: [testCaseResult]
-  }
+  },
+  totalScore: Number
 }, {
   toJSON: {
     transform(doc, ret) {

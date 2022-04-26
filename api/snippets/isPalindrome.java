@@ -1,8 +1,19 @@
 import java.util.Scanner;
 
 class Main {
-  static boolean isPalindrome(String str) {
-    // your code answer
+  static String isPalindrome(String str) {
+    int strLength = str.length();
+    String reverseStr = "";
+    for (int i = (strLength - 1); i >=0; --i) {
+      reverseStr = reverseStr + str.charAt(i);
+    }
+
+    if (str.toLowerCase().equals(reverseStr.toLowerCase())) {
+     return "Palindrome!";
+    }
+    else {
+      return "Not a Palindrome!";
+    }
   }
 
   public static void main(String[] args) {
@@ -10,9 +21,7 @@ class Main {
     String str = scanner.next();
     scanner.close();
 
-    if (isPalindrome(str))
-      System.out.print("1");
-    else
-      System.out.print("0");
+    String result = isPalindrome(str);
+    System.out.print(result);
   }
 }

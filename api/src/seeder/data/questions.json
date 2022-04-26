@@ -1,21 +1,21 @@
 [{
-    "question": "## Palindrome Check\n _A palindrome is a word, number, or a phrase that reads the same forwards as well as backward, for instance “kayak”, “1001”, “Was it a car or a cat I saw?”, or “ABBA_ \n ### Assignment\n Write a function _isPalindrome_ which prints _Palindrome!_ in case that string passed as a parameter to function is a palindrome. Otherwise function will print _Not a Palindrome!_ if string is not a palindrome. \n #### Example input 1\n ```\nkayak\n```\n #### Example output 1\n ```\nPalindrome!\n```\n #### Example input 2\n ```\nkayaking\n```\n #### Example output 2\n ```\nNot a Palindrome!\n```\n ___\n",
+    "question": "## Palindrome Check\n _A palindrome is a word, number, or a phrase that reads the same forwards as well as backward, for instance “kayak”, “1001”, “Was it a cat I saw?”, or “ABBA_ \n ### Assignment\n Write a function _isPalindrome_ which return string: _Palindrome!_ in case that string passed as a parameter to function is a palindrome. Otherwise function will return string: _Not a Palindrome!_ if string is not a palindrome. \n #### Example input 1\n ```\nkayak\n```\n #### Example output 1\n ```\nPalindrome!\n```\n #### Example input 2\n ```\nkayaking\n```\n #### Example output 2\n ```\nNot a Palindrome!\n```\n ___\n",
     "snippets": [
       {
         "language": "63",
-        "snippet": "function isPalindrom (str) {\n  //YOUR CODE ANSWER\n}\n\nconst fs = require('fs');\nconst stdinBuffer = fs.readFileSync(0);\nconst str = stdinBuffer.toString();\n\nconsole.log(isPalindrom(str));"
+        "snippet": "function isPalindrome (str) {\n  //YOUR CODE ANSWER\n}\n\nconst fs = require('fs');\nconst stdinBuffer = fs.readFileSync(0);\nconst str = stdinBuffer.toString();\n\nconsole.log(isPalindrome(str));"
       },
       {
         "language":"68",
-        "snippet": "<?php\n\nfunction isPalindrom($string) {\n  // YOUR CODE ANSWER\n}\n\n$testingString = trim(fgets(STDIN)); isPalindrom($testingString);\n"
+        "snippet": "<?php \nfunction isPalindrome($str) {\n  // YOUR CODE ANSWER HERE\n}\n\n$str = trim(fgets(STDIN)); \n$result = isPalindrome($str);\necho $result;\n?>\n"
       },
       {
         "language": "71",
-        "snippet": "def isPalindrome(s):\n    # your code answer here\n\ns = input()\nans = isPalindrome(s)\n\nif ans:\n    print(\"1\")\nelse:\n    print(\"0\")"
+        "snippet": "def isPalindrome(str):\n    # your code answer here\n \nstr = input()\nresult = isPalindrome(str)\n\nprint(result)"
       },
       {
         "language": "62",
-        "snippet": "import java.util.Scanner;\n\nclass Main {\n  static boolean isPalindrome(String str) {\n    // your code answer\n  }\n\n  public static void main(String[] args) {\n    Scanner scanner = new Scanner(System.in);\n    String str = scanner.next();\n    scanner.close();\n\n    if (isPalindrome(str))\n      System.out.print(\"1\");\n    else\n      System.out.print(\"0\");\n  }\n}"
+        "snippet": "import java.util.Scanner;\n\nclass Main {\n  static String isPalindrome(String str) {\n    // YOUR CODE ANSWER HERE\n  }\n\n  public static void main(String[] args) {\n    Scanner scanner = new Scanner(System.in);\n    String str = scanner.next();\n    scanner.close();\n    \n    String result = isPalindrome(str);\n    System.out.print(result);\n  }\n}"
       }
     ],
     "tests": [
@@ -23,67 +23,99 @@
         "text": "Example Test 1",
         "testType": "example",
         "input": "kayak",
-        "output": "Palindrome!"
+        "output": "Palindrome!",
+        "score": 1
       },
       {
         "text": "Example Test 2",
         "testType": "example",
         "input": "kayaking",
-        "output": "Not a Palindrome!"
+        "output": "Not a Palindrome!",
+        "score": 1
       },
       {
         "text": "Basic Correctness Test 1",
         "testType": "basic",
-        "input": "abbba",
-        "output": "Palindrome!"
+        "input": "aa",
+        "output": "Palindrome!",
+        "score": 10
       },
       {
         "text": "Basic Correctness Test 2",
         "testType": "basic",
-        "input": "aaab",
-        "output": "Not a Palindrome!"
+        "input": "ab",
+        "output": "Not a Palindrome!",
+        "score": 10
+      },
+      {
+        "text": "Basic Correctness Test 3",
+        "testType": "basic",
+        "input": "aba",
+        "output": "Palindrome!",
+        "score": 10
+      },
+      {
+        "text": "Basic Correctness Test 4",
+        "testType": "basic",
+        "input": "abc",
+        "output": "Not a Palindrome!",
+        "score": 10
+      },
+      {
+        "text": "Basic Correctness Test 5",
+        "testType": "basic",
+        "input": "",
+        "output": "Palindrome!",
+        "score": 5
+      },
+      {
+        "text": "Basic Correctness Test 6",
+        "testType": "basic",
+        "input": "a",
+        "output": "Palindrome!",
+        "score": 5
       },
       {
         "text": "Advanced Correctness Test 1",
         "testType": "advanced",
-        "input": "abbaa",
-        "output": "0"
+        "input": "redder",
+        "output": "Palindrome!",
+        "score": 10
       },
       {
         "text": "Advanced Correctness Test 2",
         "testType": "advanced",
-        "input": "abbaa",
-        "output": "0"
+        "input": "renter",
+        "output": "Not a Palindrome!",
+        "score": 10
+      },
+      {
+        "text": "Advanced Correctness Test 3",
+        "testType": "advanced",
+        "input": "racecar",
+        "output": "Palindrome!",
+        "score": 10
+      },
+      {
+        "text": "Advanced Correctness Test 4",
+        "testType": "advanced",
+        "input": "banana",
+        "output": "Not a Palindrome!",
+        "score": 10
       },
       {
         "text": "Memory Test 1",
         "testType": "memory",
         "input": "some very long input",
-        "output": "0"
-      },
-      {
-        "text": "Memory Test 2",
-        "testType": "memory",
-        "input": "some very long input",
-        "output": "0"
-      },
-        {
-        "text": "Memory Test 1",
-        "testType": "memory",
-        "input": "some very long input",
-        "output": "0"
+        "output": "0",
+        "score": 10
       },
       {
         "text": "Performance Test 1",
         "testType": "performance",
         "input": "some very long input",
-        "output": "0"
-      },
-      {
-        "text": "Performance Test 1",
-        "testType": "performance",
-        "input": "some very long input",
-        "output": "0"
+        "output": "0",
+        "score": 10
       }
     ]
   }]

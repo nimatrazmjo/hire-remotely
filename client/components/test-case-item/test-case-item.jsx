@@ -1,22 +1,23 @@
 import React from "react";
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/outline'
 
-const TestCaseItem = ({text,input , status, stdout}) => (
+const TestCaseItem = ({text,input , status, stdout, time}) => (
     <>
-    { status === 'success' 
-        ? <CheckCircleIcon className="text-white inline h-5 w-5 bg-emerald-500 text-primary-100" /> 
+    { status === 'success'
+        ? <CheckCircleIcon className="text-white inline h-5 w-5 bg-emerald-500 text-primary-100" />
         : <XCircleIcon className="inline h-5 w-5 text-danger" /> }
-    
+
     <span className={`pl-2 ${status !== 'success'? 'text-red-400' :'text-emerald-500'}`}>{text}</span>
-    <p>Input</p>
-    <pre className="text-white bg-editor-background px-4 py-2 border-b border-b-gray-600">
-        <code>
+    <div className="text-sm pt-3">Execution Time: {time} seconds</div>
+    <p className="text-sm">Input</p>
+    <pre className="text-sm text-white bg-editor-background px-4 py-2 border-b border-b-gray-600">
+        <code className="text-sm">
             {input}
         </code>
     </pre>
-    <p>Output</p>
-    <pre className="text-white bg-editor-background px-4 py-2 border-b border-b-gray-600">
-        <code>
+    <p className="text-sm">Output</p>
+    <pre className="text-sm text-white bg-editor-background px-4 py-2 border-b border-b-gray-600">
+        <code className="text-sm">
             {stdout }
         </code>
     </pre>
