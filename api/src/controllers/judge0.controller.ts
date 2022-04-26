@@ -56,8 +56,6 @@ const formatResult = (result: IJudge0Result[]): ResponseType => {
      *
      * for more information about judge0 status code please visit https://ce.judge0.com/statuses
      */
-    console.log(current.output)
-    console.log(result.stdout)
     result.status = current.output !== result.stdout ? 'failure' : current.status.id !==3 ? 'error' : 'success';
 
     acc[current.testType].push(result);
