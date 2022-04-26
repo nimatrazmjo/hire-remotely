@@ -25,33 +25,39 @@ type ResponseType = Partial<Record<ResultCategory, IResult[]>>;
 
 /**
  * Format the result of test cases to the format of the judge0
- * @param result 
- * @returns 
+ * @param result
+ * @returns
  */
 const formatResult = (result: IJudge0Result[]): ResponseType => {
   const finalResult = result.reduce((acc, current) => {
     if (acc[current.testType] === undefined) {
       acc[current.testType] = [];
     }
-    
-    
+
     const result: Partial<IResult> = !TEST_ADVANCE.includes(current.testType) ? {
       text: current.text,
       input: current.input,
-      stdout: current.status.id ===3 ? current.stdout.replace(/(\r\n|\n|\r)/gm, ""): current.stdout, // 3 is success status the response come from judge0 status 
-      status: 'success'
+      stdout: current.status.id ===3 ? current.stdout.replace(/(\r\n|\n|\r)/gm, ""): current.stdout, // 3 is success status the response come from judge0 status
+      status: 'success',
+      score: current.score,
+      time: current.time,
     } : {
       text: current.text,
       message: current.status.description as ResultMessage,
-    } 
+      stdout: current.status.id ===3 ? current.stdout.replace(/(\r\n|\n|\r)/gm, ""): current.stdout, // 3 is success status the response come from judge0 status
+      score: current.score,
+      time: current.time,
+    }
 
     /**
      * if given output is not equal to the output which provide by jude0 then the status will be failure
      * if the id status of judge 0 is other than 3 then which means there are some error in the code
      * if the id status of judge 0 is 3 and output given is equal to judge0 stdout then which means the code is correct
-     * 
+     *
      * for more information about judge0 status code please visit https://ce.judge0.com/statuses
      */
+    console.log(current.output)
+    console.log(result.stdout)
     result.status = current.output !== result.stdout ? 'failure' : current.status.id !==3 ? 'error' : 'success';
 
     acc[current.testType].push(result);
@@ -63,10 +69,10 @@ const formatResult = (result: IJudge0Result[]): ResponseType => {
 
 /**
  * Loop each test cases and run it in judge0
- * @param testCases 
- * @param source_code 
- * @param language_id 
- * @returns 
+ * @param testCases
+ * @param source_code
+ * @param language_id
+ * @returns
  */
 const runTestCases = async (testCases: ITestCase[], source_code, language_id) => {
   try {
@@ -83,7 +89,7 @@ const runTestCases = async (testCases: ITestCase[], source_code, language_id) =>
           expected_output: tc.output,
         }
       );
-      results.push({ text: tc.text, input: tc.input, output: tc.output, testType: tc.testType, ...data });
+      results.push({ text: tc.text, input: tc.input, output: tc.output, testType: tc.testType, score: tc.score, time: tc.time, ...data });
     }
 
     return results;
@@ -94,9 +100,9 @@ const runTestCases = async (testCases: ITestCase[], source_code, language_id) =>
 /**
  * If the user run compile then only the example test cases will be run
  * else all the test cases will be run
- * @param testCases 
- * @param advance 
- * @returns 
+ * @param testCases
+ * @param advance
+ * @returns
  */
 const filterTestCases = (testCases:ITestCase[], advance = true):ITestCase[] => {
   const basicType = ['example'];
