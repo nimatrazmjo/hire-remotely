@@ -11,6 +11,7 @@ import { asyncHandler } from "../utils/async-handler";
 import { IJudge0Result, IResult, ResultCategory, ResultMessage } from '../interfaces/test/answer.interface';
 import { updateTestByIdController } from './test.controller';
 import { ParallelRequest } from '../services/concurrency-request';
+import { AxiosRequest } from '../services/axios-parallel';
 const TEST_ADVANCE = ['advanced', 'memory', 'performance', 'time'];
 
 
@@ -89,7 +90,7 @@ const runTestCases = async (testCases: ITestCase[], source_code: string, languag
  * @returns
  */
 const filterTestCases = (testCases: ITestCase[], advance = true): ITestCase[] => {
-  const basicType = ['example'];
+  const basicType = ['example','basic','advanced'];
   const advanceType = ['example', 'basic', 'advanced'];
   if (!advance) {
     return testCases.filter((testCase) => basicType.includes(testCase.testType));

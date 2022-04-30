@@ -1,26 +1,33 @@
 import axios from 'axios';
-import http from 'http';
-import async from 'async';
 import { ITestCase } from '../interfaces/test/test-case.interface';
 import { ITestBody } from '../interfaces/test/test-body.interface';
+import BadRequestError from '../errors/bad-request.error';
 
 const ParallelRequest = async (testCases: ITestCase[], source_code: string, language_id: string) => {
-    const body = await arrangeRequestBody(testCases, source_code, language_id);
-    const { data } = await axios.post(`${process.env.JUDGE0_HOST}/submissions/batch?base64_encoded=false&wait=true`, { submissions: body });
-    const tokens = data.map(token => `${process.env.JUDGE0_HOST}/submissions/batch?tokens=${token.token}&base64_encoded=false&fields=stdout,stderr,status_id,language_id,stdin,expected_output,message,status`)
-    const results = await getResults(tokens);
-    console.log('arrange');
+    console.log('Promise all');
+    try {
 
-    const arrangedOutput = arrangeOutput(results,testCases);
-    return arrangedOutput;
+        const start = performance.now();
+        const body = await arrangeRequestBody(testCases, source_code, language_id);
+        const { data } = await axios.post(`${process.env.JUDGE0_HOST}/submissions/batch?base64_encoded=false&wait=true`, { submissions: body });
+        const tokens = data.map(token => `${process.env.JUDGE0_HOST}/submissions/batch?tokens=${token.token}&base64_encoded=false&fields=stdout,stderr,status_id,language_id,stdin,expected_output,message,status`)
+        const results = await getResults(tokens);
+        const arrangedOutput = arrangeOutput(results, testCases);
+        const end = performance.now() - start;
+        console.log(`Execution time: ${end}ms`);
+        return arrangedOutput;
+    } catch (error: any) {
+        throw new BadRequestError(error?.message)
+    }
 };
 
 
-const arrangeOutput = (results: any[],testCases: ITestCase[]) => {
+const arrangeOutput = (results: any[], testCases: ITestCase[]) => {
     const arrangedOutput = results.map((result) => ({
         ...result,
         testType: testCases.find(tc => tc.input === result.stdin)?.testType,
-        text: testCases.find(tc => tc.input === result.stdin)?.text
+        text: testCases.find(tc => tc.input === result.stdin)?.text,
+        input: result.stdin
     }));
     return arrangedOutput;
 };
@@ -43,4 +50,4 @@ const getResults = async (urls: string[]) => {
     return results;
 }
 
-export { ParallelRequest }
+export { ParallelRequest, arrangeRequestBody, fetchURL, arrangeOutput }
