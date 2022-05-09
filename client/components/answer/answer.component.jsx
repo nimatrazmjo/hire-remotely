@@ -88,11 +88,11 @@ const Answer = () => {
         />
       </div>
       <div className="py-3 flex justify-end gap-1">
-        <CustomButtonComponent className="px-5 py-3 rounded-full bg-slate-500 text-white" disabled={disable} onClick={run} type='button'> Compile  </CustomButtonComponent>
-        <CustomButtonComponent className="px-5 py-3 rounded-full bg-emerald-500 text-white" disabled={disable} type='submit'> Submit result  </CustomButtonComponent>
-        {test?.hasNextPage && <CustomButtonComponent className="px-5 py-3 rounded-full bg-emerald-500 text-white" disabled={disable} onClick={reload} type='button'> Next  </CustomButtonComponent>}
+        <CustomButtonComponent className="px-10 py-3 rounded-lg bg-slate-200 text-black" disabled={disable} onClick={run} type='button'> Compile  </CustomButtonComponent>
+        <CustomButtonComponent className="px-10 py-3 rounded-lg bg-main-blue text-white" disabled={disable} type='submit'> Submit result  </CustomButtonComponent>
+        {/* {test?.hasNextPage && <CustomButtonComponent className="px-5 py-3 rounded-full bg-emerald-500 text-white" disabled={disable} onClick={reload} type='button'> Next  </CustomButtonComponent>} */}
         {!test?.hasNextPage &&  <Link href="/" ><CustomButtonComponent className="px-5 py-3 rounded-full text-white bg-primary" disabled={disable} type='button'> Go main page  </CustomButtonComponent></Link>}
-        
+
       </div>
 
       <div>

@@ -22,21 +22,21 @@ const MyApp = ({ Component, pageProps }) => {
     Router.events.on("routeChangeError", handleRouteDone);
 
 
-    
+
     return () => {
       // Make sure to remove the event handler on unmount!
       Router.events.off("routeChangeStart", handleRouteStart);
       Router.events.off("routeChangeComplete", handleRouteDone);
       Router.events.off("routeChangeError", handleRouteDone);
-      
+
     };
   }, []);
 
 
   return (
-    <div className='h-screen flex flex-col'>
+    <div className='h-screen flex flex-col bg-light-blue2'>
       <Provider store={store}>
-        <TopNavComponent />
+        {/* <TopNavComponent /> */}
         <Component {...pageProps} />
         </Provider>
     </div>

@@ -9,7 +9,7 @@ import Answer from '../components/answer/answer.component';
 import { setTest } from '../state/test/test.actions';
 
 const Test = () => {
-  
+
   const router = useRouter()
   const [isLoading, setLoading] = useState(false)
   const { hash } = router.query;
@@ -31,22 +31,19 @@ const Test = () => {
       })
   }, [hash])
   return (
-    <div className=' bg-white flex-grow'>
-      <div className='container flex mx-auto'>
-        <div className='h-full w-full'>
-          <div className='grid grid-cols-2 h-full'>
-            <div className='bg-gray-100 h-full p-5'>
-              <Question />
-            </div>
-            <div className='h-full p-4'>
-              <Answer />
-              <hr />
-              <Result />
-            </div>
-          </div>
-        </div>
+   <div className='max-w-7xl mx-auto'>
+     <h1 className='font-medium py-10 text-3xl'>Test Overview</h1>
+     <div className='flex bg-white rounded-xl shadow-xl px-10 py-20'>
+      <div className='h-full p-5'>
+        <Question />
+      </div>
+      <div className='h-full p-4 flex-shrink'>
+        <Answer />
+        <hr />
+        <Result />
       </div>
     </div>
+   </div>
   )
 }
 
