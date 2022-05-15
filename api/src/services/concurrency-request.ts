@@ -17,6 +17,7 @@ const ParallelRequest = async (testCases: ITestCase[], source_code: string, lang
         console.log(`Execution time: ${end}ms`);
         return arrangedOutput;
     } catch (error: any) {
+        console.log(error?.message, 'errror');
         throw new BadRequestError(error?.message)
     }
 };
