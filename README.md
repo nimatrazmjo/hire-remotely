@@ -3,9 +3,9 @@
 ---
 
 <p align="center"> Online code compiler
-    <br> 
+    <br>
 </p>
- 
+
  ## 🏁 Getting Started <a name = "getting_started"></a>
 
 ### Prerequisites
@@ -22,14 +22,13 @@
   - login to google cloud account.
 - Run `gcloud auth application-default login`
 - Run `gcloud init` to initialize the google
-- Run `gcloud container clusters get-credentials hiremotely-338114`
-- Run `gcloud container clusters get-credentials online-test`
+- Run `gcloud container clusters get-credentials hiremotely-test --zone=us-east1-c`
 - Run `skaffold run -p gcb` to deploy the code into GCP.
 - RUn `skaffold delete -p gcb` to stop and re run the above command to update the live server
 
 ## 🎈 Usage <a name="usage"></a>
 
-Please make sure that you `docker`,`kubernetes`, `google SDK`, `skaffold` installed to your computer. 
+Please make sure that you `docker`,`kubernetes`, `google SDK`, `skaffold` installed to your computer.
 
 ## ⛏️ Built With <a name = "tech_stack"></a>
 
