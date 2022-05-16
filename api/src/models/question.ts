@@ -14,7 +14,8 @@ const QuestionSchema = new mongoose.Schema({
       text: String,
       input:String,
       output:String,
-      testType: String
+      testType: String,
+      score: Number
     }
   ]
 },{
