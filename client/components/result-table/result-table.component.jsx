@@ -1,12 +1,14 @@
 import React from 'react';
 
+import Image from 'next/image';
+
 const ResultTable = ({ results }) => {
     return (
         <div className="mx-10  my-10 overflow-hidden">
             <div className="my-5 min-w-full flex justify-between">
                 <div className="font-extrabold">Example Test</div>
                 <div className="flex">
-                    <img src="./public/icons/Interface/Star.svg" alt="score" className="px-3" />
+                    <Image height={25} width={25} src="/star.svg" alt="score" className="px-3 pr-10" />
                     <div className="font-semibold">98% score</div>
                 </div>
             </div>
@@ -26,7 +28,7 @@ const ResultTable = ({ results }) => {
                             <span className="text-xs text-gray-400">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</span>
                         </td>
                         <td scope="col" className="text-sm font-normal text-gray-900 px-6 py-4 text-left flex">
-                            <img src="./public/icons/Warning/success.svg" alt=" success" />
+                            <Image height={25} width={25} src="/success.svg" alt=" success" />
                             <span className="pl-1">Ok</span>
                         </td>
                         <td scope="col" className="text-sm font-normal text-gray-900 px-6 py-4 text-left ">
@@ -43,7 +45,7 @@ const ResultTable = ({ results }) => {
                             <span className="text-xs text-gray-400">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</span>
                         </td>
                         <td scope="col" className="text-sm font-normal text-gray-900 px-6 py-4 text-left flex">
-                            <img src="./public/icons/Warning/fail.svg" alt=" success" />
+                            <Image height={25} width={25} src="/fail.svg" alt=" success" />
                             <span className="pl-1">Ok</span>
                         </td>
                         <td scope="col" className="text-sm font-normal text-gray-900 px-6 py-4 text-left ">
@@ -60,7 +62,7 @@ const ResultTable = ({ results }) => {
                             <span className="text-xs text-gray-400">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</span>
                         </td>
                         <td scope="col" className="text-sm font-normal text-gray-900 px-6 py-4 text-left flex">
-                            <img src="./public/icons/Warning/success.svg" alt=" success" />
+                            <Image height={25} width={25} src="/success.svg" alt=" success" />
                             <span className="pl-1">Ok</span>
                         </td>
                         <td scope="col" className="text-sm font-normal text-gray-900 px-6 py-4 text-left ">
@@ -77,7 +79,7 @@ const ResultTable = ({ results }) => {
                             <span className="text-xs text-gray-400">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</span>
                         </td>
                         <td scope="col" className="text-sm font-normal text-gray-900 px-6 py-4 text-left flex">
-                            <img src="./public/icons/Warning/fail.svg" alt=" success" />
+                            <Image height={25} width={25} src="/fail.svg" alt=" success" />
                             <span className="pl-1">Ok</span>
                         </td>
                         <td scope="col" className="text-sm font-normal text-gray-900 px-6 py-4 text-left ">
@@ -94,7 +96,7 @@ const ResultTable = ({ results }) => {
                             <span className="text-xs text-gray-400">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</span>
                         </td>
                         <td scope="col" className="text-sm font-normal text-gray-900 px-6 py-4 text-left flex">
-                            <img src="./public/icons/Warning/success.svg" alt=" success" />
+                            <Image height={25} width={25} src="/success.svg" alt=" success" />
                             <span className="pl-1">Ok</span>
                         </td>
                         <td scope="col" className="text-sm font-normal text-gray-900 px-6 py-4 text-left ">
