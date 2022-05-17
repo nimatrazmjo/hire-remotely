@@ -7,6 +7,8 @@ import Result from '../components/result/result.component';
 import Question from '../components/question/question.component';
 import Answer from '../components/answer/answer.component';
 import { setTest } from '../state/test/test.actions';
+import Score from '../components/score/score.component';
+import ResultTable from '../components/result-table/result-table.component';
 
 const Test = () => {
 
@@ -33,34 +35,21 @@ const Test = () => {
   return (
     <div className='max-w-7xl mx-auto'>
       <h1 className='font-medium py-10 text-3xl'>Test Overview</h1>
-      <div className='flex bg-white rounded-xl shadow-xl px-10 py-20'>
-        <div className='h-full p-5'>
-          <Question />
-        </div>
-        <div className='h-full p-4 flex-shrink'>
-          <Answer />
-          <hr />
-          <div className='bg-gray-200 py-10 px-10 rounded-lg'>
-            <svg viewBox="0 0 36 36" class="circular-chart green">
-              <path class="circle-bg"
-                d="M18 2.0845
-          a 15.9155 15.9155 0 0 1 0 31.831
-          a 15.9155 15.9155 0 0 1 0 -31.831"
-              />
-              <path class="circle"
-                stroke-dasharray="60, 100"
-                d="M18 2.0845
-          a 15.9155 15.9155 0 0 1 0 31.831
-          a 15.9155 15.9155 0 0 1 0 -31.831"
-              />
-              <text x="18" y="20.35" class="percentage">60%</text>
-              <text x="18" y="20.35" class="score">97/103</text>
-            </svg>
+      <div className=' bg-white rounded-xl shadow-xl px-10 py-20'>
+        <div className='flex'>
+          <div className='h-full p-5'>
+            <Question />
           </div>
-          <hr />
-          <Result />
+          <div className='h-full p-4 flex-shrink'>
+            <Answer />
+            <hr />
+            <Score />
+          </div>
         </div>
+        <ResultTable />
       </div>
+      <hr />
+
     </div>
   )
 }
