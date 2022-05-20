@@ -15,12 +15,15 @@ const testCasePercentage = (testCases: IResult[]): {totalScore: number, takenSco
         return acc + curr.score;
     }, 0) as number;
     const total = testCases.reduce((acc, curr) => acc + +curr.score, 0);
-    console.log(score, total);
-
     return {totalScore: total, takenScore: score};
 }
 
 
+/**
+ *  calculate  result of test cases scores
+ * @param testCases
+ * @returns
+ */
 const calculateScore = (testCases: ResponseType): ResponseFomat[] => {
     const formatedResponse = Object.keys(testCases).map(testType => {
         const {totalScore, takenScore} = testCasePercentage(testCases[testType]);
@@ -31,8 +34,15 @@ const calculateScore = (testCases: ResponseType): ResponseFomat[] => {
             results: testCases[testType]
         }
     });
-    console.log(formatedResponse, 'formatedResponse');
 
     return formatedResponse;
 }
-export { calculateScore };
+
+/** calculate all test cases score average */
+
+const calculateAverageScore = (testCases: ResponseFomat[]): {totalScore: number, takenScore: number} => {
+    const totalScore = testCases.reduce((acc, curr) => acc + curr.totalScore, 0);
+    const takenScore = testCases.reduce((acc, curr) => acc + curr.takenScore, 0);
+    return {totalScore, takenScore};
+}
+export { calculateScore, calculateAverageScore };

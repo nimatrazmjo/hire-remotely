@@ -11,7 +11,7 @@ import { asyncHandler } from "../utils/async-handler";
 import { IJudge0Result, IResult, ResultCategory, ResultMessage } from '../interfaces/test/answer.interface';
 import { updateTestByIdController } from './test.controller';
 import { BatchRequest } from '../services/batch-request';
-import { calculateScore } from '../services/score-calculation';
+import { calculateAverageScore, calculateScore } from '../services/score-calculation';
 const TEST_ADVANCE = ['advanced', 'memory', 'performance', 'time'];
 
 
@@ -33,8 +33,6 @@ export type ResponseType = Partial<Record<ResultCategory, IResult[]>>;
  * @returns
  */
 const formatResult = (result: IJudge0Result[]): ResponseType => {
-  console.log(result,'resulttt');
-
   const finalResult = result.reduce((acc, current) => {
     if (acc[current.testType] === undefined) {
       acc[current.testType] = [];
@@ -123,8 +121,12 @@ const Judge0RunController = asyncHandler(async (req: Request, res: Response) => 
   }
   const formatedResponse = await formatResult(results);
 
-  const score  = calculateScore(formatedResponse);
-  res.send(score);
+  // calculate the score of the test
+  const testTypeBaseScore  = calculateScore(formatedResponse);
+
+  // calculate total score of all test
+  const { totalScore, takenScore } = calculateAverageScore(testTypeBaseScore)
+  res.send({takenScore, totalScore, results: testTypeBaseScore});
 });
 
 export { Judge0RunController };
