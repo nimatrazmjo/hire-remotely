@@ -10,8 +10,8 @@ import { ITestCase } from "../interfaces/test/test-case.interface";
 import { asyncHandler } from "../utils/async-handler";
 import { IJudge0Result, IResult, ResultCategory, ResultMessage } from '../interfaces/test/answer.interface';
 import { updateTestByIdController } from './test.controller';
-import { ParallelRequest } from '../services/concurrency-request';
-import { AxiosRequest } from '../services/axios-parallel';
+import { BatchRequest } from '../services/batch-request';
+import { calculateScore } from '../services/score-calculation';
 const TEST_ADVANCE = ['advanced', 'memory', 'performance', 'time'];
 
 
@@ -25,7 +25,7 @@ const getTestById = async (id: string): Promise<ITest> => {
 
 };
 
-type ResponseType = Partial<Record<ResultCategory, IResult[]>>;
+export type ResponseType = Partial<Record<ResultCategory, IResult[]>>;
 
 /**
  * Format the result of test cases to the format of the judge0
@@ -33,6 +33,8 @@ type ResponseType = Partial<Record<ResultCategory, IResult[]>>;
  * @returns
  */
 const formatResult = (result: IJudge0Result[]): ResponseType => {
+  console.log(result,'resulttt');
+
   const finalResult = result.reduce((acc, current) => {
     if (acc[current.testType] === undefined) {
       acc[current.testType] = [];
@@ -43,9 +45,15 @@ const formatResult = (result: IJudge0Result[]): ResponseType => {
       text: current.text,
       input: current.input,
       stdout: current.status.id === 3 ? current.stdout.replace(/(\r\n|\n|\r)/gm, "") : current.stdout, // 3 is success status the response come from judge0 status
-      status: 'success'
+      output: current.expected_output,
+      status: 'success',
+      score: current.score,
     } : {
       text: current.text,
+      score: current.score,
+      output: current.expected_output,
+      stdout: current.status.id === 3 ? current.stdout.replace(/(\r\n|\n|\r)/gm, "") : current.stdout, // 3 is success status the response come from judge0 status
+      input: current.input,
       message: current.status.description as ResultMessage,
     }
 
@@ -56,7 +64,7 @@ const formatResult = (result: IJudge0Result[]): ResponseType => {
      *
      * for more information about judge0 status code please visit https://ce.judge0.com/statuses
      */
-    result.status = current.output !== result.stdout ? 'failure' : current.status.id !== 3 ? 'error' : 'success';
+    result.status = current.expected_output !== result.stdout ? 'failure' : current.status.id !== 3 ? 'error' : 'success';
 
     acc[current.testType].push(result);
     return acc;
@@ -74,7 +82,7 @@ const formatResult = (result: IJudge0Result[]): ResponseType => {
  */
 const runTestCases = async (testCases: ITestCase[], source_code: string, language_id: string) => {
   try {
-    const result = await ParallelRequest(testCases, source_code, language_id);
+    const result = await BatchRequest(testCases, source_code, language_id);
     return result;
 
   } catch (error) {
@@ -99,6 +107,8 @@ const filterTestCases = (testCases: ITestCase[], advance = true): ITestCase[] =>
   }
 }
 
+
+
 /**
  * Main controller to handle the judge0 request and responses
  */
@@ -106,13 +116,15 @@ const Judge0RunController = asyncHandler(async (req: Request, res: Response) => 
   const { language_id, source_code, test_id, submit } = req.body;
   const test = await getTestById(test_id);
   const results = await runTestCases(filterTestCases(test.testCases, submit), source_code, language_id);
+
   if (submit) {
     await updateTestByIdController(test_id, source_code, results);
 
   }
   const formatedResponse = await formatResult(results);
 
-  res.send(formatedResponse);
+  const score  = calculateScore(formatedResponse);
+  res.send(score);
 });
 
 export { Judge0RunController };

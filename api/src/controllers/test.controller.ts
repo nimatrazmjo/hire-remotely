@@ -9,7 +9,7 @@ import Question from "../models/question";
 import Test from "../models/tests";
 import { IResult } from '../interfaces/test/answer.interface';
 
-const findRandomQuestion = async (language: string[]): Promise<IQuestionAttrs[]> => {    
+const findRandomQuestion = async (language: string[]): Promise<IQuestionAttrs[]> => {
     try {
         const questionCount = await Question.countDocuments({"snippets":{$elemMatch:{"language":{ $in: [...language]}}}});
         if (!questionCount) {
@@ -30,7 +30,7 @@ const createTestController = asyncHandler(async (req: Request, res: Response) =>
         throw new BadRequestError('please send language id');
     }
     const questions = await findRandomQuestion(language);
-    
+
     const hash = randomBytes(30).toString('hex');
     const tests = questions.map(q => ({hash, question: q.question, snippets: q.snippets,testCases: q.tests}))
     await Test.insertMany(tests);
@@ -47,11 +47,10 @@ const getTestByHashController = asyncHandler(async (req: Request, res: Response)
     res.send(test);
 });
 
-const updateTestByIdController =  async (id: string, code: string, resut: IResult[]): Promise<{message: string}> => { 
+const updateTestByIdController =  async (id: string, code: string, resut: IResult[]): Promise<{message: string}> => {
     try {
-        
         await Test.updateOne({_id: id}, { $set: { answer:{code, testResult: resut }} });
-        return { message: 'ok' };   
+        return { message: 'ok' };
     } catch (error) {
         throw new BadRequestError(error?.message);
     }
