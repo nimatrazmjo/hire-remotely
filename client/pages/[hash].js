@@ -22,11 +22,14 @@ const Test = () => {
     fetch(`/api/tests/${hash}`)
       .then((res) => res.json())
       .then((data) => {
+
         if (data.docs.length > 0) {
           data.data = data.docs[0];
           data.languages = data.docs[0].snippets.map(snippet => snippet.language); // list all language id to filter the dropdown
+          dispatch(setTest(data));
+        } else {
+          router.push('/') // navigate to main page
         }
-        dispatch(setTest(data));
         setLoading(false);
         NProgress.done();
       })
