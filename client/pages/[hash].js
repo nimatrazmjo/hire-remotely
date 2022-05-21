@@ -8,7 +8,6 @@ import Question from '../components/question/question.component';
 import Answer from '../components/answer/answer.component';
 import { setTest } from '../state/test/test.actions';
 import Score from '../components/score/score.component';
-import ResultTable from '../components/result-table/result-table.component';
 
 const Test = () => {
 
@@ -46,7 +45,7 @@ const Test = () => {
             <Score />
           </div>
         </div>
-        <ResultTable />
+        <Result />
       </div>
       <hr />
 

@@ -73,13 +73,14 @@ const arrangeRequestBody = async (testCases: ITestCase[], source_code: string, l
         source_code: source_code,
         language_id: language_id,
         stdin: tc.input,
-        expected_output: tc.output
+        expected_output: tc.output,
+        time: tc.time
     }));
     return requests;
 };
 const fetchURL = async (tokens) => await axios.request({
     method: 'GET',
-    url: `${process.env.JUDGE0_HOST}/submissions/batch?tokens=${tokens}&base64_encoded=false&fields=stdout,stderr,status_id,language_id,stdin,expected_output,message,status,token`,
+    url: `${process.env.JUDGE0_HOST}/submissions/batch?tokens=${tokens}&base64_encoded=false&fields=stdout,stderr,status_id,language_id,stdin,expected_output,message,status,token,time`,
     headers: {
         'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
         'X-RapidAPI-Key': '7afdf2c5eamshf417da207f1ebb4p18e859jsne31b15c5c7ab'

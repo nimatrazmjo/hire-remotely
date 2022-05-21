@@ -1,32 +1,13 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import ResultTable from './result-table.component';
 
-import { selectResult } from '../../state/result/result.reselector';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import Overview from './overview/overview.component';
-import TestCase from '../test-case/test-case.component';
-
-const Result = ({ results }) => {
-  return (
-    <div>
-      <div className="grid grid-cols-12 grid-rows-1 place-items-start ">
-        <div className="col-span-4">
-          { results && Object.keys(results).map((testCaseType) => (
-            <div className='mb-10'>
-             <TestCase text={testCaseType.toUpperCase()} value={results[testCaseType]} />
-            </div>
-          ))}
-        </div>
+const Result = () => {
+    const { result:{results=[]}={} } = useSelector(state => state.result);
+    return (
         <div>
-          {/* <Overview memory={result.memory} time={result.time} /> */}
+            {results.map((item, index) => <ResultTable key={index} {...item} /> )}
         </div>
-      </div>
-    </div>
-  )
+    )
 }
-
-const mapStateToProps = createStructuredSelector({
-  results: selectResult
-})
-
-export default connect(mapStateToProps)(Result);
+export default Result;

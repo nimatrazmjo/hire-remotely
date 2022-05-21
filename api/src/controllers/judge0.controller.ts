@@ -46,12 +46,14 @@ const formatResult = (result: IJudge0Result[]): ResponseType => {
       output: current.expected_output,
       status: 'success',
       score: current.score,
+      time:current.time
     } : {
       text: current.text,
       score: current.score,
       output: current.expected_output,
       stdout: current.status.id === 3 ? current.stdout.replace(/(\r\n|\n|\r)/gm, "") : current.stdout, // 3 is success status the response come from judge0 status
       input: current.input,
+      time: current.time,
       message: current.status.description as ResultMessage,
     }
 
