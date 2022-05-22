@@ -25,7 +25,7 @@ const ResultTable= ({testType, takenScore, totalScore, results  }) => {
                 </thead>
                 <tbody>
                    {
-                       results.map((result, index) => <ResultTableRow key={index} {...result} />)
+                       results.map((result, index) => <ResultTableRow key={index} index={index} testType={testType}  {...result} />)
                    }
                 </tbody>
             </table>

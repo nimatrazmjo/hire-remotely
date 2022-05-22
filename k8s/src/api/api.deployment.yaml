@@ -16,7 +16,12 @@ spec:
         - name: api
           # image: razmjo/api
           image: us.gcr.io/hiremotely-338114/test-api
---- 
+          env:
+            - name: JUDGE0_HOST
+              value: https://judge0-ce.p.rapidapi.com
+            - name: JUDGE0_KEY
+              value: 7afdf2c5eamshf417da207f1ebb4p18e859jsne31b15c5c7ab
+---
 apiVersion: v1
 kind: Service
 metadata:

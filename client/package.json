@@ -17,6 +17,8 @@
     "@uiw/react-codemirror": "^4.3.3",
     "axios": "^0.24.0",
     "canvasjs": "^1.8.3",
+    "d3-ease": "^3.0.1",
+    "d3-interpolate": "^2.0.1",
     "gh-pages": "^3.2.3",
     "immer": "^9.0.12",
     "next": "latest",
