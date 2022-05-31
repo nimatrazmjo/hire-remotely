@@ -14,7 +14,7 @@ interface TestCaseResultDocument extends IJudge0Result, Document { }
 const testCaseResult = new mongoose.Schema<TestCaseResultDocument>({
   text: String,
   input: String,
-  output: String,
+  expected_output: String,
   testType: String,
   stdout: String,
   time: Number,

@@ -1,7 +1,7 @@
 export interface IJudge0Result {
     text?: string;
     input?: string;
-    output?: string;
+    expected_output?: string;
     testType?: string;
     stdout?: string;
     time?: number;
@@ -21,7 +21,8 @@ export type ResultMessage = "In Queue" | "Accepted" | "Wrong Answer" | "Time Lim
 export interface IResult {
   text: string;
   input: string;
-  stdout: string;
+  stdout: string; // judge0 output
+  output: string; // expected output
   status: ResultStatus;
   message: ResultMessage;
   score?: string;
