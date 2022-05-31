@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   dnsNames:
-    - test.nimatrazmjo.dev
+    - code.hiremotely.com
   secretName: example-app-tls
   issuerRef:
     name: letsencrypt-cluster-issuer

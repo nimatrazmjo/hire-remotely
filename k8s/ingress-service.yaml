@@ -11,10 +11,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - test.nimatrazmjo.dev
+    - code.hiremotely.com
     secretName: example-app-tls
   rules:
-  - host: test.nimatrazmjo.dev #34.138.30.104.nip.io
+  - host: code.hiremotely.com #34.138.30.104.nip.io
     http:
       paths:
       - path: /api/?(.*)
