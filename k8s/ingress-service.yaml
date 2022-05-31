@@ -9,8 +9,12 @@ metadata:
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
+  tls:
+  - hosts:
+    - code.hiremotely.com
+    secretName: example-app-tls
   rules:
-  - host: 34.138.30.104.nip.io
+  - host: code.hiremotely.com #34.138.30.104.nip.io
     http:
       paths:
       - path: /api/?(.*)

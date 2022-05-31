@@ -26,6 +26,13 @@
 - Run `skaffold run -p gcb` to deploy the code into GCP.
 - RUn `skaffold delete -p gcb` to stop and re run the above command to update the live server
 
+# Cert Manager
+
+- Run `kubectl create ns cert-manager`.
+- Run `cd k8s/cert-manager && kubectl apply --validate=false -f cert-manager.yaml`.
+- Run `kubectl -n cert-manager get all` to list all resources of cert-manager.
+
+
 ## 🎈 Usage <a name="usage"></a>
 
 Please make sure that you `docker`,`kubernetes`, `google SDK`, `skaffold` installed to your computer.
