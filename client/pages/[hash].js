@@ -36,7 +36,6 @@ const Test = () => {
   }, [hash])
   return (
     <div className='max-w-7xl mx-auto'>
-      <h1 className='font-medium py-10 text-3xl'>Test Overview</h1>
       <div className=' bg-white rounded-xl shadow-xl px-10 py-20'>
         <div className='flex'>
           <div className='h-full p-5'>
