@@ -8,6 +8,7 @@ import { asyncHandler } from "../utils/async-handler";
 import Question from "../models/question";
 import Test from "../models/tests";
 import { IResult } from '../interfaces/test/answer.interface';
+import { getLanguages } from './language.controller';
 
 const findRandomQuestion = async (language: string[]): Promise<IQuestionAttrs[]> => {
     try {
@@ -44,7 +45,9 @@ const getTestByHashController = asyncHandler(async (req: Request, res: Response)
         throw new BadRequestError('Test not found');
     }
     //TODO check if test timer has been expired
-    res.send(test);
+
+    const languages = getLanguages(test.docs[0]);
+    res.send({test,languages});
 });
 
 const updateTestByIdController =  async (id: string, code: string, resut: IResult[]): Promise<{message: string}> => {
