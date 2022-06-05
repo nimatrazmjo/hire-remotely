@@ -4,7 +4,7 @@ import { calculatePercenTage } from '../../utils/calculate-percentage';
 
 const Score = () => {
 
-    const { result: { takenScore = 0, totalScore = 100 } = {} } = useSelector(state => state.result);
+    const { takenScore = 0, totalScore = 100 } = useSelector(state => state.result);
     const percentage = calculatePercenTage(takenScore, totalScore);
     const color = percentage < 50 ? 'orange' : percentage < 80 ? 'blue' : 'green';
 

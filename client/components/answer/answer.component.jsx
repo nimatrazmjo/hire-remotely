@@ -23,9 +23,11 @@ const Answer = () => {
   const [disable, setDisable] = useState(false);
   const { test } = useSelector(selectTest);
   const languageId = useSelector(selectLanguageId);
+  let language_id;
   let snippet = '';
   let test_id;
   if (languageId?.languageId && test?.data?.snippets) {
+    language_id = languageId.languageId;
     const foundSnippet = test.data.snippets.find(snippet => snippet.language == languageId?.languageId);
     snippet = foundSnippet?.snippet;
     test_id = test.data._id;
