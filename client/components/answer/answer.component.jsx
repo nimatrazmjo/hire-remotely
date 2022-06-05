@@ -16,25 +16,20 @@ import { selectLanguageId } from '../../state/languageid/language_id.reselector'
 
 
 const Answer = () => {
-
-
+  const dispatch = useDispatch();
   const [answer, setAnswer] = useState('');
   const [error, setError] = useState('');
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [disable, setDisable] = useState(false);
   const { test } = useSelector(selectTest);
-  const language_id = useSelector(selectLanguageId);
-  const dispatch = useDispatch();
+  const languageId = useSelector(selectLanguageId);
   let snippet = '';
   let test_id;
-
-  // let docs = test?.docs;
-
-  // if (docs && docs.length > 0) {
-  //   test_id = docs[0]._id;
-  //   const foundSnippet = docs[0].snippets.find(snippet => snippet.language == language_id);
-  //   snippet = foundSnippet?.snippet
-  // }
+  if (languageId?.languageId && test?.data?.snippets) {
+    const foundSnippet = test.data.snippets.find(snippet => snippet.language == languageId?.languageId);
+    snippet = foundSnippet?.snippet;
+    test_id = test.data._id;
+  }
 
   const callApi = async (submit = false) => {
     NProgress.start();
@@ -91,7 +86,7 @@ const Answer = () => {
         <CustomButtonComponent className="px-10 py-3 rounded-lg bg-slate-200 text-black" disabled={disable} onClick={run} type='button'> Compile  </CustomButtonComponent>
         <CustomButtonComponent className="px-10 py-3 rounded-lg bg-main-blue text-white" disabled={disable} type='submit'> Submit result  </CustomButtonComponent>
         {test?.hasNextPage && <CustomButtonComponent className="px-5 py-3 rounded-full bg-emerald-500 text-white" disabled={disable} onClick={reload} type='button'> Next  </CustomButtonComponent>}
-        {!test?.hasNextPage &&  <Link href="/" ><CustomButtonComponent className="px-5 py-3 rounded-lg text-white bg-primary" disabled={disable} type='button'> Go main page  </CustomButtonComponent></Link>}
+        {!test?.hasNextPage && <Link href="/" ><CustomButtonComponent className="px-5 py-3 rounded-lg text-white bg-primary" disabled={disable} type='button'> Go main page  </CustomButtonComponent></Link>}
 
       </div>
 
