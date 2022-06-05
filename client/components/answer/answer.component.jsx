@@ -7,12 +7,12 @@ import Link from 'next/link';
 import CustomSelectComponent from '../custom-select/custom-select.component';
 import CodeMirrorComponent from '../code-mirror/code-mirror.component';
 import CustomButtonComponent from '../custom-button/custom-button.component';
-import { selectLanguageId } from '../../state/language/language.reselector';
 import { selectTest } from '../../state/test/test.reselector';
 import { setResult } from '../../state/result/result.actions';
 import IconButton from '../dialog/icons/Icons.component';
 import ConfirmDialog from '../dialog/dialog.component';
 import Router from 'next/router';
+import { selectLanguageId } from '../../state/languageid/language_id.reselector';
 
 
 const Answer = () => {
@@ -28,13 +28,13 @@ const Answer = () => {
   let snippet = '';
   let test_id;
 
-  let docs = test?.docs;
+  // let docs = test?.docs;
 
-  if (docs && docs.length > 0) {
-    test_id = docs[0]._id;
-    const foundSnippet = docs[0].snippets.find(snippet => snippet.language == language_id);
-    snippet = foundSnippet?.snippet
-  }
+  // if (docs && docs.length > 0) {
+  //   test_id = docs[0]._id;
+  //   const foundSnippet = docs[0].snippets.find(snippet => snippet.language == language_id);
+  //   snippet = foundSnippet?.snippet
+  // }
 
   const callApi = async (submit = false) => {
     NProgress.start();

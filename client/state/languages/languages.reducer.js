@@ -1,11 +1,11 @@
-import { ResultActionType } from "./result.types";
+import { LanguagesActionTypes } from './languages.types';
 
 
 const INITIAL_STATE = [];
 
-const resultReducer = (state = INITIAL_STATE, action) => {
+const languageReducer = (state= INITIAL_STATE,action) => {
     switch(action.type) {
-        case ResultActionType.SET_RESULT:
+        case LanguagesActionTypes.SET_LANGUAGES:
             return {
                 ...state,
                 ...action.payload
@@ -15,4 +15,4 @@ const resultReducer = (state = INITIAL_STATE, action) => {
     }
 }
 
-export default resultReducer
+export default languageReducer;

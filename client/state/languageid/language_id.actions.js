@@ -1,4 +1,4 @@
-import { LanguageActionTypes } from "./language.types";
+import { LanguageActionTypes } from "./language_id.types";
 
 
 export const setLanguageId = id => ({
