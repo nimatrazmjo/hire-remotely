@@ -28,13 +28,13 @@ const Test = () => {
     fetch(`/api/tests/${hash}`)
       .then((res) => res.json())
       .then(({test, languages}) => {
-        if (test.docs.length > 0) {
+        if (test && test.docs.length > 0) {
           setQuestion(test.docs[0].question)
           test.data = test.docs[0];
           dispatch(setTest(test));
           dispatch(setLanguages(languages));
         } else {
-          router.push('/') // navigate to main page
+          setQuestion("test not found")
         }
         setLoading(false);
         NProgress.done();
