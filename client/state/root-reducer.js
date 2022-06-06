@@ -1,12 +1,15 @@
 
 import { combineReducers } from 'redux';
-import languageReducer from './language/language.reducer';
+import languageIdReducer from './languageid/language_id.reducer';
+import languageReducer from './languages/languages.reducer';
+
 import resultReducer from './result/result.reducer';
 import testReducer from './test/test.reducer';
 
 
 const rootReducer =  combineReducers({
-    language: languageReducer,
+    languages: languageReducer,
+    languageId: languageIdReducer,
     test: testReducer,
     result: resultReducer
 });

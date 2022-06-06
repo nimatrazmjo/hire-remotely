@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 
-const setTest = state => state.test;
+const setTest = state => state;
 
 export const selectTest = createSelector(
     [setTest],

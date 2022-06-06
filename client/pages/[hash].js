@@ -11,6 +11,8 @@ import { setTest } from '../state/test/test.actions';
 import Score from '../components/score/score.component';
 import { filterTitle } from '../utils/title';
 
+import { setLanguages } from '../state/languages/languages.actions';
+
 
 const Test = () => {
 
@@ -25,12 +27,14 @@ const Test = () => {
     setLoading(true)
     fetch(`/api/tests/${hash}`)
       .then((res) => res.json())
-      .then((data) => {
-        if (data.docs.length > 0) {
-          setQuestion(data.docs[0].question)
-          data.data = data.docs[0];
-          data.languages = data.docs[0].snippets.map(snippet => snippet.language); // list all language id to filter the dropdown
-          dispatch(setTest(data));
+      .then(({test, languages}) => {
+        if (test && test.docs.length > 0) {
+          setQuestion(test.docs[0].question)
+          test.data = test.docs[0];
+          dispatch(setTest(test));
+          dispatch(setLanguages(languages));
+        } else {
+          setQuestion("test not found")
         }
 
         setLoading(false);

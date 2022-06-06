@@ -7,33 +7,30 @@ import Link from 'next/link';
 import CustomSelectComponent from '../custom-select/custom-select.component';
 import CodeMirrorComponent from '../code-mirror/code-mirror.component';
 import CustomButtonComponent from '../custom-button/custom-button.component';
-import { selectLanguageId } from '../../state/language/language.reselector';
 import { selectTest } from '../../state/test/test.reselector';
 import { setResult } from '../../state/result/result.actions';
 import IconButton from '../dialog/icons/Icons.component';
 import ConfirmDialog from '../dialog/dialog.component';
 import Router from 'next/router';
+import { selectLanguageId } from '../../state/languageid/language_id.reselector';
 
 
 const Answer = () => {
-
-
+  const dispatch = useDispatch();
   const [answer, setAnswer] = useState('');
   const [error, setError] = useState('');
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [disable, setDisable] = useState(false);
   const { test } = useSelector(selectTest);
-  const language_id = useSelector(selectLanguageId);
-  const dispatch = useDispatch();
+  const languageId = useSelector(selectLanguageId);
+  let language_id;
   let snippet = '';
   let test_id;
-
-  let docs = test?.docs;
-
-  if (docs && docs.length > 0) {
-    test_id = docs[0]._id;
-    const foundSnippet = docs[0].snippets.find(snippet => snippet.language == language_id);
-    snippet = foundSnippet?.snippet
+  if (languageId?.languageId && test?.data?.snippets) {
+    language_id = languageId.languageId;
+    const foundSnippet = test.data.snippets.find(snippet => snippet.language == languageId?.languageId);
+    snippet = foundSnippet?.snippet;
+    test_id = test.data._id;
   }
 
   const callApi = async (submit = false) => {
@@ -91,7 +88,7 @@ const Answer = () => {
         <CustomButtonComponent className="px-10 py-3 rounded-lg bg-slate-200 text-black" disabled={disable} onClick={run} type='button'> Compile  </CustomButtonComponent>
         <CustomButtonComponent className="px-10 py-3 rounded-lg bg-main-blue text-white" disabled={disable} type='submit'> Submit result  </CustomButtonComponent>
         {test?.hasNextPage && <CustomButtonComponent className="px-5 py-3 rounded-full bg-emerald-500 text-white" disabled={disable} onClick={reload} type='button'> Next  </CustomButtonComponent>}
-        {!test?.hasNextPage &&  <Link href="/" ><CustomButtonComponent className="px-5 py-3 rounded-lg text-white bg-primary" disabled={disable} type='button'> Go main page  </CustomButtonComponent></Link>}
+        {!test?.hasNextPage && <Link href="/" ><CustomButtonComponent className="px-5 py-3 rounded-lg text-white bg-primary" disabled={disable} type='button'> Go main page  </CustomButtonComponent></Link>}
 
       </div>
 

@@ -11,7 +11,6 @@ import { selectTest } from "../../state/test/test.reselector";
 const Question = () => {
     const { test } = useSelector(selectTest);
     const question = test?.data?.question;
-
     return (
         <article className="prose lg:prose-xl">
             <ReactMarkdown children={question}
