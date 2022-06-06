@@ -31,9 +31,8 @@ const Test = () => {
           data.data = data.docs[0];
           data.languages = data.docs[0].snippets.map(snippet => snippet.language); // list all language id to filter the dropdown
           dispatch(setTest(data));
-        } else {
-          router.push('/') // navigate to main page
         }
+
         setLoading(false);
         NProgress.done();
       })
