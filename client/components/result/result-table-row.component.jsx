@@ -55,7 +55,6 @@ const ResultTableRow = (result) => {
                         <td colSpan={4} className="px-5 shadow-inner py-5 bg-slate-100">
                             <div ref={refs}>
 
-                            Hello Hellllo
                             </div>
                             </td>
                     </tr>

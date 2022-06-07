@@ -14,7 +14,7 @@ const CustomButton = () => {
   return (
     <div className="flex items-center justify-end text-white bg-editor-background px-4 py-2 border-b border-b-gray-600">
       <select onChange={languageId} className="block appearance-none bg-gray-500 py-1.5 px-6 text-sm rounded leading-tight focus:outline-none" id="grid-state">
-        <option value="null">Select an languages</option>
+        <option value="null">Select a language</option>
         { languages && languages.map(lang =><option key={lang.id} value={lang.id}>{lang.name}</option>)}
       </select>
     </div>
