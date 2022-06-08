@@ -3,7 +3,7 @@ import mongoose, { Document, Model, PaginateModel } from 'mongoose';
 import paginate from 'mongoose-paginate-v2';
 import { ITestCase } from 'src/interfaces/test/test-case.interface';
 import { ITest } from 'src/interfaces/test/test.interface';
-import { IJudge0Result, IResult } from '../interfaces/test/answer.interface';
+import { IAnswer, IFormattedResult, IJudge0Result, IResult } from '../interfaces/test/answer.interface';
 
 interface TestCaseDocument extends ITestCase, Document { }
 
@@ -11,7 +11,17 @@ interface TestDocument extends ITest, Document { }
 
 interface TestCaseResultDocument extends IJudge0Result, Document { }
 
-const testCaseResult = new mongoose.Schema<TestCaseResultDocument>({
+interface AnswerDocument extends IAnswer, Document { }
+
+const TestCaseSchema = new mongoose.Schema<TestCaseDocument>({
+  text: String,
+  input: String,
+  output: String,
+  testType: String,
+  score: Number
+});
+
+const testCaseResult = new mongoose.Schema({
   text: String,
   input: String,
   expected_output: String,
@@ -26,15 +36,33 @@ const testCaseResult = new mongoose.Schema<TestCaseResultDocument>({
     description: String
   },
   score: Number
-})
+});
 
-const TestCaseSchema = new mongoose.Schema<TestCaseDocument>({
+const testCaseOutput = new mongoose.Schema({
   text: String,
   input: String,
+  stdout: String,
   output: String,
-  testType: String,
-  score: Number
+  status: String,
+  message: String,
+  totalScore: Number,
+  takenScore: Number,
+  time: Number,
 });
+
+const ResultSchema = new mongoose.Schema<IFormattedResult>({
+  testType: String,
+  totalScore: Number,
+  takenScore: Number,
+  results: [testCaseOutput]
+});
+
+const AnswerSchema = new mongoose.Schema<AnswerDocument>({
+  totalScore: Number,
+  takenScore: Number,
+  code: String,
+  results: [ResultSchema]
+}, { timestamps: true });
 
 
 
@@ -45,16 +73,12 @@ const TestSchema = new mongoose.Schema<TestDocument, PaginateModel<TestDocument>
     required: true
   },
   question: String,
-  snippets:[ {
+  snippets: [{
     language: String,
     snippet: String
   }],
   testCases: [TestCaseSchema],
-  answer: {
-    code : String,
-    testResult: [testCaseResult]
-  },
-  totalScore: Number
+  submissions: [AnswerSchema],
 }, {
   toJSON: {
     transform(doc, ret) {

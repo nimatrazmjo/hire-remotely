@@ -7,6 +7,6 @@ export interface ITest {
     question: string;
     snippets: IQuestionSnippet[]
     testCases: ITestCase[],
-    answer: IAnswer,
+    submissions: IAnswer[],
     totalScore: number
 }

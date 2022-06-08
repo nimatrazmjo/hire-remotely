@@ -7,7 +7,7 @@ import { asyncHandler } from "../utils/async-handler";
 
 import Question from "../models/question";
 import Test from "../models/tests";
-import { IResult } from '../interfaces/test/answer.interface';
+import { IAnswer, IResult } from '../interfaces/test/answer.interface';
 import { getLanguages } from './language.controller';
 
 const findRandomQuestion = async (language: string[]): Promise<IQuestionAttrs[]> => {
@@ -50,9 +50,9 @@ const getTestByHashController = asyncHandler(async (req: Request, res: Response)
     res.send({test,languages});
 });
 
-const updateTestByIdController =  async (id: string, code: string, resut: IResult[]): Promise<{message: string}> => {
+const updateTestByIdController =  async (id: string, answer: IAnswer): Promise<{message: string}> => {
     try {
-        await Test.updateOne({_id: id}, { $set: { answer:{code, testResult: resut }} });
+        await Test.updateOne({_id: id}, { $push: { submissions: answer} });
         return { message: 'ok' };
     } catch (error) {
         throw new BadRequestError(error?.message);
