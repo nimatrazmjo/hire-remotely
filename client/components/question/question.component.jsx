@@ -15,7 +15,7 @@ const Question = () => {
         <article className="prose lg:prose-xl">
             <ReactMarkdown children={question}
                 remarkPlugins={[remarkMath]}
-                // rehypePlugins={[rehypeKatex]}
+                rehypePlugins={[rehypeKatex]}
             />
         </article>
     )

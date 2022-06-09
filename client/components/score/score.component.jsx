@@ -9,7 +9,7 @@ const Score = () => {
     const color = percentage < 50 ? 'orange' : percentage < 80 ? 'blue' : 'green';
 
     return (
-        <div className='bg-gray-200 py-10 px-10 rounded-lg'>
+        <div className='bg-slate-200 py-10 px-10 rounded-lg'>
             <svg viewBox="0 0 36 36" className={`circular-chart ${color}`}>
                 <path className="circle-bg"
                     d="M18 2.0845
