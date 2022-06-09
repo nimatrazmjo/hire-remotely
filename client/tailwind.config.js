@@ -1,7 +1,7 @@
 // tailwind.config.js
 const defaultTheme = require('tailwindcss/defaultTheme')
-
-module.exports = {
+const withMT = require('next-transpile-modules')(["@material-tailwind/react"]);
+module.exports = withMT({
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
@@ -30,4 +30,4 @@ module.exports = {
   plugins: [
     require('@tailwindcss/typography'),
   ],
-}
+})

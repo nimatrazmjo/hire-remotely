@@ -63,6 +63,10 @@ button:disabled {
   stroke: #3c9ee5;
 }
 
+pre {
+  background-color: slat-300;
+}
+
 @keyframes progress {
   0% {
     stroke-dasharray: 0 100;
