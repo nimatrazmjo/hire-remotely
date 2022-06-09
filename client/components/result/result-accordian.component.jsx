@@ -15,16 +15,16 @@ export default function ResultList() {
   return (
     <>
       <Accordion open={open === 1} onClick={() => handleOpen(1)}>
-        <AccordionHeader className='bg-slate-800 text-white px-5'>Result 1</AccordionHeader>
+        <AccordionHeader className='bg-slate-200 text-state-800 px-5'>Result 1</AccordionHeader>
         <AccordionBody>
           We&apos;re not always in the position that we want to be at.
           We&apos;re constantly growing. We&apos;re constantly making mistakes.
-          We&apos;re constantly trying to express ourselves and actualize our
+          We&apos;re constantly trying to express ourselves and actualize our 
           dreams.
         </AccordionBody>
       </Accordion>
       <Accordion className='py-1' open={open === 2} onClick={() => handleOpen(2)}>
-        <AccordionHeader className='bg-slate-800 text-white px-5'>How to use Material Tailwind?</AccordionHeader>
+        <AccordionHeader className='bg-slate-200 text-slate-800 px-5'>How to use Material Tailwind?</AccordionHeader>
         <AccordionBody>
           We&apos;re not always in the position that we want to be at.
           We&apos;re constantly growing. We&apos;re constantly making mistakes.
@@ -33,7 +33,7 @@ export default function ResultList() {
         </AccordionBody>
       </Accordion>
       <Accordion className='py-1' open={open === 3} onClick={() => handleOpen(3)}>
-        <AccordionHeader className='bg-slate-800 text-white px-5'>What can I do with Material Tailwind?</AccordionHeader>
+        <AccordionHeader className='bg-slate-200 text-slate-800 px-5'>What can I do with Material Tailwind?</AccordionHeader>
         <AccordionBody>
           We&apos;re not always in the position that we want to be at.
           We&apos;re constantly growing. We&apos;re constantly making mistakes.

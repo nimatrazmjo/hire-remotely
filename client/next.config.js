@@ -1,4 +1,5 @@
-module.exports = {
+const withMT = require('next-transpile-modules')(["@material-tailwind/react"]);
+module.exports = withMT({
   async rewrites() {
     return [
       {
@@ -10,4 +11,4 @@ module.exports = {
   experimental: {
     outputStandalone: true,
   },
-}
+})

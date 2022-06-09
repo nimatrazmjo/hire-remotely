@@ -62,7 +62,7 @@ const Test = () => {
             </div>
           </div>
           {/* <Result /> */}
-          {/* {<ResultList /> } */}
+          {<ResultList /> }
         </div>
         <hr />
 
