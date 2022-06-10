@@ -16,8 +16,8 @@ export default function ResultList({ index, ...item }) {
 const {results} = item
   return (
     <>
-      <Accordion className='pb-1' open={open === index} onClick={() => handleOpen(index)}>
-        <AccordionHeader className='bg-slate-200 text-state-800 px-5 d-flex'><div className='flex-grow text-left'>Result {index}</div>  <div className='mr-10'>{calculatePercenTage(item.takenScore,item.totalScore)}% score </div></AccordionHeader>
+      <Accordion className='pb-1' open={open === index}>
+        <AccordionHeader onClick={() => handleOpen(index)} className='bg-slate-200 text-state-800 px-5 d-flex text-slate-700'><div className='flex-grow text-left text-sm'>Result {index}</div>  <div className='mr-10 text-sm'>{calculatePercenTage(item.takenScore,item.totalScore)}% score </div></AccordionHeader>
         <AccordionBody className='bg-slate-50'>
            {results.map((result, index) =>  <ResultTable key={index} index={index} {...result} />)}
         </AccordionBody>
