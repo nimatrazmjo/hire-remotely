@@ -8,7 +8,7 @@ const resultReducer = (state = INITIAL_STATE, action) => {
         case ResultActionType.SET_RESULT:
             return {
                 ...state,
-                result: action.payload
+                result:action.payload
             }
         default:
             return state;
