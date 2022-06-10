@@ -13,6 +13,7 @@ import { filterTitle } from '../utils/title';
 
 import { setLanguages } from '../state/languages/languages.actions';
 import ResultList from '../components/result/result-accordian.component';
+import { setResult } from '../state/result/result.actions';
 
 
 const Test = () => {
@@ -30,10 +31,12 @@ const Test = () => {
       .then((res) => res.json())
       .then(({test, languages}) => {
         if (test && test.docs.length > 0) {
-          setQuestion(test.docs[0].question)
+          setQuestion(test.docs[0].question);
+          dispatch(setResult(test.docs[0].submissions));
           test.data = test.docs[0];
           dispatch(setTest(test));
           dispatch(setLanguages(languages));
+
         } else {
           setQuestion("test not found")
         }
@@ -61,8 +64,8 @@ const Test = () => {
               <Score />
             </div>
           </div>
-          {/* <Result /> */}
-          {<ResultList /> }
+          <Result />
+          {/* {<ResultList /> } */}
         </div>
         <hr />
 
