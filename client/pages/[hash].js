@@ -14,6 +14,7 @@ import { filterTitle } from '../utils/title';
 import { setLanguages } from '../state/languages/languages.actions';
 import ResultList from '../components/result/result-accordian.component';
 import { setResult } from '../state/result/result.actions';
+import Compile from '../components/compile/compile.component';
 
 
 const Test = () => {
@@ -64,8 +65,8 @@ const Test = () => {
               <Score />
             </div>
           </div>
+          <Compile />
           <Result />
-          {/* {<ResultList /> } */}
         </div>
         <hr />
 
