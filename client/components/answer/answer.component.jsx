@@ -39,12 +39,12 @@ const Answer = () => {
     setDisable(true);
     setResult('');
     setError('');
-    // dispatch(setResult([]));
+    dispatch(setCompileResult({}));
+
     axios.post('/api/run', { source_code: answer, language_id, test_id, submit }).then(response => {
       if (submit === true) {
         dispatch(setResult(response.data));
       } else {
-        console.log('Compile',response.data)
         dispatch(setCompileResult(response.data));
       }
       setDisable(false);
