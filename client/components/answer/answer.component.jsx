@@ -13,6 +13,7 @@ import IconButton from '../dialog/icons/Icons.component';
 import ConfirmDialog from '../dialog/dialog.component';
 import Router from 'next/router';
 import { selectLanguageId } from '../../state/languageid/language_id.reselector';
+import { setCompileResult } from '../../state/compile-result/compile-result.actions';
 
 
 const Answer = () => {
@@ -38,9 +39,14 @@ const Answer = () => {
     setDisable(true);
     setResult('');
     setError('');
-    dispatch(setResult([]));
+    // dispatch(setResult([]));
     axios.post('/api/run', { source_code: answer, language_id, test_id, submit }).then(response => {
-      dispatch(setResult(response.data));
+      if (submit === true) {
+        dispatch(setResult(response.data));
+      } else {
+        console.log('Compile',response.data)
+        dispatch(setCompileResult(response.data));
+      }
       setDisable(false);
       NProgress.done();
     }).catch(error => {

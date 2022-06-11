@@ -1,10 +1,18 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { selectCompileResult } from '../../state/compile-result/compile-result.reselector';
 import { calculatePercenTage } from '../../utils/calculate-percentage';
 
 const Score = () => {
 
-    const { takenScore = 0, totalScore = 100 } = useSelector(state => state.result);
+    const { compile } = useSelector(selectCompileResult);
+    let takenScore = 0;
+    let totalScore = 100;
+    console.log(compile, 'complile');
+    if (compile) {
+        takenScore = compile.takenScore;
+        totalScore = compile.totalScore;
+    }
     const percentage = calculatePercenTage(takenScore, totalScore);
     const color = percentage < 50 ? 'orange' : percentage < 80 ? 'blue' : 'green';
 

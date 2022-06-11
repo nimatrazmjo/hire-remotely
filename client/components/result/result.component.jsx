@@ -6,12 +6,10 @@ import ResultList from './result-accordian.component';
 
 const Result = () => {
     const {result}  = useSelector(selectResult);
-    if (!result) {
-        return null;
-    }
+
     return (
         <div>
-            {result.map((result, index) => <ResultList key={index} index={index} {...result} />)}
+            {result && result.length && result.reverse().map((result, index) => <ResultList key={index} index={index} {...result} />)}
         </div>
     )
 }
