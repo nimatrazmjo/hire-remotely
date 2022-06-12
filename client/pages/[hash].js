@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import NProgress from "nprogress"
 
 import Result from '../components/result/result.component';
@@ -19,16 +19,21 @@ import Compile from '../components/compile/compile.component';
 
 const Test = () => {
 
-  const router = useRouter()
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { page } = useSelector(state => state.page);
+
   const [isLoading, setLoading] = useState(false);
   const [question, setQuestion] = useState(null);
+
   const { hash } = router.query;
-  const dispatch = useDispatch();
+
   useEffect(() => {
     NProgress.start();
-    if (!hash) return;
+    if (!hash || !page) return;
+
     setLoading(true)
-    fetch(`/api/tests/${hash}`)
+    fetch(`/api/tests/${hash}?page=${page}`)
       .then((res) => res.json())
       .then(({test, languages}) => {
         if (test && test.docs.length > 0) {
@@ -45,7 +50,7 @@ const Test = () => {
         setLoading(false);
         NProgress.done();
       })
-  }, [hash])
+  }, [hash, page])
   return (
     <>
     <Head>

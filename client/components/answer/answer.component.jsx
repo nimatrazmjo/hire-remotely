@@ -14,6 +14,7 @@ import ConfirmDialog from '../dialog/dialog.component';
 import Router from 'next/router';
 import { selectLanguageId } from '../../state/languageid/language_id.reselector';
 import { setCompileResult } from '../../state/compile-result/compile-result.actions';
+import { setPage } from '../../state/page/page.actions';
 
 
 const Answer = () => {
@@ -75,8 +76,9 @@ const Answer = () => {
     await compileOrSubmit(false);
   }
 
-  const reload = async () => {
-    Router.reload();
+  const updatePage = (page) => {
+    console.log(page,'page');
+    dispatch(setPage(page));
   }
   return (
     <form onSubmit={handleSubmit}>
@@ -96,11 +98,11 @@ const Answer = () => {
         />
       </div>
       <div className="py-3 flex justify-end gap-1">
-        {/* {test?.prevPage &&  <Link href={prevPage.toString()}> <a className="prev-page"><IconButton icon="arrow-left" /></a></Link>} */}
+        {test?.prevPage &&  <CustomButtonComponent className="px-10 py-3 rounded-lg bg-slate-200 text-black" disabled={disable} onClick={()=>updatePage(test?.prevPage)} type='button'> Previous  </CustomButtonComponent> }
         <CustomButtonComponent className="px-10 py-3 rounded-lg bg-slate-200 text-black" disabled={disable} onClick={run} type='button'> Compile  </CustomButtonComponent>
-        <CustomButtonComponent className="px-10 py-3 rounded-lg bg-main-blue text-white" disabled={disable} type='submit'> Submit result  </CustomButtonComponent>
-        {/* {test?.nextPage &&  <Link href={nextPage.toString()}> <a className="next-page"><IconButton icon="arrow-right" /></a></Link>} */}
-        {/* {!test?.hasNextPage && <Link href="/" ><CustomButtonComponent className="px-5 py-3 rounded-lg text-white bg-primary" disabled={disable} type='button'> Back to Dashboard  </CustomButtonComponent></Link>} */}
+        <CustomButtonComponent className="px-10 py-3 rounded-lg bg-main-blue text-white" disabled={disable} type='submit'> Submit  </CustomButtonComponent>
+        {test?.nextPage &&  <CustomButtonComponent className="px-10 py-3 rounded-lg bg-slate-200 text-black" disabled={disable} onClick={()=> updatePage(test?.nextPage)} type='button'> next  </CustomButtonComponent>}
+        {!test?.hasNextPage && <Link href="/" ><CustomButtonComponent className="px-5 py-3 rounded-lg text-white bg-primary" disabled={disable} type='button'>Dashboard  </CustomButtonComponent></Link>}
 
       </div>
 

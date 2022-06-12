@@ -8,7 +8,6 @@ const Score = () => {
     const { compile } = useSelector(selectCompileResult);
     let takenScore = 0;
     let totalScore = 100;
-    console.log(compile, 'complile');
     if (compile) {
         takenScore = compile.takenScore;
         totalScore = compile.totalScore;
