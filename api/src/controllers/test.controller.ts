@@ -40,7 +40,9 @@ const createTestController = asyncHandler(async (req: Request, res: Response) =>
 
 const getTestByHashController = asyncHandler(async (req: Request, res: Response) => {
     const { hash } = req.params;
-    const test = await Test.paginate({hash, "answer.code": {$exists: false}},{page:1, limit:1});
+    const page = +req?.query?.page || 1;
+    const limit = 1;
+    const test = await Test.paginate({hash, "answer.code": {$exists: false}},{page, limit});
     if (!test) {
         throw new BadRequestError('Test not found');
     }

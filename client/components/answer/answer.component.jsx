@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { createStructuredSelector } from "reselect";
@@ -33,8 +33,9 @@ const Answer = () => {
     snippet = foundSnippet?.snippet;
     test_id = test.data._id;
   }
-
-  const callApi = async (submit = false) => {
+  const nextPage = test?.nextPage;
+  const prevPage = test?.prevPage;
+  const compileOrSubmit = async (submit = false) => {
     NProgress.start();
     setDisable(true);
     setResult('');
@@ -59,15 +60,19 @@ const Answer = () => {
 
   const handleSubmit = async e => {
     e.preventDefault(0);
-    callApi(true);
+    compileOrSubmit(true);
     // setConfirmOpen(true)
   }
 
 
+  const getQuestion = (page = 1)=>{
+    useEffect(() => {
 
+    }, [test?.page]);
 
+  }
   const run = async () => {
-    await callApi(false);
+    await compileOrSubmit(false);
   }
 
   const reload = async () => {
@@ -91,10 +96,11 @@ const Answer = () => {
         />
       </div>
       <div className="py-3 flex justify-end gap-1">
+        {/* {test?.prevPage &&  <Link href={prevPage.toString()}> <a className="prev-page"><IconButton icon="arrow-left" /></a></Link>} */}
         <CustomButtonComponent className="px-10 py-3 rounded-lg bg-slate-200 text-black" disabled={disable} onClick={run} type='button'> Compile  </CustomButtonComponent>
         <CustomButtonComponent className="px-10 py-3 rounded-lg bg-main-blue text-white" disabled={disable} type='submit'> Submit result  </CustomButtonComponent>
-        {test?.hasNextPage && <CustomButtonComponent className="px-5 py-3 rounded-full bg-emerald-500 text-white" disabled={disable} onClick={reload} type='button'> Next  </CustomButtonComponent>}
-        {!test?.hasNextPage && <Link href="/" ><CustomButtonComponent className="px-5 py-3 rounded-lg text-white bg-primary" disabled={disable} type='button'> Back to Dashboard  </CustomButtonComponent></Link>}
+        {/* {test?.nextPage &&  <Link href={nextPage.toString()}> <a className="next-page"><IconButton icon="arrow-right" /></a></Link>} */}
+        {/* {!test?.hasNextPage && <Link href="/" ><CustomButtonComponent className="px-5 py-3 rounded-lg text-white bg-primary" disabled={disable} type='button'> Back to Dashboard  </CustomButtonComponent></Link>} */}
 
       </div>
 
@@ -103,7 +109,7 @@ const Answer = () => {
           title="Submit result?"
           open={confirmOpen}
           onClose={() => setConfirmOpen(false)}
-          onConfirm={() => callApi(true)}
+          onConfirm={() => compileOrSubmit(true)}
         >
           Once you submit the answer you will not be able to edit it
         </ConfirmDialog> */}
