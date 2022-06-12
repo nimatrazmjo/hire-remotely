@@ -21,6 +21,7 @@ const ResultTable= ({testType, takenScore, totalScore, results  }) => {
                         <th className="text-sm font-medium text-slate-500 px-6 py-4 text-left">Done</th>
                         <th className="text-sm font-medium text-slate-500 px-6 py-4 text-left">Time</th>
                         <th className="text-sm font-medium text-slate-500 px-6 py-4 text-left">Points</th>
+                        <th className="text-sm font-medium text-slate-500 px-6 py-4 text-left"></th>
                     </tr>
                 </thead>
                 <tbody>
