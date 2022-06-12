@@ -22,7 +22,7 @@ const BatchRequest = async (testCases: ITestCase[], source_code: string, languag
         const body = await arrangeRequestBody(testCases, source_code, language_id);
         const { data } = await axios.request({
             method: 'POST',
-            url: `http://35.231.250.3:2538/submissions/batch`,
+            url: `http://35.231.250.3:2358/submissions/batch`,
             headers: {
                 'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
                 'X-RapidAPI-Key': '7afdf2c5eamshf417da207f1ebb4p18e859jsne31b15c5c7ab'
@@ -80,7 +80,7 @@ const arrangeRequestBody = async (testCases: ITestCase[], source_code: string, l
 };
 const fetchURL = async (tokens) => await axios.request({
     method: 'GET',
-    url: `http://35.231.250.3:2538/submissions/batch?tokens=${tokens}&base64_encoded=false&fields=stdout,stderr,status_id,language_id,stdin,expected_output,message,status,token,time`,
+    url: `http://35.231.250.3:2358/submissions/batch?tokens=${tokens}&base64_encoded=false&fields=stdout,stderr,status_id,language_id,stdin,expected_output,message,status,token,time`,
     headers: {
         'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
         'X-RapidAPI-Key': '7afdf2c5eamshf417da207f1ebb4p18e859jsne31b15c5c7ab'
