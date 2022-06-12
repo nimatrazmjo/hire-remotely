@@ -58,22 +58,22 @@ const ResultTableRow = (result) => {
             {
                 expand && (
                     <tr id={`${testType}-${index}-expland`}>
-                        <td colSpan={5} className="px-5 py-5 bg-slate-100">
+                        <td colSpan={5} className="px-5 py-5 bg-zinc-100">
                             <div ref={refs}>
-                                <table>
+                                <table className='min-w-full '>
                                     <tbody>
-                                        <tr>
+                                        <tr className='flex'>
                                             <th className='pr-10 text-left'>Input:</th>
                                             <td>{input}</td>
                                         </tr>
-                                        <tr>
+                                        <tr className='flex'>
                                             <th className='pr-10 text-left'>Expected Output:</th>
                                             <td>{output}</td>
                                         </tr>
 
-                                        <tr className={status === 'success' ? 'text-teal-400': 'text-red-600'}>
+                                        <tr className='flex'>
                                             <th className='pr-10 text-left'>Given Output:</th>
-                                            <td>{stdout}</td>
+                                            <td className={status === 'success' ? 'text-teal-400': 'text-red-600'}>{stdout}</td>
                                         </tr>
 
                                     </tbody>
