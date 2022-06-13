@@ -36,7 +36,7 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <div className='min-h-full flex flex-col bg-light-blue2 '>
       <Provider store={store}>
-        {/* <TopNavComponent /> */}
+        <TopNavComponent />
         <Component {...pageProps} />
         </Provider>
     </div>
