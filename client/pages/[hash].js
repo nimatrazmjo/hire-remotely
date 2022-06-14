@@ -15,6 +15,7 @@ import { setLanguages } from '../state/languages/languages.actions';
 import ResultList from '../components/result/result-accordian.component';
 import { setResult } from '../state/result/result.actions';
 import Compile from '../components/compile/compile.component';
+import { setCompileResult } from '../state/compile-result/compile-result.actions';
 
 
 const Test = () => {
@@ -35,10 +36,16 @@ const Test = () => {
     setLoading(true)
     fetch(`/api/tests/${hash}?page=${page}`)
       .then((res) => res.json())
-      .then(({test, languages}) => {
+      .then(({ test, languages }) => {
         if (test && test.docs.length > 0) {
           setQuestion(test.docs[0].question);
-          dispatch(setResult(test.docs[0].submissions));
+          const { submissions } = test.docs[0];
+          if (submissions && submissions.length > 0) {
+            dispatch(setCompileResult(submissions[0]));
+            if (submissions.length >= 2) {
+              dispatch(setResult(test.docs[0].submissions.slice(1)));
+            }
+          }
           test.data = test.docs[0];
           dispatch(setTest(test));
           dispatch(setLanguages(languages));
@@ -53,11 +60,11 @@ const Test = () => {
   }, [hash, page])
   return (
     <>
-    <Head>
-      <title>{filterTitle(question).title}</title>
-      <meta name="description" content={filterTitle(question).description} />
-      <meta name="title" content={filterTitle(question).title} />
-    </Head>
+      <Head>
+        <title>{filterTitle(question).title}</title>
+        <meta name="description" content={filterTitle(question).description} />
+        <meta name="title" content={filterTitle(question).title} />
+      </Head>
       <div className='max-w-7xl mx-auto'>
         <div className=' bg-white rounded-xl shadow-xl px-10 py-20'>
           <div className='flex'>
