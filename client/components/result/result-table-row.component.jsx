@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import { slideDown, slideUp } from '../../utils/anim';
 
 const ResultTableRow = (result) => {
-    const { input, output, score, status, stdout, text, time, index, testType } = result;
+    const { input, output, totalScore, status, stdout, text, time, index, testType } = result;
     const [expand, setExpand] = useState(false);
-    let takenScore = score;
+    let takenScore = totalScore;
     let refs = React.createRef();
 
     if (status !== 'success') {
@@ -13,11 +13,6 @@ const ResultTableRow = (result) => {
     }
     function expandRow() {
         setExpand(!expand);
-        // if (refs.expanderBody) {
-        //     slideDown(refs.expanderBody);
-        // } else {
-        //     slideUp(refs.expanderBody);
-        // }
     }
     return (
         <>
@@ -47,7 +42,7 @@ const ResultTableRow = (result) => {
                         {/* <div className="more text-xs text-gray-400">12 more</div> */}
                     </div>
                 </td>
-                <td scope="col" className="text-sm font-normal text-gray-900 px-6 py-4 text-left">{takenScore}/{score} points</td>
+                <td scope="col" className="text-sm font-normal text-gray-900 px-6 py-4 text-left">{takenScore}/{totalScore} points</td>
                 <td>
                     <span className='w-5 h-5'>
                         {!expand && <svg width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.7071 1.70711C16.0976 1.31658 16.0976 0.683417 15.7071 0.292893C15.3166 -0.0976311 14.6834 -0.0976311 14.2929 0.292893L15.7071 1.70711ZM8 8L7.29289 8.70711C7.48043 8.89464 7.73478 9 8 9C8.26522 9 8.51957 8.89464 8.70711 8.70711L8 8ZM1.70711 0.292893C1.31658 -0.0976311 0.683417 -0.0976311 0.292893 0.292893C-0.0976311 0.683417 -0.0976311 1.31658 0.292893 1.70711L1.70711 0.292893ZM14.2929 0.292893L7.29289 7.29289L8.70711 8.70711L15.7071 1.70711L14.2929 0.292893ZM8.70711 7.29289L1.70711 0.292893L0.292893 1.70711L7.29289 8.70711L8.70711 7.29289Z" fill="#171C45" /></svg>}
