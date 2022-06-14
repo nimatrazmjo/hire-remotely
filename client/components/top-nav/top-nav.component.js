@@ -5,7 +5,7 @@ function TopNavComponent() {
   return (
     <div className=' bg-primary'>
 
-      <header class=" max-w-7xl mx-auto flex items-center text-white py-2 content-between ">
+      <header class=" max-w-7xl mx-auto flex items-center text-white py-4 content-between ">
         <div class="logo">
           <Link href="/">
           <Image width={200} height={50} src="/icons/logo.svg" alt="logo" />
