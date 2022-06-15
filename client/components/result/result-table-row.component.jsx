@@ -57,16 +57,16 @@ const ResultTableRow = (result) => {
                             <div ref={refs}>
                                 <table className='min-w-full '>
                                     <tbody>
-                                        <tr className='flex'>
-                                            <th className='pr-10 text-left'>Input:</th>
+                                        <tr>
+                                            <th className='pr-10 text-left w-1/5'>Input:</th>
                                             <td>{input}</td>
                                         </tr>
-                                        <tr className='flex'>
+                                        <tr>
                                             <th className='pr-10 text-left'>Expected Output:</th>
                                             <td>{output}</td>
                                         </tr>
 
-                                        <tr className='flex'>
+                                        <tr>
                                             <th className='pr-10 text-left'>Given Output:</th>
                                             <td className={status === 'success' ? 'text-teal-400': 'text-red-600'}>{stdout}</td>
                                         </tr>
