@@ -44,7 +44,10 @@ const Answer = () => {
 
     axios.post('/api/run', { source_code: answer, language_id, test_id, submit }).then(response => {
       if (submit === true) {
-        dispatch(setResult(response.data));
+        dispatch(setCompileResult(response.data[response.data.length - 1]));
+        if (response.data.length > 1) {
+          dispatch(setResult(response.data.slice(0,-1)));
+        }
       } else {
         dispatch(setCompileResult(response.data));
       }

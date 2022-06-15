@@ -30,9 +30,12 @@ const Test = () => {
   const { hash } = router.query;
 
   useEffect(() => {
+    dispatch(setResult([]));
+    dispatch(setCompileResult({}));
+  }, [dispatch, hash]);
+  useEffect(() => {
     NProgress.start();
     if (!hash || !page) return;
-
     setLoading(true)
     fetch(`/api/tests/${hash}?page=${page}`)
       .then((res) => res.json())
@@ -41,10 +44,9 @@ const Test = () => {
           setQuestion(test.docs[0].question);
           const { submissions } = test.docs[0];
           if (submissions && submissions.length > 0) {
-            dispatch(setCompileResult(submissions[0]));
-            if (submissions.length >= 2) {
-              console.log(test.docs[0].submissions.slice(1),'missing');
-              dispatch(setResult(test.docs[0].submissions.slice(1)));
+            dispatch(setCompileResult(submissions[submissions.length-1]));
+            if (submissions.length >1) {
+              dispatch(setResult(test.docs[0].submissions.slice(0,-1)));
             }
           }
           test.data = test.docs[0];
