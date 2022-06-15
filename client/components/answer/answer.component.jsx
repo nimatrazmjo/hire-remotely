@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { createStructuredSelector } from "reselect";
 import NProgress from 'nprogress';
 import Link from 'next/link';
 import CustomSelectComponent from '../custom-select/custom-select.component';
@@ -11,7 +10,7 @@ import { selectTest } from '../../state/test/test.reselector';
 import { setResult } from '../../state/result/result.actions';
 import IconButton from '../dialog/icons/Icons.component';
 import ConfirmDialog from '../dialog/dialog.component';
-import Router from 'next/router';
+
 import { selectLanguageId } from '../../state/languageid/language_id.reselector';
 import { setCompileResult } from '../../state/compile-result/compile-result.actions';
 import { setPage } from '../../state/page/page.actions';

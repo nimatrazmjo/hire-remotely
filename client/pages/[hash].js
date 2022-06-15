@@ -43,6 +43,7 @@ const Test = () => {
           if (submissions && submissions.length > 0) {
             dispatch(setCompileResult(submissions[0]));
             if (submissions.length >= 2) {
+              console.log(test.docs[0].submissions.slice(1),'missing');
               dispatch(setResult(test.docs[0].submissions.slice(1)));
             }
           }

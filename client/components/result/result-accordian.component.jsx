@@ -12,7 +12,6 @@ export default function ResultList({ index, ...item }) {
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
   };
-
   const { results } = item;
   if (!results) {
     return null;

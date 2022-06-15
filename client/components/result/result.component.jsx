@@ -10,12 +10,12 @@ const Result = () => {
     if (!result || result.length === 0) {
         return null;
     }
-    if (result.length > 1) {
-        return (
-            <div>
-                {result && result.length && result.reverse().map((result, index) => <ResultList key={index} expand={false} index={index} {...result} />)}
-            </div>
-        )
-    }
+
+
+    return (
+        <div>
+            {result && result.length && result.reverse().map((result, index) => <ResultList key={index} expand={false} index={index} {...result} />)}
+        </div>
+    )
 }
 export default Result;
