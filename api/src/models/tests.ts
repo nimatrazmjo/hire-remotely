@@ -54,6 +54,7 @@ const ResultSchema = new mongoose.Schema<IFormattedResult>({
   testType: String,
   totalScore: Number,
   takenScore: Number,
+  languageId: String,
   results: [testCaseOutput]
 });
 
@@ -61,7 +62,8 @@ const AnswerSchema = new mongoose.Schema<AnswerDocument>({
   totalScore: Number,
   takenScore: Number,
   code: String,
-  results: [ResultSchema]
+  results: [ResultSchema],
+  languageId: String
 }, { timestamps: true });
 
 

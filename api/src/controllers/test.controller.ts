@@ -52,7 +52,7 @@ const getTestByHashController = asyncHandler(async (req: Request, res: Response)
     res.send({test,languages});
 });
 
-const updateTestByIdController =  async (id: string, answer: IAnswer): Promise<IAnswer[]> => {
+const updateTestByIdController = async (id: string, answer: IAnswer): Promise<IAnswer[]> => {
     try {
         const updatedTest = await Test.findOneAndUpdate({_id: id}, { $push: { submissions: answer} },{returnDocument: 'after'});
         return updatedTest.submissions;
