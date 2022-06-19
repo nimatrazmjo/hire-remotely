@@ -31,15 +31,17 @@ export interface IResult {
 }
 
 export interface IFormattedResult {
-    testType: string;
-    totalScore: number;
-    takenScore: number;
-    results: IResult[];
+  testType: string;
+  totalScore: number;
+  takenScore: number;
+  languageId: string;
+  results: IResult[];
 }
 
 export interface IAnswer {
   totalScore: number;
   takenScore: number;
   code: string;
+  languageId: string;
   results: IFormattedResult[];
 }

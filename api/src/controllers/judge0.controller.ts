@@ -123,7 +123,7 @@ const Judge0RunController = asyncHandler(async (req: Request, res: Response) => 
   let testTypeBaseScore: any  = calculateScore(formatedResponse);
   // calculate total score of all test
   const { totalScore, takenScore } = calculateAverageScore(testTypeBaseScore)
-  const answer = { totalScore, takenScore, code: source_code, results:testTypeBaseScore };
+  const answer = { totalScore, takenScore, code: source_code, languageId: language_id, results:testTypeBaseScore };
   testTypeBaseScore = answer;
   if (submit) {
     testTypeBaseScore = await updateTestByIdController(test_id, answer);
