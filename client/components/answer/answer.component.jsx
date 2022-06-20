@@ -92,7 +92,6 @@ const Answer = () => {
       <div className='mb-3'>
         <CodeMirrorComponent
           value={snippet}
-          height="400px"
           theme="dark"
           placeholeer="Please write your answer here"
           autoFocus={true}
