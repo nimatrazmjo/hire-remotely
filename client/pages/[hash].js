@@ -32,8 +32,6 @@ const Test = () => {
   useEffect(() => {
     dispatch(setResult([]));
     dispatch(setCompileResult({}));
-  }, [dispatch, hash]);
-  useEffect(() => {
     NProgress.start();
     if (!hash || !page) return;
     setLoading(true)

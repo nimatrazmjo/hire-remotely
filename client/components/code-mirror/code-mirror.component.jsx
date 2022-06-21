@@ -3,7 +3,7 @@ import { javascript } from '@codemirror/lang-javascript';
 import { EditorView } from "@codemirror/view";
 export default ({ changeHandler, ...otherProps }) => (
     <CodeMirror
-      maxWidth='100%'
+      minWidth='35rem'
       onChange={changeHandler}
       {...otherProps}
       extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
