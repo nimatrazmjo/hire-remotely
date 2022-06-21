@@ -68,7 +68,7 @@ const Test = () => {
       </Head>
       <div className='max-w-7xl mx-auto'>
         <div className=' bg-white rounded-xl shadow-xl px-10 py-20'>
-          <div className='grid xl:grid-cols-2 gap-6'>
+          <div className='grid lg:grid-cols-2 gap-6'>
             <div>
               <Question />
             </div>
