@@ -68,11 +68,11 @@ const Test = () => {
       </Head>
       <div className='max-w-7xl mx-auto'>
         <div className=' bg-white rounded-xl shadow-xl px-10 py-20'>
-          <div className='flex'>
-            <div className='h-full p-5'>
+          <div className='grid xl:grid-cols-2 gap-6'>
+            <div>
               <Question />
             </div>
-            <div className='h-full p-4 flex-shrink'>
+            <div className='flex-shrink'>
               <Answer />
               <hr />
               <Score />
