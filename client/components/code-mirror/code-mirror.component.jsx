@@ -8,8 +8,8 @@ import { selectLanguageId } from '../../state/languageid/language_id.reselector'
 export default ({ changeHandler, ...otherProps }) => {
   let extension = javascript({ jsx: true });
 
-  const { languageId } = useSelector(selectLanguageId);
-  if (languageId === '68') {
+  const languageId = useSelector(selectLanguageId);
+  if (languageId && languageId.languageId === '68') {
 
     extension = php({baseLanguage:phpLanguage});
   }
