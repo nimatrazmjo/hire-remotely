@@ -7,7 +7,7 @@ import { asyncHandler } from "../utils/async-handler";
 
 import Question from "../models/question";
 import Test from "../models/tests";
-import { IResult } from '../interfaces/test/answer.interface';
+import { IAnswer, IResult } from '../interfaces/test/answer.interface';
 import { getLanguages } from './language.controller';
 
 const findRandomQuestion = async (language: string[]): Promise<IQuestionAttrs[]> => {
@@ -40,7 +40,9 @@ const createTestController = asyncHandler(async (req: Request, res: Response) =>
 
 const getTestByHashController = asyncHandler(async (req: Request, res: Response) => {
     const { hash } = req.params;
-    const test = await Test.paginate({hash, "answer.code": {$exists: false}},{page:1, limit:1});
+    const page = +req?.query?.page || 1;
+    const limit = 1;
+    const test = await Test.paginate({hash, "answer.code": {$exists: false}},{page, limit});
     if (!test) {
         throw new BadRequestError('Test not found');
     }
@@ -50,10 +52,10 @@ const getTestByHashController = asyncHandler(async (req: Request, res: Response)
     res.send({test,languages});
 });
 
-const updateTestByIdController =  async (id: string, code: string, resut: IResult[]): Promise<{message: string}> => {
+const updateTestByIdController = async (id: string, answer: IAnswer): Promise<IAnswer[]> => {
     try {
-        await Test.updateOne({_id: id}, { $set: { answer:{code, testResult: resut }} });
-        return { message: 'ok' };
+        const updatedTest = await Test.findOneAndUpdate({_id: id}, { $push: { submissions: answer} },{returnDocument: 'after'});
+        return updatedTest.submissions;
     } catch (error) {
         throw new BadRequestError(error?.message);
     }

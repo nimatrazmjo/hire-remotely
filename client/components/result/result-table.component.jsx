@@ -6,7 +6,7 @@ import { calculatePercenTage } from '../../utils/calculate-percentage';
 
 const ResultTable= ({testType, takenScore, totalScore, results  }) => {
     return (
-        <div className="mx-10  my-10 overflow-hidden">
+        <div className="mx-10 py-10 overflow-hidden">
             <div className="my-5 min-w-full flex justify-between">
                 <div className="font-extrabold">{testType.charAt(0).toUpperCase() + testType.slice(1)} Test</div>
                 <div className="flex">
@@ -21,6 +21,7 @@ const ResultTable= ({testType, takenScore, totalScore, results  }) => {
                         <th className="text-sm font-medium text-slate-500 px-6 py-4 text-left">Done</th>
                         <th className="text-sm font-medium text-slate-500 px-6 py-4 text-left">Time</th>
                         <th className="text-sm font-medium text-slate-500 px-6 py-4 text-left">Points</th>
+                        <th className="text-sm font-medium text-slate-500 px-6 py-4 text-left"></th>
                     </tr>
                 </thead>
                 <tbody>

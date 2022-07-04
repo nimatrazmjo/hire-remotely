@@ -1,7 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { createStructuredSelector } from "reselect";
 import NProgress from 'nprogress';
 import Link from 'next/link';
 import CustomSelectComponent from '../custom-select/custom-select.component';
@@ -11,8 +10,10 @@ import { selectTest } from '../../state/test/test.reselector';
 import { setResult } from '../../state/result/result.actions';
 import IconButton from '../dialog/icons/Icons.component';
 import ConfirmDialog from '../dialog/dialog.component';
-import Router from 'next/router';
+
 import { selectLanguageId } from '../../state/languageid/language_id.reselector';
+import { setCompileResult } from '../../state/compile-result/compile-result.actions';
+import { setPage } from '../../state/page/page.actions';
 
 
 const Answer = () => {
@@ -32,15 +33,24 @@ const Answer = () => {
     snippet = foundSnippet?.snippet;
     test_id = test.data._id;
   }
-
-  const callApi = async (submit = false) => {
+  const nextPage = test?.nextPage;
+  const prevPage = test?.prevPage;
+  const compileOrSubmit = async (submit = false) => {
     NProgress.start();
     setDisable(true);
     setResult('');
     setError('');
-    dispatch(setResult([]));
+    dispatch(setCompileResult({}));
+
     axios.post('/api/run', { source_code: answer, language_id, test_id, submit }).then(response => {
-      dispatch(setResult(response.data));
+      if (submit === true) {
+        dispatch(setCompileResult(response.data[response.data.length - 1]));
+        if (response.data.length > 1) {
+          dispatch(setResult(response.data.slice(0,-1)));
+        }
+      } else {
+        dispatch(setCompileResult(response.data));
+      }
       setDisable(false);
       NProgress.done();
     }).catch(error => {
@@ -53,19 +63,24 @@ const Answer = () => {
 
   const handleSubmit = async e => {
     e.preventDefault(0);
-    callApi(true);
+    compileOrSubmit(true);
     // setConfirmOpen(true)
   }
 
 
+  const getQuestion = (page = 1)=>{
+    useEffect(() => {
 
+    }, [test?.page]);
 
+  }
   const run = async () => {
-    await callApi(false);
+    await compileOrSubmit(false);
   }
 
-  const reload = async () => {
-    Router.reload();
+  const updatePage = (page) => {
+    console.log(page,'page');
+    dispatch(setPage(page));
   }
   return (
     <form onSubmit={handleSubmit}>
@@ -77,7 +92,6 @@ const Answer = () => {
       <div className='mb-3'>
         <CodeMirrorComponent
           value={snippet}
-          height="400px"
           theme="dark"
           placeholeer="Please write your answer here"
           autoFocus={true}
@@ -85,10 +99,11 @@ const Answer = () => {
         />
       </div>
       <div className="py-3 flex justify-end gap-1">
+        {test?.prevPage &&  <CustomButtonComponent className="px-10 py-3 rounded-lg bg-slate-200 text-black" disabled={disable} onClick={()=>updatePage(test?.prevPage)} type='button'> Previous  </CustomButtonComponent> }
         <CustomButtonComponent className="px-10 py-3 rounded-lg bg-slate-200 text-black" disabled={disable} onClick={run} type='button'> Compile  </CustomButtonComponent>
-        <CustomButtonComponent className="px-10 py-3 rounded-lg bg-main-blue text-white" disabled={disable} type='submit'> Submit result  </CustomButtonComponent>
-        {test?.hasNextPage && <CustomButtonComponent className="px-5 py-3 rounded-full bg-emerald-500 text-white" disabled={disable} onClick={reload} type='button'> Next  </CustomButtonComponent>}
-        {!test?.hasNextPage && <Link href="/" ><CustomButtonComponent className="px-5 py-3 rounded-lg text-white bg-primary" disabled={disable} type='button'> Back to Dashboard  </CustomButtonComponent></Link>}
+        <CustomButtonComponent className="px-10 py-3 rounded-lg bg-main-blue text-white" disabled={disable} type='submit'> Submit  </CustomButtonComponent>
+        {test?.nextPage &&  <CustomButtonComponent className="px-10 py-3 rounded-lg bg-slate-200 text-black" disabled={disable} onClick={()=> updatePage(test?.nextPage)} type='button'> next  </CustomButtonComponent>}
+        {!test?.hasNextPage && <Link href="/" ><CustomButtonComponent className="px-5 py-3 rounded-lg text-white bg-primary" disabled={disable} type='button'>Dashboard  </CustomButtonComponent></Link>}
 
       </div>
 
@@ -97,7 +112,7 @@ const Answer = () => {
           title="Submit result?"
           open={confirmOpen}
           onClose={() => setConfirmOpen(false)}
-          onConfirm={() => callApi(true)}
+          onConfirm={() => compileOrSubmit(true)}
         >
           Once you submit the answer you will not be able to edit it
         </ConfirmDialog> */}

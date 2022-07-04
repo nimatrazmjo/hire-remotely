@@ -1,12 +1,20 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import ResultTable from './result-table.component';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCompileResult } from '../../state/compile-result/compile-result.actions';
+import { selectResult } from '../../state/result/result.reselector';
+
+import ResultList from './result-accordian.component';
 
 const Result = () => {
-    const { results=[] } = useSelector(state => state.result);
+    const { result } = useSelector(selectResult);
+    if (!result || result.length === 0) {
+        return null;
+    }
+
+
     return (
         <div>
-            {results && results.map((item, index) => <ResultTable key={index} {...item} /> )}
+            {result && result.length && result.reverse().map((result, index) => <ResultList key={index} expand={false} index={index} {...result} />)}
         </div>
     )
 }

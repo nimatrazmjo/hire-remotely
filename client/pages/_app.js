@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { useEffect } from 'react';
 import NProgress from "nprogress"
 import Router from "next/router";
+import Head from 'next/head';
 
 
 import { store, wrapper } from '../state/store';
@@ -34,12 +35,18 @@ const MyApp = ({ Component, pageProps }) => {
 
 
   return (
-    <div className='min-h-full flex flex-col bg-light-blue2 '>
+    <>
+      <Head>
+      <link rel="icon" type="image/png" sizes="16x16" href="https://www.hiremotely.com/build/static/favicon-32x32.png" />
+      </Head>
+      <div className='min-h-full flex flex-col bg-light-blue2 '>
       <Provider store={store}>
-        {/* <TopNavComponent /> */}
+        <TopNavComponent />
         <Component {...pageProps} />
         </Provider>
     </div>
+    </>
+    
   )
 }
 
