@@ -54,7 +54,7 @@ function TopNavComponent() {
             </Link>
           </div>
           <hr className='border-light-blue my-4 border-solid border-1 w-full lg:hidden' />
-          <div className="flex lg:items-center flex-col lg:flex-row md:justify-start">
+          <div className="flex lg:items-center flex-col lg:flex-row md:items-start">
             <Link href="https://www.hiremotely.com/apply-as-freelancer">
               <a className="text-white mx-4 my-2 font-bold text-sm" target="_blank">Apply as a Developer</a>
             </Link>
