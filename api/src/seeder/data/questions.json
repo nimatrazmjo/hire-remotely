@@ -55,27 +55,6 @@
         "score": 10
       },
       {
-        "text": "Basic Correctness Test 4",
-        "testType": "basic",
-        "input": "abc",
-        "output": "Not a Palindrome!",
-        "score": 10
-      },
-      {
-        "text": "Basic Correctness Test 5",
-        "testType": "basic",
-        "input": "",
-        "output": "Palindrome!",
-        "score": 5
-      },
-      {
-        "text": "Basic Correctness Test 6",
-        "testType": "basic",
-        "input": "a",
-        "output": "Palindrome!",
-        "score": 5
-      },
-      {
         "text": "Advanced Correctness Test 1",
         "testType": "advanced",
         "input": "redder",
@@ -86,20 +65,6 @@
         "text": "Advanced Correctness Test 2",
         "testType": "advanced",
         "input": "renter",
-        "output": "Not a Palindrome!",
-        "score": 10
-      },
-      {
-        "text": "Advanced Correctness Test 3",
-        "testType": "advanced",
-        "input": "racecar",
-        "output": "Palindrome!",
-        "score": 10
-      },
-      {
-        "text": "Advanced Correctness Test 4",
-        "testType": "advanced",
-        "input": "banana",
         "output": "Not a Palindrome!",
         "score": 10
       },
