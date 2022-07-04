@@ -103,7 +103,7 @@ const Answer = () => {
         <CustomButtonComponent className="px-10 py-3 rounded-lg bg-slate-200 text-black" disabled={disable} onClick={run} type='button'> Compile  </CustomButtonComponent>
         <CustomButtonComponent className="px-10 py-3 rounded-lg bg-main-blue text-white" disabled={disable} type='submit'> Submit  </CustomButtonComponent>
         {test?.nextPage &&  <CustomButtonComponent className="px-10 py-3 rounded-lg bg-slate-200 text-black" disabled={disable} onClick={()=> updatePage(test?.nextPage)} type='button'> next  </CustomButtonComponent>}
-        {!test?.hasNextPage && <Link href="/" ><CustomButtonComponent className="px-5 py-3 rounded-lg text-white bg-primary" disabled={disable} type='button'>Dashboard  </CustomButtonComponent></Link>}
+        
 
       </div>
 
