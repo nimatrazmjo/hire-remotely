@@ -62,15 +62,13 @@ const ResultTableRow = (result) => {
                                             <td>{input}</td>
                                         </tr>
                                         <tr>
+                                            <th className='pr-10 text-left'>Output:</th>
+                                            <td className={status === 'success' ? 'text-teal-400': 'text-red-600'}>{stdout}</td>
+                                        </tr>
+                                        <tr>
                                             <th className='pr-10 text-left'>Expected Output:</th>
                                             <td>{output}</td>
                                         </tr>
-
-                                        <tr>
-                                            <th className='pr-10 text-left'>Given Output:</th>
-                                            <td className={status === 'success' ? 'text-teal-400': 'text-red-600'}>{stdout}</td>
-                                        </tr>
-
                                     </tbody>
                                 </table>
                             </div>
