@@ -36,21 +36,21 @@ function TopNavComponent() {
           }   w-full lg:inline-flex lg:flex-grow lg:w-auto`}>
           <div className='lg:inline-flex lg:flex-row lg:mr-auto lg:w-auto lg:ml-6 w-full lg:items-center items-start  flex flex-col lg:h-auto'>
             <Link href="https://www.hiremotely.com/top-developers" passHref>
-              <a className="text-white my-2 mx-4 font-bold text-sm" target="_blank">Developers</a>
+              <a className="text-main-gray my-2 mx-4 font-bold text-sm" target="_blank">Developers</a>
             </Link>
             <Link href="https://www.hiremotely.com/freelance-cto">
-              <a className="text-white my-2 mx-4 font-bold text-sm" target="_blank">CTOs</a>
+              <a className="text-main-gray my-2 mx-4 font-bold text-sm" target="_blank">CTOs</a>
             </Link>
             <Link href="https://www.hiremotely.com/freelance-recruiters">
-              <a className="text-white my-2 mx-4 font-bold text-sm" target="_blank">IT Recruiters</a>
+              <a className="text-main-gray my-2 mx-4 font-bold text-sm" target="_blank">IT Recruiters</a>
             </Link>
 
             <Link href="https://www.hiremotely.com/why-hiremotely">
-              <a className="text-white my-2 mx-4 font-bold text-sm" target="_blank">WHy Hiremotely</a>
+              <a className="text-main-gray my-2 mx-4 font-bold text-sm" target="_blank">WHy Hiremotely</a>
             </Link>
 
             <Link href="https://www.hiremotely.com/customer-reviews">
-              <a className="text-white my-2 mx-4 font-bold text-sm" target="_blank">Reviews</a>
+              <a className="text-main-gray my-2 mx-4 font-bold text-sm" target="_blank">Reviews</a>
             </Link>
           </div>
           <hr className='border-light-blue my-4 border-solid border-1 w-full lg:hidden' />
