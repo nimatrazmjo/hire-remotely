@@ -11,10 +11,10 @@ module.exports = {
       fontFamily: {
         sans: ['Proxima-Nova', ...defaultTheme.fontFamily.sans]
       },
-      screen: {
+      screens: {
         'sm': '640px',
         'md': '768px',
-        'lg': '1030px',
+        'lg': '1140px',
         'xl': '1280px',
         '2xl': '1536px'
       },
