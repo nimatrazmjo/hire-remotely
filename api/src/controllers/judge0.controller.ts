@@ -45,11 +45,11 @@ const formatResult = (result: IJudge0Result[]): ResponseType => {
       stdout: current.status.id === 3 ? current.stdout.replace(/(\r\n|\n|\r)/gm, "") : current.stdout, // 3 is success status the response come from judge0 status
       output: current.expected_output,
       status: 'success',
-      score: current.score,
+      totalScore: +current.score,
       time:current.time
     } : {
       text: current.text,
-      score: current.score,
+      totalScore: +current.score,
       output: current.expected_output,
       stdout: current.status.id === 3 ? current.stdout.replace(/(\r\n|\n|\r)/gm, "") : current.stdout, // 3 is success status the response come from judge0 status
       input: current.input,
@@ -117,18 +117,19 @@ const Judge0RunController = asyncHandler(async (req: Request, res: Response) => 
   const test = await getTestById(test_id);
   const results = await runTestCases(filterTestCases(test.testCases, submit), source_code, language_id);
 
-  if (submit) {
-    await updateTestByIdController(test_id, source_code, results);
-
-  }
   const formatedResponse = await formatResult(results);
 
   // calculate the score of the test
-  const testTypeBaseScore  = calculateScore(formatedResponse);
-
+  let testTypeBaseScore: any  = calculateScore(formatedResponse);
   // calculate total score of all test
   const { totalScore, takenScore } = calculateAverageScore(testTypeBaseScore)
-  res.send({takenScore, totalScore, results: testTypeBaseScore});
+  const answer = { totalScore, takenScore, code: source_code, languageId: language_id, results:testTypeBaseScore };
+  testTypeBaseScore = answer;
+  if (submit) {
+    testTypeBaseScore = await updateTestByIdController(test_id, answer);
+
+  }
+  res.send(testTypeBaseScore);
 });
 
 export { Judge0RunController };

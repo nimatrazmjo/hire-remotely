@@ -55,27 +55,6 @@
         "score": 10
       },
       {
-        "text": "Basic Correctness Test 4",
-        "testType": "basic",
-        "input": "abc",
-        "output": "Not a Palindrome!",
-        "score": 10
-      },
-      {
-        "text": "Basic Correctness Test 5",
-        "testType": "basic",
-        "input": "",
-        "output": "Palindrome!",
-        "score": 5
-      },
-      {
-        "text": "Basic Correctness Test 6",
-        "testType": "basic",
-        "input": "a",
-        "output": "Palindrome!",
-        "score": 5
-      },
-      {
         "text": "Advanced Correctness Test 1",
         "testType": "advanced",
         "input": "redder",
@@ -86,20 +65,6 @@
         "text": "Advanced Correctness Test 2",
         "testType": "advanced",
         "input": "renter",
-        "output": "Not a Palindrome!",
-        "score": 10
-      },
-      {
-        "text": "Advanced Correctness Test 3",
-        "testType": "advanced",
-        "input": "racecar",
-        "output": "Palindrome!",
-        "score": 10
-      },
-      {
-        "text": "Advanced Correctness Test 4",
-        "testType": "advanced",
-        "input": "banana",
         "output": "Not a Palindrome!",
         "score": 10
       },
@@ -118,4 +83,55 @@
         "score": 10
       }
     ]
-  }]
+  },
+  {
+    "question": "## Node JS current working directory\n Write a command to get current working directory using nodejs version 12",
+    "snippets": [
+      {
+        "language": "63",
+        "snippet": "// Documentation Hint:\n// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map\n\nvar current_working_directory = //YOUR CODE ANSWER HERE;\nconsole.log(current_working_directory)"
+      }
+    ],
+    "tests": [
+      {
+        "text": "Basic Correctness Test 1",
+        "testType": "basic",
+        "input": "",
+        "output": "/box",
+        "score": 10
+      }
+    ]
+  },
+  {
+    "question": "## Javascript Factorial Map\nWrite a map function _factorial_ which return array of factorials for passed integer array argument _arrayOfNumbers_\n  #### Example input 1\n ```\n1,2\n```\n #### Example output 1\n ```\n1,2\n```\n #### Example input 2\n ```\n1,2,3,7\n```\n #### Example output 2\n ```\n1,2,6,5040\n```\n ___\n",
+    "snippets": [
+      {
+        "language": "63",
+        "snippet": "const fs = require('fs');\nconst stdinBuffer = fs.readFileSync(0);\nconst str = stdinBuffer.toString();\n\nconst arrayOfNumbers = str.split(',').map(i=>Number(i));\n\nconst factorial = //YOUR CODE ANSWER HERE;\n\nconsole.log(factorial.toString())"
+      }
+    ],
+    "tests": [
+      {
+        "text": "Example Test 1",
+        "testType": "example",
+        "input": "1,2",
+        "output": "1,2",
+        "score": 10
+      },
+      {
+        "text": "Example Test 2",
+        "testType": "example",
+        "input": "1,2,3,7",
+        "output": "1,2,6,5040",
+        "score": 10
+      },
+      {
+        "text": "Basic Correctness Test 1",
+        "testType": "basic",
+        "input": "1,2,3,4,5,6,7,8,9",
+        "output": "1,2,6,24,120,720,5040,40320,362880",
+        "score": 10
+      }
+    ]
+  }
+]

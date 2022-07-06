@@ -12,9 +12,9 @@ const testCasePercentage = (testCases: IResult[]): {totalScore: number, takenSco
         if (curr.status !== 'success') {
             return acc;
         }
-        return acc + curr.score;
+        return acc + curr.totalScore;
     }, 0) as number;
-    const total = testCases.reduce((acc, curr) => acc + +curr.score, 0);
+    const total = testCases.reduce((acc, curr) => acc + +curr.totalScore, 0);
     return {totalScore: total, takenScore: score};
 }
 

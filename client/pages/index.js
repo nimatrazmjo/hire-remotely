@@ -28,7 +28,7 @@ function Home() {
       </Head>
       <section className='bg-primary text-white'>
         <div className="pt-24">
-          <div className="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+          <div className="container max-w-7xl px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
 
             <div className="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
 
@@ -63,7 +63,7 @@ function Home() {
               </g>
             </g>
           </svg>
-        </div>
+          </div>
       </section>
     </>
   )

@@ -63,8 +63,19 @@ button:disabled {
   stroke: #3c9ee5;
 }
 
+pre {
+  background-color: slat-300;
+}
+
 @keyframes progress {
   0% {
     stroke-dasharray: 0 100;
   }
+}
+pre {
+  background-color: #e2e8f0 !important /*slate-200*/ ;
+}
+
+pre code {
+  color: #475569 !important /*slate-600*/;
 }
