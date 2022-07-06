@@ -38,7 +38,7 @@ const ResultTableRow = (result) => {
                 </td>
                 <td scope="col" className="text-sm font-normal text-gray-900 px-6 py-4 text-left ">
                     <div className="flex flex-col">
-                        <div className="time pb-2">{time}s</div>
+                        {time && <div className="time pb-2">{time}s</div>}
                         {/* <div className="more text-xs text-gray-400">12 more</div> */}
                     </div>
                 </td>
