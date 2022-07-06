@@ -11,6 +11,13 @@ module.exports = {
       fontFamily: {
         sans: ['Proxima-Nova', ...defaultTheme.fontFamily.sans]
       },
+      screens: {
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1140px',
+        'xl': '1280px',
+        '2xl': '1536px'
+      },
       colors: {
         'editor-background': '#282c34',
         'primary': '#171C45',
