@@ -2,10 +2,10 @@ import type { NextPage } from 'next'
 
 const Home: NextPage = () => {
   return (
-    <div className='max-w-7xl mx-auto min-h-screen min-w-full'>
+    <div className='max-w-7xl mx-auto min-w-full'>
       <div className=' bg-white rounded-xl shadow-xl my-10 px-10 py-20 grid grid-cols-[1fr_10rem] grid-rows-[5rem_1fr]  gap-y-4 items-center justify-center'>
         <h2 className='text-xl font-bold pl-4'>Coding Question</h2>
-        <button className='text-main-blue rounded-lg bg-slate-200 px-4 py-3'> New Questions</button>
+        <button className='rounded-lg bg-main-blue text-slate-100 px-4 py-3'> <span >+</span> New Questions</button>
         <table className="border col-span-2">
                 <thead className="border-b bg-slate-200 font-light py-10">
                     <tr>
