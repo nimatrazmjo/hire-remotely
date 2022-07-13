@@ -9,8 +9,8 @@ interface CodeMirrorProps extends ReactCodeMirrorProps {
 
 const CodeEditor: React.FC<CodeMirrorProps> = ({ value, label,extensions, onChange, ...otherProps }) => {
     return (
-        <div className=''>
-            {label && <Label className='font-bold text-lg col-span-2 uppercase'> {label!} </Label>}
+        <div>
+            <Label className='font-bold text-lg col-span-2 uppercase'> {label} </Label>
             <CodeMirror value={value} onChange={onChange} {...otherProps} />
         </div>
     );
