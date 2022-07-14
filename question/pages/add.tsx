@@ -16,6 +16,7 @@ import Label from '../components/label/label.component';
 import Select from '../components/select/select.component';
 
 import MarkdownEditor from '../components/markdown-editor/markdown-editor.component';
+import Button from '../components/button/button.component';
 
 
 
@@ -24,14 +25,20 @@ const AddQuestion = () => {
   const [snippet, setSnippet] = useState('');
 
   return (
-    <div className="md:w-4/5 mx-auto grid grid-cols-2 grid-rows-[3rem_minmax(12rem, 1fr)] gap-10  shadow-xl bg-white p-10 my-10">
-      <Label className='font-bold text-lg col-span-2 uppercase'> Add Question </Label>
-      <div className='min-w-max col-span-2' data-color-mode="light">
-        <MarkdownEditor value={question} onChange={(e)=>setQuestion(e!)} />
+    <div className="md:w-4/5 mx-auto flex flex-col  shadow-xl bg-white p-10 my-10">
+      <Label className='font-bold text-lg uppercase'> Add Question </Label>
+      <div className='min-w-max my-5' data-color-mode="light">
+        <MarkdownEditor value={question} onChange={(e) => setQuestion(e!)} />
       </div>
-      <hr className='col-span-2' />
-      <div className='col-span-2 flex '>
+      <hr className='my-5' />
+      <div className='flex flex-col'>
         <Label className=''>Question snippet</Label>
+        <Select />
+        <CodeEditor theme={'dark'} minHeight="20rem" />
+        <Button className='my-5 justify-end'> Add another snippet </Button>
+      </div>
+      <hr className='my-5' />
+      <div className="flex">
 
       </div>
     </div>
