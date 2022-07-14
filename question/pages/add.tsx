@@ -17,12 +17,18 @@ import Select from '../components/select/select.component';
 
 import MarkdownEditor from '../components/markdown-editor/markdown-editor.component';
 import Button from '../components/button/button.component';
+import QuestionTestCase from '../components/question-testcase/question-testcase.component';
+import { QuestionTestInterface } from '../interface/question.interface';
 
 
 
 const AddQuestion = () => {
   const [question, setQuestion] = useState('');
   const [snippet, setSnippet] = useState('');
+  const [testCases, setTestCases] = useState<QuestionTestInterface[]>([]);
+  const addTestCase = (testCase: QuestionTestInterface) => {
+    setTestCases([...testCases, testCase]);
+  }
 
   return (
     <div className="md:w-4/5 mx-auto flex flex-col  shadow-xl bg-white p-10 my-10">
@@ -39,7 +45,7 @@ const AddQuestion = () => {
       </div>
       <hr className='my-5' />
       <div className="flex">
-
+      <QuestionTestCase testCase={testCases} setTestCase={addTestCase} />
       </div>
     </div>
 
