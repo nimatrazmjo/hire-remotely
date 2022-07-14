@@ -1,20 +1,5 @@
 import { useState } from 'react';
-
-
-import dynamic from 'next/dynamic';
-
-import { languages } from '@codemirror/language-data';
-import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
-
-
-
-
-
-import CodeEditor from '../components/codemirror/codemirror.component';
-import MarkDown from '../components/markdown/markdown.component';
 import Label from '../components/label/label.component';
-import Select from '../components/select/select.component';
-
 import MarkdownEditor from '../components/markdown-editor/markdown-editor.component';
 import Button from '../components/button/button.component';
 import QuestionTestCase from '../components/question-testcase/question-testcase.component';

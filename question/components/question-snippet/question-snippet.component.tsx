@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { QuestionSnippetInterface } from '../../interface/question.interface';
+import { addSnippet } from '../../redux/question/question.action';
 import Button from '../button/button.component';
 import CodeEditor from '../codemirror/codemirror.component';
 import Label from '../label/label.component';
@@ -16,7 +18,15 @@ const QuestionSnippet: React.FC<questionSnippetProps> = ({
     language: '',
     snippet: '',
   };
+  const dispatch = useDispatch();
   const [snippet, setSnippet] = useState<QuestionSnippetInterface>(defaultSnippet);
+
+  const addQuestionSnippet = () => {
+    setQuestionSnippets( snippet);
+    setSnippet(defaultSnippet);
+    dispatch(addSnippet(snippet));
+  }
+
   return (
     <div className="question-snippet">
       <div className="question-snippet-language">
@@ -31,10 +41,7 @@ const QuestionSnippet: React.FC<questionSnippetProps> = ({
           ></Select>
           <Button
         className=' my-5'
-        onClick={() => {
-        setQuestionSnippets(snippet);
-        setSnippet(defaultSnippet);
-      }}>Add Snippet</Button>
+        onClick={addQuestionSnippet}>Add Snippet</Button>
         </div>
 
       </div>
