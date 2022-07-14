@@ -4,7 +4,7 @@ interface labelProps {
     className?: string
 }
 const Label: React.FC<labelProps> = ({ children, className = '' }) => (
-    <label className={className + ' block text-slate-500 font-bold mb-2'}>{children} </label>
+    <label className={'block text-slate-400 mb-2 '+ className}>{children} </label>
 );
 
 export default Label

@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { QuestionTestInterface } from '../../interface/question.interface';
+import Button from '../button/button.component';
+import Input from '../input/input.omponent';
+import Label from '../label/label.component';
 
 interface QuestionTestcaseProps {
   testCase: {},
@@ -18,105 +21,42 @@ const QuestionTestCase: React.FC<QuestionTestcaseProps> = ({
     score: 0
   }
   const [testCaseValue, setTestCaseValue] = useState<QuestionTestInterface>(defaultTestCase);
+
+  const addTestCaseValue = (value: string, key: string) => {
+    setTestCaseValue({
+      ...testCaseValue,
+      [key]: value
+    });
+  }
+
+
   return (
     <div className='md:columns-2 min-w-full'>
-      <div className='m-3 inline-block w-full'>
-        <label className='block text-gray-700 text-sm font-bold mb-2'>
-          Test Case
-        </label>
-        <input
-          className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-          type='text'
-          placeholder='Test Case'
-          value={testCaseValue.text}
-          onChange={(e) => {
-            setTestCaseValue({
-              ...testCaseValue,
-              text: e.target.value
-            })
-          }
-          }
-        />
-      </div>
-      <div className='m-3 inline-block w-full'>
-        <label className='block text-gray-700 text-sm font-bold mb-2'>
-          Test Type
-        </label>
-        <input
-          className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-          type='text'
+      <Input
+        label='Test Case'
+        value={testCaseValue.text}
+        onChange={(e) => { addTestCaseValue(e.target.value, 'text') }} />
+      <Input
+        label='Test Type'
+        value={testCaseValue.testType}
+        onChange={(e) => { addTestCaseValue(e.target.value, 'testType') }} />
+      <Input
+        label='Input'
+        value={testCaseValue.input}
+        onChange={(e) => { addTestCaseValue(e.target.value, 'input') }}/>
 
-          placeholder='Test Type'
-          value={testCaseValue.testType}
-          onChange={(e) => {
-            setTestCaseValue({
-              ...testCaseValue,
-              testType: e.target.value
-            })
-          }
+      <Input
+        label='Output'
+        value={testCaseValue.output}
+        onChange={(e) => { addTestCaseValue(e.target.value, 'output')  }}/>
+      <Input
+        label='Score'
+        value={testCaseValue.score}
+        onChange={(e) => { addTestCaseValue(e.target.value, 'score') }}/>
+      <div className='mt-2 w-full flex justify-end'>
 
-          }
-        />
+      <Button onClick={() => { setTestCase(testCaseValue) }}>Add Test Case</Button>
       </div>
-      <div className='m-3 inline-block w-full'>
-        <label className='block text-gray-700 text-sm font-bold mb-2'>
-          Input
-        </label>
-        <input
-
-          className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-          type='text'
-          placeholder='Input'
-          value={testCaseValue.input}
-          onChange={(e) => {
-            setTestCaseValue({
-              ...testCaseValue,
-              input: e.target.value
-            })
-          }
-          }
-        />
-      </div>
-      
-      <div className='m-3 inline-block w-full'>
-        <label className='block text-gray-700 text-sm font-bold mb-2'>
-          Output
-        </label>
-        <input
-          className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-          type='text'
-          placeholder='Output'
-          value={testCaseValue.output}
-          onChange={(e) => {
-            setTestCaseValue({  
-              ...testCaseValue,
-              output: e.target.value
-            })
-          }
-          
-          }
-        />
-      </div>
-      <div className='m-3 inline-block w-full'>
-        <label className='block text-gray-700 text-sm font-bold mb-2'>
-          Score
-        </label>
-        <input
-          className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-          type='text'
-          placeholder='Score'
-          value={testCaseValue.score}
-          onChange={(e) => {
-            setTestCaseValue({
-              ...testCaseValue,
-              score: parseInt(e.target.value)
-            })
-          }
-          
-          }
-        />
-
-        </div>
     </div>
   );
 }

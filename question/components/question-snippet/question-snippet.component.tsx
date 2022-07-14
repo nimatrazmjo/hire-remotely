@@ -27,6 +27,7 @@ const QuestionSnippet: React.FC<questionSnippetProps> = ({
             setSnippet({ ...snippet, language: e.target.value });
           }
           }
+          className="flex-auto"
           ></Select>
           <Button
         className=' my-5'
@@ -35,7 +36,7 @@ const QuestionSnippet: React.FC<questionSnippetProps> = ({
         setSnippet(defaultSnippet);
       }}>Add Snippet</Button>
         </div>
-        
+
       </div>
       <div className="question-snippet-snippet">
         <CodeEditor
@@ -44,7 +45,7 @@ const QuestionSnippet: React.FC<questionSnippetProps> = ({
           value={snippet.snippet} onChange={(e) => {
           setSnippet({ ...snippet, snippet: e });
         }}></CodeEditor>
-       
+
       </div>
     </div>
   );

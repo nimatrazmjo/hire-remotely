@@ -44,14 +44,12 @@ const AddQuestion = () => {
       </div>
       <hr className='my-5' />
       <div className='flex flex-col'>
-        <Label className=''>Question snippet</Label>
-        {/* <Select />
-        <CodeEditor theme={'dark'} minHeight="20rem" />
-        <Button className='my-5 justify-end'> Add another snippet </Button> */}
+        <Label className='font-bold text-lg'>Question snippet</Label>
         <QuestionSnippet setQuestionSnippets={addSnippet} />
       </div>
       <hr className='my-5' />
-      <div className="flex">
+      <div className="flex flex-col">
+        <Label>Test Cases</Label>
       <QuestionTestCase testCase={testCases} setTestCase={addTestCase} />
       </div>
     </div>
