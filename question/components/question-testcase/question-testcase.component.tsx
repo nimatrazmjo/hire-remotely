@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { QuestionTestInterface } from '../../interface/question.interface';
+import { addSnippet, addTest } from '../../redux/question/question.action';
 import Button from '../button/button.component';
 import Input from '../input/input.omponent';
 import Label from '../label/label.component';
@@ -18,6 +20,7 @@ const QuestionTestCase: React.FC<QuestionTestcaseProps> = ({
     output: '',
     score: 0
   }
+  const dispatch = useDispatch();
   const [testCaseValue, setTestCaseValue] = useState<QuestionTestInterface>(defaultTestCase);
 
   const addTestCaseValue = (value: string, key: string) => {
@@ -30,6 +33,7 @@ const QuestionTestCase: React.FC<QuestionTestcaseProps> = ({
   const saveTestCase = () => {
     setTestCase(testCaseValue);
     setTestCaseValue(defaultTestCase);
+    dispatch(addTest(testCaseValue));
   }
 
   return (
@@ -57,7 +61,7 @@ const QuestionTestCase: React.FC<QuestionTestcaseProps> = ({
         onChange={(e) => { addTestCaseValue(e.target.value, 'score') }}/>
       <div className='mt-2 w-full flex justify-end'>
 
-      <Button onClick={() => { saveTestCase }}>Add Test Case</Button>
+      <Button onClick={saveTestCase}>Add Test Case</Button>
       </div>
     </div>
   );
