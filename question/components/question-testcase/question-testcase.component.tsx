@@ -5,12 +5,10 @@ import Input from '../input/input.omponent';
 import Label from '../label/label.component';
 
 interface QuestionTestcaseProps {
-  testCase: {},
   setTestCase: (testCase: QuestionTestInterface) => void
 }
 
 const QuestionTestCase: React.FC<QuestionTestcaseProps> = ({
-  testCase,
   setTestCase
 }) => {
   const defaultTestCase: QuestionTestInterface = {
@@ -29,6 +27,10 @@ const QuestionTestCase: React.FC<QuestionTestcaseProps> = ({
     });
   }
 
+  const saveTestCase = () => {
+    setTestCase(testCaseValue);
+    setTestCaseValue(defaultTestCase);
+  }
 
   return (
     <div className='md:columns-2 min-w-full'>
@@ -55,7 +57,7 @@ const QuestionTestCase: React.FC<QuestionTestcaseProps> = ({
         onChange={(e) => { addTestCaseValue(e.target.value, 'score') }}/>
       <div className='mt-2 w-full flex justify-end'>
 
-      <Button onClick={() => { setTestCase(testCaseValue) }}>Add Test Case</Button>
+      <Button onClick={() => { saveTestCase }}>Add Test Case</Button>
       </div>
     </div>
   );
