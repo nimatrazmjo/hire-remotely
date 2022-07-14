@@ -1,7 +1,9 @@
 import React from 'react';
 interface buttonProps {
     className?: string;
+    onClick?: () => void;
     children: string;
+
 }
 
 const Button: React.FC<buttonProps> = ({className, children}) => {

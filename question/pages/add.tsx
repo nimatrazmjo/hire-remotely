@@ -18,17 +18,23 @@ import Select from '../components/select/select.component';
 import MarkdownEditor from '../components/markdown-editor/markdown-editor.component';
 import Button from '../components/button/button.component';
 import QuestionTestCase from '../components/question-testcase/question-testcase.component';
-import { QuestionTestInterface } from '../interface/question.interface';
+import { QuestionSnippetInterface, QuestionTestInterface } from '../interface/question.interface';
+import QuestionSnippet from '../components/question-snippet/question-snippet.component';
 
 
 
 const AddQuestion = () => {
   const [question, setQuestion] = useState('');
-  const [snippet, setSnippet] = useState('');
+  const [snippets, setSnippets] = useState<QuestionSnippetInterface[]>([]);
   const [testCases, setTestCases] = useState<QuestionTestInterface[]>([]);
   const addTestCase = (testCase: QuestionTestInterface) => {
     setTestCases([...testCases, testCase]);
   }
+
+  const addSnippet = (snippet: QuestionSnippetInterface) => {
+    setSnippets([...snippets, snippet]);
+  }
+
 
   return (
     <div className="md:w-4/5 mx-auto flex flex-col  shadow-xl bg-white p-10 my-10">
@@ -39,9 +45,10 @@ const AddQuestion = () => {
       <hr className='my-5' />
       <div className='flex flex-col'>
         <Label className=''>Question snippet</Label>
-        <Select />
+        {/* <Select />
         <CodeEditor theme={'dark'} minHeight="20rem" />
-        <Button className='my-5 justify-end'> Add another snippet </Button>
+        <Button className='my-5 justify-end'> Add another snippet </Button> */}
+        <QuestionSnippet setQuestionSnippets={addSnippet} />
       </div>
       <hr className='my-5' />
       <div className="flex">

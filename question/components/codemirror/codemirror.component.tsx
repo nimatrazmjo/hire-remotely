@@ -4,6 +4,7 @@ import Label from '../label/label.component';
 
 interface CodeMirrorProps extends ReactCodeMirrorProps {
     label?: string;
+    onChange: (e:string) => void;
 }
 
 
