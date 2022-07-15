@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { languages } from '../../data/languages';
 import { QuestionSnippetInterface } from '../../interface/question.interface';
 import { addSnippet } from '../../redux/question/question.action';
 import Button from '../button/button.component';
@@ -30,14 +31,14 @@ const AddQuestionSnippet: React.FC<AddquestionSnippetProps> = ({
   return (
     <div className="question-snippet">
       <div className="question-snippet-language">
-        <div className="flex items-center">
+        <div className="flex w-full justify-between items-center">
         <Select
+          options={languages}
           value={snippet.language}
           onChange={(e) => {
             setSnippet({ ...snippet, language: e.target.value });
           }
           }
-          className="flex-auto"
           ></Select>
           <Button
         className=' my-5'
@@ -49,6 +50,7 @@ const AddQuestionSnippet: React.FC<AddquestionSnippetProps> = ({
         <CodeEditor
           theme="dark"
           minHeight='15rem'
+          language={snippet.language}
           value={snippet.snippet} onChange={(e) => {
           setSnippet({ ...snippet, snippet: e });
         }}></CodeEditor>

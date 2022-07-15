@@ -6,6 +6,7 @@ import AddQuestionTestCase from '../components/add-question-testcase/add-questio
 import { QuestionInterface, QuestionSnippetInterface, QuestionTestInterface } from '../interface/question.interface';
 import AddQuestionSnippet from '../components/add-question-snippet/add-question-snippet.component';
 import ListQuestionTestCases from '../components/list-qeustion-testcase/list-question-testcase.component';
+import ListQuestionSnippet from '../components/list-question-snippet/list-question-snippet.component';
 
 
 
@@ -53,7 +54,8 @@ const AddQuestion = () => {
       </div>
       <hr className='my-5' />
       <div className='flex flex-col'>
-        <Label className='font-bold text-lg'>Question snippet</Label>
+        <ListQuestionSnippet />
+        <Label className='font-bold text-lg mt-8'>Add Question snippet</Label>
         <AddQuestionSnippet setQuestionSnippets={addSnippet} />
       </div>
       <hr className='my-5' />

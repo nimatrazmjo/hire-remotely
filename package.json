@@ -1,0 +1,7 @@
+{
+	"dependencies": {
+		"@codemirror/lang-javascript": "^6.0.1",
+		"@codemirror/lang-php": "^6.0.0",
+		"@codemirror/view": "^6.0.3"
+	}
+}
