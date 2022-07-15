@@ -2,9 +2,10 @@ import { useState } from 'react';
 import Label from '../components/label/label.component';
 import MarkdownEditor from '../components/markdown-editor/markdown-editor.component';
 import Button from '../components/button/button.component';
-import QuestionTestCase from '../components/question-testcase/question-testcase.component';
+import AddQuestionTestCase from '../components/add-question-testcase/add-question-testcase.component';
 import { QuestionInterface, QuestionSnippetInterface, QuestionTestInterface } from '../interface/question.interface';
-import QuestionSnippet from '../components/question-snippet/question-snippet.component';
+import AddQuestionSnippet from '../components/add-question-snippet/add-question-snippet.component';
+import ListQuestionTestCases from '../components/list-qeustion-testcase/list-question-testcase.component';
 
 
 
@@ -53,12 +54,13 @@ const AddQuestion = () => {
       <hr className='my-5' />
       <div className='flex flex-col'>
         <Label className='font-bold text-lg'>Question snippet</Label>
-        <QuestionSnippet setQuestionSnippets={addSnippet} />
+        <AddQuestionSnippet setQuestionSnippets={addSnippet} />
       </div>
       <hr className='my-5' />
       <div className="flex flex-col">
         <Label>Test Cases</Label>
-      <QuestionTestCase setTestCase={addTestCase} />
+        <ListQuestionTestCases />
+        <AddQuestionTestCase setTestCase={addTestCase} />
       </div>
       <hr className='my-5' />
       <div className="flex flex-col items-end">

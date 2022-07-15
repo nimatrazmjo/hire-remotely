@@ -7,11 +7,11 @@ import CodeEditor from '../codemirror/codemirror.component';
 import Label from '../label/label.component';
 import Select from '../select/select.component';
 
-interface questionSnippetProps {
+interface AddquestionSnippetProps {
   setQuestionSnippets: (questionSnippets: QuestionSnippetInterface) => void;
 }
 
-const QuestionSnippet: React.FC<questionSnippetProps> = ({
+const AddQuestionSnippet: React.FC<AddquestionSnippetProps> = ({
   setQuestionSnippets,
 }) => {
   const defaultSnippet: QuestionSnippetInterface = {
@@ -58,5 +58,5 @@ const QuestionSnippet: React.FC<questionSnippetProps> = ({
   );
 }
 
-export default QuestionSnippet;
+export default AddQuestionSnippet;
 
