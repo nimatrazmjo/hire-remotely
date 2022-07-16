@@ -23,7 +23,7 @@ const ListQuestionSnippet = () => {
   }
     return (
         <div className='grid lg:grid-cols-2 gap-2'>
-        {snippets && snippets.map((snippet: QuestionSnippetInterface, index: number) => {
+        {snippets && snippets.length ? snippets.map((snippet: QuestionSnippetInterface, index: number) => {
             index = index+1;
             return (
         <Accordion className='pb-1 mx-1' open={open === index }>
@@ -40,7 +40,11 @@ const ListQuestionSnippet = () => {
           </div>
         </AccordionBody>
       </Accordion>
-        )})}
+        )}):
+        <div className=' col-span-2 w-full text-center py-3 border border-slate-200 text-slate-500'>
+          No snippets added
+        </div>
+        }
         </div>
     );
 }

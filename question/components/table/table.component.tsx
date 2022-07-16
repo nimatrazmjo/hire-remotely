@@ -48,7 +48,7 @@ const Table: React.FC<tableProps> = ({
                 </tr>
             </thead>
             <tbody>
-                {data.map((row:any, index:number) => (
+                {data && data.length ? data.map((row:any, index:number) => (
                     <tr key={index} className="border-b align-middle">
                         {columns.map((column: TableColumnInterface) => (
                             <td key={column.key} className="text-sm font-normal text-gray-900 px-6 py-4 text-center">{row[column.key]}</td>
@@ -57,7 +57,11 @@ const Table: React.FC<tableProps> = ({
                         <Button onClick={() => deleteTestByIndex(index)}   className='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-1 px-2 border border-red-500 hover:border-transparent rounded'> Delete </Button>
                         </td>
                     </tr>
-                ))}
+                )):
+                <tr>
+                    <td colSpan={columns.length} className="text-center text-slate-500 px-6 py-4">No test has been added yet</td>
+                </tr>
+                }
             </tbody>
         </table>
     );
