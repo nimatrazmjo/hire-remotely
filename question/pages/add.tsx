@@ -47,26 +47,28 @@ const AddQuestion = () => {
 
 
   return (
-    <div className="md:w-4/5 mx-auto flex flex-col  shadow-xl bg-white p-10 my-10">
+    <div className="md:w-4/5 mx-auto grid  shadow-xl bg-white p-10 my-10 relative">
       <Label className='font-bold text-lg uppercase'> Add Question </Label>
-      <div className='min-w-max my-5' data-color-mode="light">
+      <div className='my-5' data-color-mode="light">
         <MarkdownEditor value={question.question} onChange={(value) => addQuestion(value!, 'question')} />
       </div>
-      <hr className='my-5' />
+      <hr className='my-10' />
       <div className='flex flex-col'>
+      <Label className='font-bold text-lg mt-8 mb-5'>Question snippet List</Label>
         <ListQuestionSnippet />
         <Label className='font-bold text-lg mt-8'>Add Question snippet</Label>
         <AddQuestionSnippet setQuestionSnippets={addSnippet} />
       </div>
-      <hr className='my-5' />
+      <hr className='my-10' />
       <div className="flex flex-col">
-        <Label>Test Cases</Label>
+        <Label className='font-bold text-lg mt-8'>Test Cases</Label>
         <ListQuestionTestCases />
+        <Label className='font-bold text-lg mt-8'>Add Test Cases</Label>
         <AddQuestionTestCase setTestCase={addTestCase} />
       </div>
       <hr className='my-5' />
       <div className="flex flex-col items-end">
-        <Button className='bg-primary text-white border-none' onClick={saveQuestion}>Save Question</Button>
+        <Button className='' onClick={saveQuestion}>Save Question</Button>
       </div>
     </div>
   );

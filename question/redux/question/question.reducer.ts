@@ -17,13 +17,16 @@ export function questionReducer(state = INITIAL_STATE, action: { type: string, p
             } else {
                 return { ...state, snippets: [...state.snippets, action.payload] };
             }
-
+        case QuestionActionType.DELETE_SNIPPET:
+            return { ...state, snippets: state.snippets.filter((_, index) => index !== action.payload) };
         case QuestionActionType.ADD_TEST:
             if (!state.tests) {
                 return { ...state, tests: [action.payload] };
             } else {
             return {...state, tests: [...state.tests, action.payload]};
             }
+        case QuestionActionType.DELETE_TEST:
+            return { ...state, tests: state.tests.filter((_, index) => index !== action.payload) };
         default:action
             return state;
     }

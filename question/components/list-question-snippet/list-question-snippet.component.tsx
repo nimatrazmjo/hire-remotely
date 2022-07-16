@@ -1,24 +1,46 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import { snippets } from '@codemirror/lang-javascript';
+import { Accordion, AccordionBody, AccordionHeader } from '@material-tailwind/react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+
+import { deleteSnippet } from '../../redux/question/question.action';
 import { QuestionSnippetInterface } from '../../interface/question.interface';
+import { LanguageNameById } from '../../utils/languageNameById';
+import Button from '../button/button.component';
 
 const ListQuestionSnippet = () => {
+    const dispatch = useDispatch();
     const { snippets } = useSelector((state: any) => state.question);
+    const [open, setOpen] = useState(0);
+
+  const handleOpen = (value:number) => {
+    setOpen(open === value ? 0 : value);
+  };
+
+  const deleteSnippetByIndex = (index: number) => {
+    dispatch(deleteSnippet(index));
+  }
     return (
-        <div>
-            <label className="block text-slate-400 mb-2 "> Question snippet List</label>
-            {snippets && snippets.length > 0 && snippets.map((snippet: QuestionSnippetInterface, index: number) => {
-                return (
-                    <div key={index} className="flex items-center flex-col">
-                        <div className="flex-1">
-                            <span className="text-sm">{snippet.snippet}</span>
-                        </div>
-                        <div className="flex-1">
-                            <span className="text-sm">{snippet.language}</span>
-                        </div>
-                    </div>
-                )
-            })}
+        <div className='grid lg:grid-cols-2 gap-2'>
+        {snippets && snippets.map((snippet: QuestionSnippetInterface, index: number) => {
+            index = index+1;
+            return (
+        <Accordion className='pb-1 mx-1' open={open === index }>
+        <AccordionHeader onClick={() => handleOpen(index)} className='bg-slate-200 text-state-800 px-5 d-flex text-slate-700'>
+            <div className='flex-grow text-left text-sm'>{LanguageNameById(snippet.language)}</div>
+        </AccordionHeader>
+        <AccordionBody className='bg-slate-50 prose'>
+          <pre className='block whitespace-pre overflow-x-scroll p-5'>
+            {snippet.snippet}
+          </pre>
+          <div className="flex justify-end">
+
+          <Button onClick={() => deleteSnippetByIndex(index-1)}   className='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded'> Delete </Button>
+          </div>
+        </AccordionBody>
+      </Accordion>
+        )})}
         </div>
     );
 }

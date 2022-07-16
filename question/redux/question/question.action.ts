@@ -7,6 +7,11 @@ export const setQuestion =( Question: QuestionInterface) => ({
     payload: Question
 });
 
+export const deleteSnippet =( index: number) => ({
+    type: QuestionActionType.DELETE_SNIPPET,
+    payload: index
+});
+
 export const addSnippet = (snippet: QuestionSnippetInterface) => ({
     type: QuestionActionType.ADD_SNIPPET,
     payload: snippet
@@ -15,4 +20,9 @@ export const addSnippet = (snippet: QuestionSnippetInterface) => ({
 export const addTest = (test: QuestionTestInterface) => ({
     type: QuestionActionType.ADD_TEST,
     payload: test
+});
+
+export const deleteTest = (index: number) => ({
+    type: QuestionActionType.DELETE_TEST,
+    payload: index
 });

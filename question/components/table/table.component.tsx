@@ -1,6 +1,9 @@
+import { Button } from '@material-tailwind/react';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { QuestionTestInterface } from '../../interface/question.interface';
 import { TableColumnInterface } from '../../interface/table.interface';
+import { deleteTest } from '../../redux/question/question.action';
 
 interface tableProps {
     data: any;
@@ -31,6 +34,9 @@ const Table: React.FC<tableProps> = ({
     columns,
     className,
 }) => {
+    const dispatch = useDispatch();
+    const deleteTestByIndex = (index: number) => dispatch(deleteTest(index));
+
     return (
         <table className={`table-auto w-full ${className}`}>
             <thead className='border-b bg-slate-200 font-light py-10 justify-start'>
@@ -45,10 +51,10 @@ const Table: React.FC<tableProps> = ({
                 {data.map((row:any, index:number) => (
                     <tr key={index} className="border-b align-middle">
                         {columns.map((column: TableColumnInterface) => (
-                            <td key={column.key} className="text-sm font-normal text-gray-900 px-6 py-4 text-left text-center">{row[column.key]}</td>
+                            <td key={column.key} className="text-sm font-normal text-gray-900 px-6 py-4 text-center">{row[column.key]}</td>
                         ))}
-                        <td className="text-sm font-normal text-gray-900 px-6 py-4 text-left text-center">
-                        <span className="group-hover:hidden">edit</span>
+                        <td className="text-sm font-normal text-gray-900 px-6 py-4 text-center">
+                        <Button onClick={() => deleteTestByIndex(index)}   className='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-1 px-2 border border-red-500 hover:border-transparent rounded'> Delete </Button>
                         </td>
                     </tr>
                 ))}
