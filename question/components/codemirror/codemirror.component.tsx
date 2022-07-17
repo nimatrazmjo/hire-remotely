@@ -14,19 +14,17 @@ interface CodeMirrorProps extends ReactCodeMirrorProps {
 const CodeEditor: React.FC<CodeMirrorProps> = ({ value, label,extensions, onChange, language, ...otherProps }) => {
     let extension = javascript({ jsx: true });
 
-    // console.log(lanuage,'lanuage');
+    if (language && language === '68') {
 
-    // if (lanuage && lanuage === '68') {
-
-    //   extension = php({baseLanguage:phpLanguage});
-    // }
+      extension = php({baseLanguage:phpLanguage});
+    }
     return (
         <div>
             <CodeMirror
             value={value}
             onChange={onChange}
             {...otherProps}
-            // extensions={[javascript({ jsx: true })]}
+            extensions={[extension]}
             />
         </div>
     );

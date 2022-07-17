@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@codemirror/lang-javascript": "^6.0.0",
     "@codemirror/lang-markdown": "^6.0.0",
+    "@codemirror/lang-php": "^6.0.0",
     "@codemirror/language-data": "^6.1.0",
     "@codemirror/view": "^6.0.3",
     "@material-tailwind/react": "^1.0.6",

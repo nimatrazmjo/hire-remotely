@@ -1,7 +1,9 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@codemirror/lang-javascript': ^6.0.0
   '@codemirror/lang-markdown': ^6.0.0
+  '@codemirror/lang-php': ^6.0.0
   '@codemirror/language-data': ^6.1.0
   '@codemirror/view': ^6.0.3
   '@material-tailwind/react': ^1.0.6
@@ -36,7 +38,9 @@ specifiers:
   webpack: ^5.73.0
 
 dependencies:
+  '@codemirror/lang-javascript': 6.0.1
   '@codemirror/lang-markdown': 6.0.0
+  '@codemirror/lang-php': 6.0.0
   '@codemirror/language-data': 6.1.0
   '@codemirror/view': 6.0.3
   '@material-tailwind/react': 1.0.6_bb2bxwco6ptpubzwpazr52qf6i
