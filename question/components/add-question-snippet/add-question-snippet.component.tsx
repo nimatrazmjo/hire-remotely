@@ -12,9 +12,7 @@ interface AddquestionSnippetProps {
   setQuestionSnippets: (questionSnippets: QuestionSnippetInterface) => void;
 }
 
-const AddQuestionSnippet: React.FC<AddquestionSnippetProps> = ({
-  setQuestionSnippets,
-}) => {
+const AddQuestionSnippet: React.FC = () => {
   const defaultSnippet: QuestionSnippetInterface = {
     language: '',
     snippet: '',
@@ -23,7 +21,6 @@ const AddQuestionSnippet: React.FC<AddquestionSnippetProps> = ({
   const [snippet, setSnippet] = useState<QuestionSnippetInterface>(defaultSnippet);
 
   const addQuestionSnippet = () => {
-    setQuestionSnippets( snippet);
     setSnippet(defaultSnippet);
     dispatch(addSnippet(snippet));
   }

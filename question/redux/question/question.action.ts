@@ -2,7 +2,7 @@
 import { QuestionActionType } from './question.type';
 import { QuestionInterface, QuestionSnippetInterface, QuestionTestInterface } from '../../interface/question.interface';
 
-export const setQuestion =( Question: QuestionInterface) => ({
+export const addQuestionToState =( Question: string) => ({
     type: QuestionActionType.ADD_QUESTION,
     payload: Question
 });

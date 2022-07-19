@@ -12,9 +12,7 @@ interface AddQuestionTestcaseProps {
   setTestCase: (testCase: QuestionTestInterface) => void
 }
 
-const AddQuestionTestCase: React.FC<AddQuestionTestcaseProps> = ({
-  setTestCase
-}) => {
+const AddQuestionTestCase: React.FC = () => {
   const defaultTestCase: QuestionTestInterface = {
     text: '',
     testType: '',
@@ -33,7 +31,6 @@ const AddQuestionTestCase: React.FC<AddQuestionTestcaseProps> = ({
   }
 
   const saveTestCase = () => {
-    setTestCase(testCaseValue);
     setTestCaseValue(defaultTestCase);
     dispatch(addTest(testCaseValue));
   }
