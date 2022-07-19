@@ -1,16 +1,26 @@
 import { NextFunction, Request, Response } from "express";
-import { validationResult } from "express-validator";
-import { ValidationError } from "../errors/request-validation.error";
+import { ValidationError, validationResult } from "express-validator";
+import { ValidationError as CustomValidationError } from "../errors/request-validation.error";
+
+const formatErrors = (errors: ValidationError[]) => {
+  return errors.reduce((acc, error) => {
+    acc[error.param] = error.msg;
+    return acc;
+  }, {});
+}
 
 export const validateRequestMiddleware = (
-  req: Request, 
-  res: Response, 
+  req: Request,
+  res: Response,
   next: NextFunction) => {
     const errors = validationResult(req);
-    
-    
+
+
     if(!errors.isEmpty()) {
-      throw new ValidationError(errors.array());
+      // const format= formatErrors(errors.array());
+      console.log(formatErrors(errors.array()),'errrrrr');
+
+      throw new CustomValidationError(errors.array());
     }
     next();
 }

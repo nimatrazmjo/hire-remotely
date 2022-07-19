@@ -1,4 +1,3 @@
 export interface ErrorResponse {
-  message: string;
-  field?:string
+  [key:string]: string;
 }
