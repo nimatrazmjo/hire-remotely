@@ -30,7 +30,7 @@ const ListQuestionSnippet = () => {
         <AccordionHeader onClick={() => handleOpen(index)} className='bg-slate-200 text-state-800 px-5 d-flex text-slate-700'>
             <div className='flex-grow text-left text-sm'>{LanguageNameById(snippet.language)}</div>
         </AccordionHeader>
-        <AccordionBody className='bg-slate-50 prose'>
+        <AccordionBody className='bg-slate-50 prose p-10 w-full'>
           <pre className='block whitespace-pre overflow-x-scroll p-5'>
             {snippet.snippet}
           </pre>

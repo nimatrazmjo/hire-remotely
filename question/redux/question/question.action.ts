@@ -12,6 +12,14 @@ export const deleteSnippet =( index: number) => ({
     payload: index
 });
 
+export const setEditSnippet =( index: number, snippet: QuestionSnippetInterface) => ({
+    type: QuestionActionType.EDIT_SNIPPET,
+    payload: {
+        index,
+        snippet
+    }
+});
+
 export const addSnippet = (snippet: QuestionSnippetInterface) => ({
     type: QuestionActionType.ADD_SNIPPET,
     payload: snippet
