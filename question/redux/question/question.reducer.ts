@@ -27,6 +27,9 @@ export function questionReducer(state = INITIAL_STATE, action: { type: string, p
             }
         case QuestionActionType.DELETE_TEST:
             return { ...state, tests: state.tests.filter((_, index) => index !== action.payload) };
+
+        case QuestionActionType.CLEAR_STATE:
+            return INITIAL_STATE;
         default:action
             return state;
     }

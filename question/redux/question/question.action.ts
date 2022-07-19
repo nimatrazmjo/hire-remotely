@@ -34,3 +34,7 @@ export const deleteTest = (index: number) => ({
     type: QuestionActionType.DELETE_TEST,
     payload: index
 });
+
+export const clearState = () => ({
+    type: QuestionActionType.CLEAR_STATE
+});

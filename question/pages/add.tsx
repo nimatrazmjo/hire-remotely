@@ -10,34 +10,49 @@ import ListQuestionTestCases from '../components/list-qeustion-testcase/list-que
 import ListQuestionSnippet from '../components/list-question-snippet/list-question-snippet.component';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { addQuestionToState } from '../redux/question/question.action';
+import { addQuestionToState, clearState } from '../redux/question/question.action';
 
-
+interface Error {
+  field: string;
+  message: string;
+}
 
 const AddQuestion = () => {
+
+  const dispatch = useDispatch();
   const stateQuestion: QuestionInterface = useSelector((state:any) => state.question);
 
   const [question, setQuestion] = useState<string>('');
+  const [error, setError] = useState<Error[]>([]);
 
   const addQuestion = (value: string, key: string) => {
     setQuestion(value);
   }
 
   const saveQuestion = async () => {
-    const finalQuestion = {
-      ...stateQuestion,
-      question,
+    try {
+      const finalQuestion = {
+        ...stateQuestion,
+        question,
+      }
+      await axios.post('http://localhost:8000/api/questions', finalQuestion);
+
+      setQuestion('');
+      dispatch(clearState())
+    } catch (err:any) {
+      setError(err.response.data);
     }
-    await axios.post('/api/question', finalQuestion);
   }
 
 
   return (
     <div className="md:w-4/5 mx-auto grid  shadow-xl bg-white p-10 my-10 relative">
       <Label className='font-bold text-lg uppercase'> Add Question </Label>
-      <div className='my-5' data-color-mode="light">
-        <MarkdownEditor value={question} onChange={(value) => addQuestion(value!, 'question')} />
+
+      <div className='mt-5' data-color-mode="light">
+        <MarkdownEditor className='bg-red-700 co' value={question} onChange={(value) => addQuestion(value!, 'question')} />
       </div>
+        <em className='text-red-500'> Question details is required</em>
       <hr className='my-10' />
       <div className='flex flex-col'>
       <Label className='font-bold text-lg mt-8 mb-5'>Question snippet List</Label>

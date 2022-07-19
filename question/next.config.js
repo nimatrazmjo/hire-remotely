@@ -6,6 +6,14 @@ const nextConfig = removeImports({
   tailwindcss: {
     config: join(__dirname, 'tailwind.config.js'),
   },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:8000/api/:path*'
+      }
+    ]
+  }
 });
 
 module.exports = nextConfig
