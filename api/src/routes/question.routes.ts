@@ -20,10 +20,12 @@ router.post(
       .not()
       .isEmpty()
       .withMessage("lanaguage is required"),
+    body("snippets").isArray({ min: 1 }).withMessage("Snippets is required"),
     body("snippets.*.snippet")
       .not()
       .isEmpty()
       .withMessage("snippet is required"),
+    body("tests").isArray({ min: 1 }).withMessage("Tests is required"),
     body("tests.*.text")
       .not()
       .isEmpty()
