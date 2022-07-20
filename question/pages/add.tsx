@@ -11,6 +11,7 @@ import ListQuestionSnippet from '../components/list-question-snippet/list-questi
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { addQuestionToState, clearState } from '../redux/question/question.action';
+import Error from '../components/error/error.component';
 
 interface Error {
   field: string;
@@ -31,6 +32,7 @@ const AddQuestion = () => {
 
   const saveQuestion = async () => {
     try {
+      setError([]);
       const finalQuestion = {
         ...stateQuestion,
         question,
@@ -41,6 +43,7 @@ const AddQuestion = () => {
       dispatch(clearState())
     } catch (err:any) {
       setError(err.response.data);
+      window.scroll(0, 0);
     }
   }
 
@@ -48,11 +51,10 @@ const AddQuestion = () => {
   return (
     <div className="md:w-4/5 mx-auto grid  shadow-xl bg-white p-10 my-10 relative">
       <Label className='font-bold text-lg uppercase'> Add Question </Label>
-
+      {error.length > 0 && <Error errors={error} />}
       <div className='mt-5' data-color-mode="light">
         <MarkdownEditor className='bg-red-700 co' value={question} onChange={(value) => addQuestion(value!, 'question')} />
       </div>
-        <em className='text-red-500'> Question details is required</em>
       <hr className='my-10' />
       <div className='flex flex-col'>
       <Label className='font-bold text-lg mt-8 mb-5'>Question snippet List</Label>
